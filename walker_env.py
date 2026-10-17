@@ -67,7 +67,8 @@ def progress(x):
 
 class WalkerStats(gym.Wrapper):
     """Adds to the final step's `info`: outcome, distance (% of the course, furthest
-    point the body reached) and, on hardcore, the obstacle nearest the fall."""
+    point the body reached), end_x (where the body ended up) and, on hardcore, the obstacle
+    the robot fell at (see obstacle_near)."""
 
     def reset(self, **kwargs):
         # Start every episode in a brand-new physics world, exactly like a freshly created
@@ -105,11 +106,20 @@ class WalkerStats(gym.Wrapper):
         return obs, reward, terminated, truncated, info
 
     def obstacle_near(self, x):
-        """The obstacle the robot was on or just about to reach (within 2 tiles) when it fell."""
+        """The obstacle the robot fell at (config.FALL_WINDOW_TILES): its body centre was from
+        2 tiles before the obstacle to 3 tiles after it. If two qualify, the nearer one (the
+        earlier one on a tie). "open ground" if none. (Until Step 4 the window was 2 tiles
+        before to 1 tile after, and the label was "flat ground".)"""
+        before, after = config.FALL_WINDOW_TILES["before"] * STEP, config.FALL_WINDOW_TILES["after"] * STEP
+        best = None
         for ob in self.obstacles:
-            if ob["x_start"] - 2 * STEP <= x <= ob["x_end"] + STEP:
-                return ob["kind"]
-        return "flat ground" if self.obstacles else None
+            if ob["x_start"] - before <= x <= ob["x_end"] + after:
+                gap = max(ob["x_start"] - x, x - ob["x_end"], 0.0)
+                if best is None or gap < best[0]:
+                    best = (gap, ob["kind"])
+        if best:
+            return best[1]
+        return "open ground" if self.obstacles else None
 
 
 def make_env(course="normal", render_mode=None):

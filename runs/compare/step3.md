@@ -1,4 +1,4 @@
-## step3: hardcore course, 1,000 analysis courses x 3 seeds = 3,000 episodes per model
+## step3: hardcore course, 1,000 analysis courses x 3 seeds = 3,000 episodes per model, average (deterministic) moves
 
 | Model | Steps | Training time (min, per seed) | Score (± across seeds) | Finished | Fell | Backed off | Timed out | Distance | Solved (300+)? |
 |---|---|---|---|---|---|---|---|---|---|

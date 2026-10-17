@@ -48,7 +48,7 @@ def analyse(rows, obstacles):
         obs = obstacles[int(r["course_seed"])]
         m["reached"].update(o["kind"] for o in obs if o["x_start"] - 2 * STEP <= x)
         if r["outcome"] == "fell":
-            m["falls"][r["fell_at"]] += 1
+            m["falls"][r["fell_at"]] += 1   # walker_env's label (config.FALL_WINDOW_TILES)
         elif r["outcome"] == "timed_out":
             ahead = [o for o in obs if o["x_end"] + STEP >= x]
             m["stuck"][ahead[0]["kind"] if ahead else "past the last obstacle"] += 1
@@ -75,7 +75,7 @@ def main():
         n_falls = sum(m["falls"].values())
         print(f"\n{model}: {m['episodes']:,} episodes, {n_falls:,} falls")
         print(f"  {'':14s} {'reached':>8s} {'falls':>6s} {'share of falls':>15s} {'falls per 100 reached':>22s}")
-        for k in KINDS + ("flat ground",):
+        for k in KINDS + ("open ground",):
             reached = m["obstacles_reached"].get(k, "")
             f = m["falls"].get(k, 0)
             rate = m["falls_per_100_reached"].get(k)

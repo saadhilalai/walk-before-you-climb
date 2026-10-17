@@ -30,12 +30,18 @@ from walker_env import make_env
 
 
 class Agent:
-    """A trained model plus (if it was trained with them) its normalization stats."""
+    """A trained model plus (if it was trained with them) its normalization stats.
 
-    def __init__(self, model_dir):
+    deterministic=True (the default, used for every result so far): the robot always makes
+    its "average" move. deterministic=False: it draws its moves at random around that average,
+    as it did while practising. The random draws are seeded by the course (start_episode), so a
+    randomized run can still be replayed exactly."""
+
+    def __init__(self, model_dir, deterministic=True):
         from stable_baselines3 import PPO, SAC
 
         self.dir = Path(model_dir)
+        self.deterministic = deterministic
         self.info = json.loads((self.dir / "model_info.json").read_text())
         algo = {"ppo": PPO, "sac": SAC}[self.info["algo"]]
         self.model = algo.load(self.dir / "model.zip", device="cpu")
@@ -49,24 +55,32 @@ class Agent:
                 self.vecnorm = pickle.load(f)
             self.vecnorm.training = False        # never update the stats while testing
 
+    def start_episode(self, course_seed):
+        if not self.deterministic:
+            import torch
+            torch.manual_seed(course_seed)
+
     def act(self, obs):
         if self.vecnorm is not None:
             obs = self.vecnorm.normalize_obs(obs)
-        action, _ = self.model.predict(obs, deterministic=True)
+        action, _ = self.model.predict(obs, deterministic=self.deterministic)
         return action
 
 
-def load_agent(model_dir):
-    return Agent(model_dir)
+def load_agent(model_dir, deterministic=True):
+    return Agent(model_dir, deterministic)
 
 
-def run_episodes(act, course, first_seed, n_episodes, env=None):
-    """Run `n_episodes` courses: course i uses seed `first_seed + i`. act(obs) -> action."""
+def run_episodes(act, course, first_seed, n_episodes, env=None, start_episode=None):
+    """Run `n_episodes` courses: course i uses seed `first_seed + i`. act(obs) -> action.
+    start_episode(course_seed), if given, is called at the start of each course."""
     own_env = env is None
     env = env or make_env(course)
     episodes = []
     for i in range(n_episodes):
         obs, _ = env.reset(seed=first_seed + i)
+        if start_episode:
+            start_episode(first_seed + i)
         score, steps, done = 0.0, 0, False
         while not done:
             obs, reward, terminated, truncated, info = env.step(act(obs))
@@ -74,7 +88,7 @@ def run_episodes(act, course, first_seed, n_episodes, env=None):
             steps += 1
             done = terminated or truncated
         episodes.append(dict(course_seed=first_seed + i, score=score, outcome=info["outcome"],
-                             distance=info["distance"], steps=steps, fell_at=info["fell_at"]))
+                             distance=info["distance"], steps=steps, end_x=info["end_x"], fell_at=info["fell_at"]))
     if own_env:
         env.close()
     return episodes

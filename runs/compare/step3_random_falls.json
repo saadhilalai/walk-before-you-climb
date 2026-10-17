@@ -1,0 +1,58 @@
+{
+  "a_100m": {
+    "episodes": 3000,
+    "obstacles_reached": {
+      "stairs_up": 1952,
+      "stump": 3264,
+      "pit": 3981,
+      "stairs_down": 2045
+    },
+    "falls": {
+      "stump": 158,
+      "pit": 788,
+      "stairs_up": 49,
+      "stairs_down": 111,
+      "open ground": 148
+    },
+    "falls_per_100_reached": {
+      "stump": 4.8,
+      "pit": 19.8,
+      "stairs_up": 2.5,
+      "stairs_down": 5.4
+    },
+    "timed_out_stuck_at": {
+      "pit": 281,
+      "stump": 1310,
+      "stairs_down": 39,
+      "stairs_up": 47
+    }
+  },
+  "b_100m": {
+    "episodes": 3000,
+    "obstacles_reached": {
+      "stairs_up": 2655,
+      "stump": 4953,
+      "pit": 5330,
+      "stairs_down": 2761
+    },
+    "falls": {
+      "stump": 588,
+      "stairs_up": 122,
+      "open ground": 207,
+      "pit": 531,
+      "stairs_down": 93
+    },
+    "falls_per_100_reached": {
+      "stump": 11.9,
+      "pit": 10.0,
+      "stairs_up": 4.6,
+      "stairs_down": 3.4
+    },
+    "timed_out_stuck_at": {
+      "stump": 1149,
+      "pit": 4,
+      "stairs_up": 2,
+      "stairs_down": 1
+    }
+  }
+}

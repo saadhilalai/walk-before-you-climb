@@ -7,8 +7,8 @@ the physics state logged at every step, then measures:
            steps per second, how the two legs share the work, motor effort
   stumps   when A or B runs out of time stuck at a stump: is it in front of the stump or
            straddling it, and is it really standing still?
-  flat     falls that walker_env labels "flat ground": where are they, relative to the
-           obstacles just behind and ahead?
+  flat     falls not labelled with an obstacle ("flat ground" before Step 4's fix, "open ground"
+           after): where are they, relative to the obstacles just behind and ahead?
 
 Usage:
     python review.py gaits | stumps | flat
@@ -165,7 +165,7 @@ def run_flat():
         for seed in config.TRAIN_SEEDS:
             agent = load_agent(Path("models") / model / f"seed{seed}")
             for (m, s, cs), r in sorted(eps.items()):
-                if m != model or s != seed or r["fell_at"] != "flat ground":
+                if m != model or s != seed or r["fell_at"] not in ("flat ground", "open ground"):
                     continue
                 _, res = replay(agent, "hardcore", cs, r)
                 x = res["end_x"]

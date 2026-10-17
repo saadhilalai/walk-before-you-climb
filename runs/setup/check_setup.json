@@ -63,7 +63,7 @@
       "steps": 59,
       "outcome": "fell",
       "distance": 0.3,
-      "fell_at": "flat ground"
+      "fell_at": "open ground"
     },
     "heuristic_example": {
       "seed": 0,

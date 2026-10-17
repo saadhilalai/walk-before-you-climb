@@ -1,0 +1,18 @@
+6 model files x 1,000 hardcore courses (seeds 20000-20999), randomized moves (seeded by course), 3 at a time
+## step3_random: hardcore course, 1,000 analysis courses x 3 seeds = 3,000 episodes per model, randomized moves (seeded by course)
+
+| Model | Steps | Training time (min, per seed) | Score (± across seeds) | Finished | Fell | Backed off | Timed out | Distance | Solved (300+)? |
+|---|---|---|---|---|---|---|---|---|---|
+| a_100m | 100,007,936 | 380 | 9.6 ± 20.0 | 2.3% | 41.8% | 0.0% | 55.9% | 31.1% | no |
+| b_100m | 100,007,936 | 474 | 20.4 ± 20.2 | 10.1% | 51.4% | 0.0% | 38.5% | 42.2% | no |
+
+Per seed (score / finished):
+
+- a_100m: seed 42: 31.2 / 4.7%, seed 142: 14.6 / 1.6%, seed 242: -17.1 / 0.6%
+- b_100m: seed 42: 12.6 / 5.6%, seed 142: 0.5 / 6.7%, seed 242: 48.2 / 18.0%
+
+Paired tests (same course, same training seed):
+
+- **b_100m vs a_100m**: finished only by b_100m 282, only by a_100m 48 (p < 0.001); score difference +10.8 mean, -3.5 median (p = 0.379); distance +11.1 points (p < 0.001); higher score in 1 of 3 seeds
+
+Saved runs/compare/step3_random.json, .md and _episodes.csv

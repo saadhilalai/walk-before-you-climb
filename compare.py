@@ -42,9 +42,9 @@ def evaluate_job(job):
     config.limit_cpu_threads(1)
     from evaluate import load_agent, run_episodes
 
-    model, seed, course, first_seed, n = job
-    agent = load_agent(Path("models") / model / f"seed{seed}")
-    return job, agent.info, run_episodes(agent.act, course, first_seed, n)
+    model, seed, course, first_seed, n, random_moves = job
+    agent = load_agent(Path("models") / model / f"seed{seed}", deterministic=not random_moves)
+    return job, agent.info, run_episodes(agent.act, course, first_seed, n, start_episode=agent.start_episode)
 
 
 def mcnemar_p(only_a, only_b):
@@ -115,13 +115,16 @@ def main():
     parser.add_argument("--seeds", type=int, nargs="+", default=list(config.TRAIN_SEEDS))
     parser.add_argument("--name", required=True)
     parser.add_argument("--workers", type=int, default=3, help="models tested at the same time (1 core each)")
+    parser.add_argument("--random-moves", action="store_true",
+                        help="draw moves at random around the average move (default: always the average move)")
     args = parser.parse_args()
     assert not config.touches_test_courses(args.first_seed, args.episodes), "test courses are for the final test only"
     references = args.reference or args.models[:1]
 
-    jobs = [(m, s, args.course, args.first_seed, args.episodes) for m in args.models for s in args.seeds]
+    jobs = [(m, s, args.course, args.first_seed, args.episodes, args.random_moves) for m in args.models for s in args.seeds]
+    moves = "randomized moves (seeded by course)" if args.random_moves else "average (deterministic) moves"
     print(f"{len(jobs)} model files x {args.episodes:,} {args.course} courses "
-          f"(seeds {args.first_seed}-{args.first_seed + args.episodes - 1}), {args.workers} at a time", flush=True)
+          f"(seeds {args.first_seed}-{args.first_seed + args.episodes - 1}), {moves}, {args.workers} at a time", flush=True)
     assert args.workers < config.MAX_CORES
     with get_context("spawn").Pool(args.workers) as pool:
         results = pool.map(evaluate_job, jobs)
@@ -130,14 +133,14 @@ def main():
 
     OUT.mkdir(parents=True, exist_ok=True)
     with (OUT / f"{args.name}_episodes.csv").open("w", newline="") as f:
-        fields = ["model", "train_seed", "course_seed", "score", "outcome", "distance", "steps", "fell_at"]
+        fields = ["model", "train_seed", "course_seed", "score", "outcome", "distance", "steps", "end_x", "fell_at"]
         w = csv.DictWriter(f, fields)
         w.writeheader()
         for (m, s), eps in episodes.items():
             for e in eps:
                 w.writerow(dict(model=m, train_seed=s, **e))
 
-    report = dict(course=args.course, episodes_per_seed=args.episodes, first_course_seed=args.first_seed,
+    report = dict(course=args.course, moves=moves, episodes_per_seed=args.episodes, first_course_seed=args.first_seed,
                   seeds=args.seeds, models={}, paired={})
     for m in args.models:
         report["models"][m] = summarize_model({s: episodes[(m, s)] for s in args.seeds},
@@ -151,7 +154,7 @@ def main():
     # ---- Readable tables --------------------------------------------------------------
     n_total = args.episodes * len(args.seeds)
     lines = [f"## {args.name}: {args.course} course, {args.episodes:,} analysis courses x {len(args.seeds)} seeds "
-             f"= {n_total:,} episodes per model", "",
+             f"= {n_total:,} episodes per model, {moves}", "",
              "| Model | Steps | Training time (min, per seed) | Score (± across seeds) | Finished | Fell | "
              "Backed off | Timed out | Distance | Solved (300+)? |",
              "|---|---|---|---|---|---|---|---|---|---|"]

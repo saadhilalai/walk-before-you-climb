@@ -1,5 +1,6 @@
 {
   "course": "hardcore",
+  "moves": "average (deterministic) moves",
   "episodes_per_seed": 1000,
   "first_course_seed": 20000,
   "seeds": [

@@ -1,13 +1,13 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 18:40. Step 4 (checkpoint review) is done. Waiting for the director to pick which fixes (at most 2) to apply before Step 5._
+_Last updated 2026-10-17, 19:30. Step 4 is done, both fixes applied. Waiting for the director to choose average vs randomized moves for the final test (then the Step 5 test plan)._
 
 | Step | Status |
 |---|---|
 | 1. Setup, speed test, time budget | ✅ Done |
 | 2. First walker: PPO vs SAC (normal course) | ✅ Done (PPO picked for Step 3) |
 | 3. Hardcore: from scratch (A) vs curriculum (B) | ✅ Done |
-| 4. Checkpoint review | ✅ Done (fixes not yet picked) |
+| 4. Checkpoint review | ✅ Done (both fixes applied) |
 | 5. Final test (once) | Not started |
 | 6. Charts and videos | Not started |
 | 7. Package it | Not started |
@@ -483,4 +483,50 @@ Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*
   - The learning rate shrank to 0 on schedule.
   - No sudden collapses after 25M steps.
   - Speed held steady (no heat slowdown over 6+ hours).
+
+### Fixes after the review (director: apply both, 2026-10-17)
+
+**Fix 1: new fall labels (locked in before the Step 5 test plan).**
+- **Rule (`config.FALL_WINDOW_TILES`, `walker_env.obstacle_near`):** a fall belongs to an obstacle if the body centre was from **2 tiles before it to 3 tiles after it** (about one body length, so falls while landing count). If two obstacles qualify, the nearer one wins (the earlier one on a tie). Otherwise it's **"open ground"**. The old window was 2 before to 1 after, labelled "flat ground".
+- Every test episode now also records `end_x`, where the body ended up.
+- **Checked:** re-running the hardcore analysis comparison gave **identical** scores, outcomes, distances and step counts for all 6,000 episodes. Only the labels changed.
+  - The 720 old "flat ground" falls became: stump 245, pit 128, stairs 33, open ground 314.
+  - No fall moved from one obstacle to another.
+- **Updated "where they fall"** (1,000 hardcore analysis courses × 3 seeds, average moves; `runs/compare/step3_falls.json`):
+
+  | Falls per 100 reached (share of the agent's falls) | Stump | Pit | Stairs up | Stairs down | Open ground |
+  |---|---|---|---|---|---|
+  | A | 5.8 (17%) | **16.5 (59%)** | 3.1 (6%) | 4.4 (8%) | (10%) |
+  | B | **10.2 (38%)** | 9.0 (36%) | 3.4 (7%) | 2.3 (5%) | (14%) |
+
+  - Pits are A's main killer. Stumps are B's.
+
+**Fix 2: does testing with randomized moves change the freeze? (a check, not a change)**
+- **What:** A and B on the same 1,000 hardcore analysis courses × 3 seeds, drawing their moves at random around the average move, as in practice. The random draws are seeded by the course, so every randomized run replays exactly (checked).
+  - Option added: `compare.py --random-moves`. Results: `runs/compare/step3_random.*`, `step3_random_falls.json`.
+- **Results:**
+
+  | Hardcore, 3,000 runs each | A average | A randomized | B average | B randomized |
+  |---|---|---|---|---|
+  | Score | 15.4 | 9.6 | 42.4 | 20.4 |
+  | Finished | 2.4% | 2.3% | 13.1% | 10.1% |
+  | Fell | 34.7% | 41.8% | 48.2% | 51.4% |
+  | Timed out | 62.9% | 55.9% | 38.7% | 38.5% |
+  | Distance | 29.4% | 31.1% | 45.8% | 42.2% |
+
+- **Paired tests (randomized minus average, same agent, same courses):**
+  - **A:** finishing unchanged (52 vs 54 courses, p = 0.92). Fewer timeouts (p < 0.001), but they mostly became falls. Score −5.8 (p < 0.001, lower in all 3 seeds). Distance +1.7 (p < 0.001).
+  - **B: worse on everything.** Finished 177 vs 266 courses (p < 0.001). Score −22.0 (p < 0.001, lower in all 3 seeds). Distance −3.6 (p < 0.001). Timeouts unchanged (p = 0.90).
+- **The freeze is NOT caused by testing with average moves.**
+  - With randomized moves, 56% of A's runs and 39% of B's still time out, stuck at stumps 78% and 99% of the time.
+  - A stays frozen: its body moves a median of 0.03 units in the last 10 s (a stump is 0.47 wide).
+  - B trembles in place: its joints keep moving and its body shuffles ~0.25 units, but it doesn't get past.
+- **B vs A under randomized moves:**
+  - **B still finishes more** (282 vs 48 courses, p < 0.001) and gets further (+11.1 points, p < 0.001).
+  - The score difference is **not** significant (+10.8 mean, −3.5 median, p = 0.38; B higher in 1 of 3 seeds).
+  - Same conclusion as with average moves: the finishing result is solid, the score result isn't.
+- **Individual runs are very sensitive to tiny changes in the moves:**
+  - Of A's 1,888 average-move timeouts, 1,210 still time out with randomized moves, 657 fall and 21 finish.
+  - The overall rates stay stable because they're averages over 3,000 runs.
+- **The RL Zoo's benchmark (their 122) uses the average (deterministic) move** (`rl_zoo3/benchmark.py`: "It uses the deterministic policy except for Atari games").
 

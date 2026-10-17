@@ -44,6 +44,12 @@ SOLVED_SCORE = 300        # official mark: average score of 300+ on the normal c
 #   timed_out   neither, before the step limit
 OUTCOMES = ("finished", "fell", "backed_off", "timed_out")
 
+# Where a fall happened on the hardcore course (decided in Step 4, before the final test).
+# A fall belongs to an obstacle if the robot's body centre was from 2 tiles before it to 3 tiles
+# after it: about one body length, so falls while landing after a stump or pit count too.
+# If two obstacles qualify, the nearer one wins (the earlier one on a tie). Otherwise "open ground".
+FALL_WINDOW_TILES = dict(before=2, after=3)
+
 # ---- CPU budget (shared MacBook Air: at most 4 cores in total) --------------------
 MAX_CORES = 4
 
