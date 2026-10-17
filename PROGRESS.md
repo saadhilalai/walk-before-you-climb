@@ -1,12 +1,12 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 13:01. **Step 3 training is PAUSED (frozen) while the Mac is moved.** See "Pause" at the end of Step 3 to resume._
+_Last updated 2026-10-17, 16:25. Step 3 is done. Waiting for the director (optional Agent C, then Step 4)._
 
 | Step | Status |
 |---|---|
 | 1. Setup, speed test, time budget | ✅ Done |
 | 2. First walker: PPO vs SAC (normal course) | ✅ Done (PPO picked for Step 3) |
-| 3. Hardcore: from scratch (A) vs curriculum (B) | 🔄 Training |
+| 3. Hardcore: from scratch (A) vs curriculum (B) | ✅ Done |
 | 4. Checkpoint review | Not started |
 | 5. Final test (once) | Not started |
 | 6. Charts and videos | Not started |
@@ -39,6 +39,7 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `train.py` | Trains a run (`ppo` or `sac`), all 3 seeds side by side on 1 core each. Saves models, curves, logs, `run_info.json` |
 | `compare.py` | Tests models on the same analysis courses and runs the paired tests. Results in `runs/compare/<name>.md/.json/_episodes.csv` |
 | `make_charts.py` | Draws the charts in `charts/` from saved results (never re-runs anything) |
+| `falls.py` | Where agents fall (and get stuck) on hardcore, per obstacle kind, fairly counted per obstacle reached |
 | `gate.py` | Step 3 safety check between B's two phases (B moves on only if every seed finishes 90%+ of normal validation courses) |
 | `models/<name>/seed<N>/` | A trained model: `model.zip`, `vecnormalize.pkl` (PPO only) and `model_info.json` |
 | `runs/<run>/seed<N>/` | `train.log`, `curve.csv` (learning curve), `practice_episodes.csv.gz` (every practice episode; Step 2: `.csv`), `progress.csv` (SB3's own stats; B has one per phase), `run_info.json` |
@@ -275,7 +276,7 @@ Chart: `charts/2_ppo_vs_sac.png`. Left: same practice. Right: same clock.
 
 ---
 
-## Step 3: hardcore, from scratch (A) vs curriculum (B) (in progress)
+## Step 3: hardcore, from scratch (A) vs curriculum (B) (done 2026-10-17)
 
 ### Decisions (director, 2026-10-16)
 1. **Algorithm: PPO.** SAC learned more from the same practice, but PPO wins on time on this Mac, and the Zoo's own results show SAC barely learns hardcore (4 after 10M steps).
@@ -353,4 +354,70 @@ Chart: `charts/2_ppo_vs_sac.png`. Left: same practice. Right: same clock.
   - The training clock (`mach_absolute_time`) doesn't count time the Mac is asleep, but it does count time it's awake while frozen.
   - The check-up after resuming will therefore include those awake-but-frozen minutes. The exact amount = `perf_counter` at resume − 710690.199 (see `runs/logs/step3_pause.txt`). We subtract it when reporting A's training time.
 - **If the processes don't survive** (e.g. the Mac shuts down): B is safe (complete and committed). A would have to be re-run from scratch, `train.py --run a`, about 7.5 h. There's no code yet to continue A from `a_75m`.
+- **Resumed 2026-10-17 14:37:13** (`kill -CONT`). The Mac hadn't restarted (uptime 19 days), was back on AC power, and all 4 frozen processes were still there; the 3 workers went straight back to ~100% CPU.
+  - On the clock the pause lasted 96.7 min, but **the training timer counted only 437.3 s (7.3 min)**: the time the Mac was awake while frozen. Sleep isn't counted.
+  - **Subtract 437.3 s from A's `train_minutes` from 81,788,928 steps onwards** (the first check-up after the pause), and from `a_100m`'s training time.
+
+### Training finished (2026-10-17 15:54)
+| Agent | Steps | Training time per seed | Speed | On the clock |
+|---|---|---|---|---|
+| B (curriculum) | 100,007,936 (5,013,504 normal + 94,994,432 hardcore) | 7.9 h | ~3,500 steps/s average | 23:37 → 00:09 (normal), 00:11 → 07:50 (hardcore) |
+| A (from scratch) | 100,007,936 hardcore | 6.2 h (pause removed: 372 min, not the 380 in `model_info.json`) | ~4,480 steps/s | 07:50 → 15:54, including the 97-min pause |
+
+- **No heat slowdown:** A held ~4,500 steps/s for over 6 hours.
+- B was slower for about 3 hours overnight (~2,900–3,300 steps/s), then back to 4,500. Likely reason: other activity on the Mac, since it's the same code and the same work per step. Not tested.
+- The time difference says nothing about A vs B: both did exactly the same number of steps.
+
+### Results: hardcore course, 1,000 analysis courses (20000–20999) × 3 seeds = 3,000 episodes each
+| Agent | Score (± across seeds) | Finished | Fell | Backed off | Timed out | Distance | Solved? |
+|---|---|---|---|---|---|---|---|
+| A: from scratch | 15.4 ± 24.3 | 2.4% | 34.7% | 0.0% | 62.9% | 29.4% | no |
+| B: curriculum | 42.4 ± 30.4 | 13.1% | 48.2% | 0.0% | 38.7% | 45.8% | no |
+
+Per seed:
+| Seed | A score / finished / distance | B score / finished / distance | B − A, paired tests on that seed's 1,000 courses |
+|---|---|---|---|
+| 42 | 44.3 / 4.1% / 38.1% | 24.3 / 6.9% / 38.7% | finished: B 55 vs A 27 (p = 0.003); **score −20.0 (A higher, p < 0.001)**; distance +0.6 (p = 0.51, no difference) |
+| 142 | 16.8 / 2.5% / 28.7% | 17.7 / 7.6% / 40.1% | finished: B 66 vs A 15 (p < 0.001); score +0.8 (p = 0.01, tiny); distance +11.4 (p < 0.001) |
+| 242 | −15.1 / 0.5% / 21.4% | 85.2 / 24.7% / 58.5% | finished: B 243 vs A 1 (p < 0.001); score +100.2 (p < 0.001); distance +37.1 (p < 0.001) |
+
+**What's proven, and what isn't:**
+- **B finishes hardcore courses more often than A. Proven, and consistent:** 13.1% vs 2.4% overall (B finished 364 courses A didn't, A finished 43 B didn't; McNemar p < 0.001), and B was ahead **in every one of the 3 seeds**, each significant on its own.
+- **B gets further. Proven overall** (+16.4 points of the course, p < 0.001), but only in **2 of 3 seeds** (seed 42: no difference).
+- **B's higher average score is NOT a robust result.**
+  - Overall B is +27.0 (Wilcoxon p < 0.001), but the median difference is only +1.7: B scored higher on 51% of courses, A on 49%.
+  - It's driven by one seed (242: +100). Seed 142 is a tie, and **in seed 42 A scored higher.**
+- **Seeds vary a lot** (A from −15 to 44, B from 18 to 85). With only 3 training seeds, the course-level p-values compare *these* trained agents. They can't promise a new seed would behave the same. The finishing result is the one that held for all three.
+- **Neither agent solved hardcore** (300+). Both are well below the RL Zoo's published 122 for PPO at 100M.
+  - That comparison is rough: one agent of theirs, on different courses. We haven't tested why ours are lower.
+  - A likely contributor is the large seed-to-seed variation: our 3 A seeds span −15 to 44.
+
+**How they fail (likely reasons in brackets, not tested; Step 4's videos will check):**
+- **A plays it safe:** it times out on 63% of courses and falls on 35%. When it times out, it's stuck in front of a stump 74% of the time (a pit 18%). [It may have learned to stop rather than risk the −100 for falling: the "freeze" trap again, now in front of obstacles.]
+- **B takes more risks:** it falls more (48%) but gets further and finishes 5× as often. When it times out, it's stuck at a stump **99%** of the time.
+- **Falls per 100 obstacles reached** (`falls.py`, counted fairly: B reaches far more obstacles because it gets further):
+
+| Obstacle | A | B |
+|---|---|---|
+| Pit | **15.8** (56% of A's falls) | **7.3** |
+| Stump | 4.1 | 6.6 |
+| Stairs up | 2.5 | 3.1 |
+| Stairs down | 4.0 | 2.1 |
+| Flat ground (not near an obstacle) | 20% of A's falls | 36% of B's falls |
+
+  - Pits are A's main killer; B handles them about twice as well.
+  - Both get stuck at stumps.
+  - The "flat ground" share is large, especially for B. The obstacle window (2 tiles before to 1 tile after) is a draft and will be checked in Step 4/6 (e.g. falls just after landing from a pit).
+- When they finish, both score about the same (A 262, B 268), but **B finishes faster** (1,241 steps vs 1,763 on average).
+
+### Normal course (1,000 normal analysis courses × 3 seeds): no real difference
+| Agent | Score | Finished | Fell | Timed out | Distance |
+|---|---|---|---|---|---|
+| A (never saw the normal course) | 260.4 ± 29.6 | 90.1% | 9.5% | 0.5% | 95.2% |
+| B | 265.0 ± 19.6 | 90.7% | 9.3% | 0.0% | 95.8% |
+
+- **Finished: no difference** (B 236 vs A 216 courses that only one finished; p = 0.37). Score +4.6 for B (p < 0.001, but small). Distance: no difference (p = 0.17).
+- A, trained only on hardcore, still walks the normal course (90% finished). B didn't lose its walking skill during 95M hardcore steps.
+
+Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*`, `runs/compare/step3_falls.json`, chart `charts/3_a_vs_b_curves.png` (draft; the final Step 6 charts come later).
 

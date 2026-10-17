@@ -1,2 +1,3 @@
 paused_at=2026-10-17 13:00:33 wall=1792260033.350 perf_counter=710690.199
 namespace(implementation='mach_absolute_time()', monotonic=True, adjustable=False, resolution=4.166666666666667e-08)
+resumed_at=2026-10-17 14:37:13 wall=1792265833.379 perf_counter=711127.525 awake_while_frozen_s=437.3

@@ -1,0 +1,15 @@
+## step3_normal: normal course, 1,000 analysis courses x 3 seeds = 3,000 episodes per model
+
+| Model | Steps | Training time (min, per seed) | Score (± across seeds) | Finished | Fell | Backed off | Timed out | Distance | Solved (300+)? |
+|---|---|---|---|---|---|---|---|---|---|
+| a_100m | 100,007,936 | 380 | 260.4 ± 29.6 | 90.1% | 9.5% | 0.0% | 0.5% | 95.2% | no |
+| b_100m | 100,007,936 | 474 | 265.0 ± 19.6 | 90.7% | 9.3% | 0.0% | 0.0% | 95.8% | no |
+
+Per seed (score / finished):
+
+- a_100m: seed 42: 280.3 / 99.9%, seed 142: 282.3 / 99.0%, seed 242: 218.5 / 71.3%
+- b_100m: seed 42: 265.6 / 93.0%, seed 142: 288.7 / 100.0%, seed 242: 240.7 / 79.2%
+
+Paired tests (same course, same training seed):
+
+- **b_100m vs a_100m**: finished only by b_100m 236, only by a_100m 216 (p = 0.372); score difference +4.6 mean, +2.7 median (p < 0.001); distance +0.6 points (p = 0.167); higher score in 2 of 3 seeds

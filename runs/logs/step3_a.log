@@ -1,0 +1,14 @@
+[07:50:24] a phase 1: seeds [42, 142, 242] side by side, 1 core each
+[15:54:04] done
+  a_25m     seed  42 | hardcore |  25,001,984 steps |   91.5 min | score   -1.2 ±  66.8 | finished   0.0% | fell  29.0% | backed off  0.0% | timed out  71.0% | distance  24.4%
+  a_50m     seed  42 | hardcore |  50,003,968 steps |  182.8 min | score   23.3 ±  87.1 | finished   3.0% | fell  28.0% | backed off  0.0% | timed out  69.0% | distance  33.4%
+  a_75m     seed  42 | hardcore |  75,005,952 steps |  274.8 min | score   42.5 ±  87.3 | finished   4.0% | fell  28.0% | backed off  0.0% | timed out  68.0% | distance  38.1%
+  a_100m    seed  42 | hardcore | 100,007,936 steps |  379.5 min | score   43.0 ±  88.5 | finished   4.0% | fell  29.0% | backed off  0.0% | timed out  67.0% | distance  37.2%
+  a_25m     seed 142 | hardcore |  25,001,984 steps |   91.4 min | score   -7.8 ±  56.8 | finished   0.0% | fell  34.0% | backed off  0.0% | timed out  66.0% | distance  23.7%
+  a_50m     seed 142 | hardcore |  50,003,968 steps |  183.1 min | score   -0.0 ±  59.9 | finished   0.0% | fell  42.0% | backed off  0.0% | timed out  58.0% | distance  25.6%
+  a_75m     seed 142 | hardcore |  75,005,952 steps |  275.5 min | score   18.0 ±  87.8 | finished   4.0% | fell  39.0% | backed off  0.0% | timed out  57.0% | distance  31.3%
+  a_100m    seed 142 | hardcore | 100,007,936 steps |  380.1 min | score   34.4 ±  91.7 | finished   6.0% | fell  32.0% | backed off  0.0% | timed out  62.0% | distance  33.5%
+  a_25m     seed 242 | hardcore |  25,001,984 steps |   91.7 min | score  -14.6 ±  44.1 | finished   0.0% | fell  17.0% | backed off  0.0% | timed out  83.0% | distance  15.9%
+  a_50m     seed 242 | hardcore |  50,003,968 steps |  183.4 min | score   -9.9 ±  59.2 | finished   0.0% | fell  38.0% | backed off  0.0% | timed out  62.0% | distance  22.0%
+  a_75m     seed 242 | hardcore |  75,005,952 steps |  275.1 min | score  -12.0 ±  71.3 | finished   2.0% | fell  34.0% | backed off  0.0% | timed out  64.0% | distance  21.0%
+  a_100m    seed 242 | hardcore | 100,007,936 steps |  379.4 min | score  -21.2 ±  60.3 | finished   1.0% | fell  42.0% | backed off  0.0% | timed out  57.0% | distance  19.7%
