@@ -179,6 +179,19 @@ def main():
     env.close()
     assert same
 
+    # --- 5b. ...no matter which courses ran before (fresh physics world per episode) ---
+    seeds = list(range(config.SETUP_SEED, config.SETUP_SEED + 10))
+    env = make_env("normal")
+    forward = {s: run_episode(env, s, heuristic_policy())["score"] for s in seeds}
+    backward = {s: run_episode(env, s, heuristic_policy())["score"] for s in reversed(seeds)}
+    fresh = {s: run_episode(make_env("normal"), s, heuristic_policy())["score"] for s in seeds}
+    order_free = forward == backward == fresh
+    report["history_independent"] = order_free
+    print(f"Hand-written walker on 10 courses, in order / reversed / fresh simulator each time -> "
+          f"identical scores: {order_free}")
+    env.close()
+    assert order_free
+
     (OUT / "check_setup.json").write_text(json.dumps(report, indent=2))
     print(f"\nAll checks passed. Saved {OUT}/check_setup.json")
 

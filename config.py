@@ -27,6 +27,12 @@ VALIDATION_SEED = 5_000   # courses 5000-5099: used during training and to pick 
 ANALYSIS_SEED = 20_000    # courses 20000+: comparing agents along the way
 TEST_SEED = 10_000        # courses 10000-10099: HIDDEN until the final test, used exactly once
 N_VALIDATION_EPISODES = 100
+N_TEST_EPISODES = 100
+
+
+def touches_test_courses(first_seed, n_episodes):
+    """True if courses first_seed .. first_seed + n_episodes - 1 overlap the hidden test courses."""
+    return first_seed < TEST_SEED + N_TEST_EPISODES and first_seed + n_episodes > TEST_SEED
 
 # ---- Definitions (from the project brief) ---------------------------------------
 SOLVED_SCORE = 300        # official mark: average score of 300+ on the normal course
@@ -92,3 +98,25 @@ SAC_ZOO = dict(
         policy_kwargs=dict(log_std_init=-3, net_arch=[400, 300]),  # 2 layers: 400 and 300
     ),
 )
+
+
+# ---- Training runs ----------------------------------------------------------------
+# 524,288 = 8 full PPO practice rounds (32 robots x 2,048 steps). PPO can only stop at the
+# end of a round, so "500k" is rounded up to this for BOTH algorithms: the budget stays equal.
+STEP2_STEPS = 524_288
+PPO_LONG_STEPS = 5_000_000   # PPO continued to its Zoo budget (it stops at the end of a round: 5,046,272)
+
+# A run trains one algorithm and saves a model at each listed step count.
+RUNS = {
+    "ppo": dict(algo="ppo", course="normal", saves={"ppo_524k": STEP2_STEPS, "ppo_5m": PPO_LONG_STEPS}),
+    "sac": dict(algo="sac", course="normal", saves={"sac_524k": STEP2_STEPS}),
+}
+ALGOS = {"ppo": PPO_ZOO, "sac": SAC_ZOO}
+
+# ---- Learning-curve check-ups ---------------------------------------------------------
+CURVE_EVAL_EPISODES = 10      # courses per check-up (curve courses 2024-2033, the same every time)
+CURVE_EVAL_EVERY = 16_384     # steps between check-ups (32 points over 524k)
+CURVE_EVAL_EVERY_LATE = 131_072   # after 524,288 steps (PPO's long run only)
+
+# ---- Comparisons ------------------------------------------------------------------------
+N_ANALYSIS_EPISODES = 1_000   # analysis courses per trained seed

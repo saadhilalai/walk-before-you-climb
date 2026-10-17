@@ -70,8 +70,15 @@ class WalkerStats(gym.Wrapper):
     point the body reached) and, on hardcore, the obstacle nearest the fall."""
 
     def reset(self, **kwargs):
-        obs, info = self.env.reset(**kwargs)
+        # Start every episode in a brand-new physics world, exactly like a freshly created
+        # simulator. The game normally reuses one Box2D world, and leftover internal
+        # bookkeeping from earlier episodes slightly changes later ones (found in Step 2:
+        # the same model on the same course scored differently depending on what ran before).
+        # With a fresh world, course seed s + the same moves always gives the same result.
         game = self.env.unwrapped
+        game._destroy()
+        game.world = Box2D.b2World()
+        obs, info = self.env.reset(**kwargs)
         self.max_x = game.hull.position.x
         self.obstacles = course_obstacles(game) if game.hardcore else []
         return obs, info

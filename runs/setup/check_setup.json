@@ -1,19 +1,21 @@
 {
   "normal": {
     "random": {
-      "mean_score": -99.3,
+      "mean_score": -105.9,
       "outcomes": {
-        "fell": 12,
-        "timed_out": 8
+        "fell": 16,
+        "timed_out": 4
       },
-      "mean_distance": 1.3
+      "mean_distance": 1.2
     },
     "heuristic": {
-      "mean_score": 27.1,
+      "mean_score": 77.8,
       "outcomes": {
-        "fell": 20
+        "fell": 16,
+        "timed_out": 2,
+        "finished": 2
       },
-      "mean_distance": 41.5
+      "mean_distance": 51.1
     },
     "random_example": {
       "seed": 0,
@@ -25,10 +27,10 @@
     },
     "heuristic_example": {
       "seed": 0,
-      "score": -48.2,
-      "steps": 311,
+      "score": -9.7,
+      "steps": 487,
       "outcome": "fell",
-      "distance": 17.9,
+      "distance": 29.9,
       "fell_at": null
     },
     "obstacles_100_courses": {
@@ -40,20 +42,20 @@
   },
   "hardcore": {
     "random": {
-      "mean_score": -109.9,
+      "mean_score": -111.6,
       "outcomes": {
-        "fell": 17,
-        "timed_out": 3
+        "fell": 15,
+        "timed_out": 5
       },
-      "mean_distance": 1.4
+      "mean_distance": 1.6
     },
     "heuristic": {
-      "mean_score": -61.5,
+      "mean_score": -60.2,
       "outcomes": {
-        "timed_out": 2,
-        "fell": 18
+        "fell": 19,
+        "timed_out": 1
       },
-      "mean_distance": 10.9
+      "mean_distance": 12.8
     },
     "random_example": {
       "seed": 0,
@@ -65,11 +67,11 @@
     },
     "heuristic_example": {
       "seed": 0,
-      "score": 15.8,
-      "steps": 2000,
-      "outcome": "timed_out",
-      "distance": 12.0,
-      "fell_at": null
+      "score": -46.6,
+      "steps": 362,
+      "outcome": "fell",
+      "distance": 18.1,
+      "fell_at": "pit"
     },
     "obstacles_100_courses": {
       "per_course_min": 10,
@@ -83,5 +85,6 @@
       }
     }
   },
-  "reproducible": true
+  "reproducible": true,
+  "history_independent": true
 }

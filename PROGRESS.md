@@ -1,11 +1,11 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-16. Nothing is running._
+_Last updated 2026-10-16 evening. Step 2 training is running (see Step 2 below)._
 
 | Step | Status |
 |---|---|
-| 1. Setup, speed test, time budget | ✅ Done (waiting for the director's decisions below) |
-| 2. First walker: PPO vs SAC (normal course) | Not started |
+| 1. Setup, speed test, time budget | ✅ Done |
+| 2. First walker: PPO vs SAC (normal course) | 🔄 Training |
 | 3. Hardcore: from scratch (A) vs curriculum (B) | Not started |
 | 4. Checkpoint review | Not started |
 | 5. Final test (once) | Not started |
@@ -35,6 +35,10 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `walker_env.py` | Builds a course and judges each episode: finished / fell / backed_off / timed_out, distance, and which obstacle it fell at |
 | `check_setup.py` | Step 1 sanity check (random robot, rendering, obstacles, reproducibility) |
 | `benchmark_speed.py` | Step 1 speed test. Results in `runs/setup/benchmark.jsonl` |
+| `evaluate.py` | Loads a saved model (always with its normalization stats, if it has them) and runs it on a list of courses |
+| `train.py` | Trains a run (`ppo` or `sac`), all 3 seeds side by side on 1 core each. Saves models, curves, logs, `run_info.json` |
+| `models/<name>/seed<N>/` | A trained model: `model.zip`, `vecnormalize.pkl` (PPO only) and `model_info.json` |
+| `runs/<run>/seed<N>/` | `train.log`, `curve.csv` (learning curve), `practice_episodes.csv` (every practice episode), `progress.csv` (SB3's own stats), `run_info.json` |
 | `runs/setup/` | Step 1 outputs: `check_setup.json`, rendered frames, `courses_overview.png`, `benchmark.jsonl` |
 
 ---
@@ -75,18 +79,18 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 - **The hardcore course really has obstacles.** Over 100 courses: 10 to 19 per course, 13.4 on average.
   - The three kinds are equally common: 440 stumps, 456 pits, and 442 staircases (243 up, 199 down).
   - The normal course has none on any of the 100 courses. `runs/setup/courses_overview.png` shows a side view of each.
-- **Random robot (20 courses each):**
+- **Random robot (20 courses each; numbers updated after the Step 2 physics fix below):**
 
   | Course | Score | Fell | Timed out | Distance |
   |---|---|---|---|---|
-  | Normal | −99.3 | 12 | 8 | 1.3% |
-  | Hardcore | −109.9 | 17 | 3 | 1.4% |
+  | Normal | −105.9 | 16 | 4 | 1.2% |
+  | Hardcore | −111.6 | 15 | 5 | 1.6% |
 
 - **Gymnasium's built-in hand-written walking controller is NOT a good walker.**
-  - Normal course: it fell on **all 20** courses. It got 41.5% of the way on average, with a score of 27.
-  - Hardcore: 10.9% of the way.
+  - Normal course: it finished only **2 of 20** courses and fell on 16. It got 51% of the way on average, with a score of 78.
+  - Hardcore: 12.8% of the way, and it fell on 19 of 20.
   - So it's a reference point, not proof that the course can be finished. (Published RL results show it can be.)
-- **Same course seed + same moves → exactly the same course and score**, so paired comparisons work.
+- **Same course seed + same moves → exactly the same course and score, no matter which courses ran before**, so paired comparisons work. (The "no matter what ran before" part was only true after the Step 2 fix below.)
 
 ### Bug found and fixed while building the obstacle detector
 - The simulator doesn't keep a list of obstacles, so `walker_env.course_obstacles()` works them out from the block shapes.
@@ -155,8 +159,33 @@ The Mac was not idle: background apps (video call / screen encoder) used roughly
   - A robot can learn to "freeze" safely until time runs out (a timed-out episode) instead of risking a fall.
   - This is a known local optimum, and it's why we report timed-out rates, not just scores.
 
-### Decisions needed before Step 2
-1. Is running **3 seeds side by side (3 cores) as one job** OK? It's 2.4× faster for PPO and 1.4× for SAC than one seed at a time.
-2. What to call the game's second −100 case (**walking backwards off the start of the course**): its own outcome "backed off", or count it as "fell"?
-3. **Step 2 budget:** 500k steps each (~2 h) or 300k (~1 h 10 min)? Optionally, PPO continued to 5M (+30 min)?
-4. **Gaming PC:** what CPU does it have? This decides whether Step 3 moves there.
+### Decisions made after Step 1 (2026-10-16)
+1. **3 seeds side by side** (3 cores) count as one job. OK.
+2. **"Backed off"** (walking backwards off the start, the game's second −100 case) stays its own outcome.
+3. **Step 2 budget:** 500k steps for both algorithms, plus PPO continued to its Zoo budget of 5M.
+4. **The whole project stays on the MacBook.** Time doesn't matter: for Step 3, pick the budget that gives the best, clearest result, even overnight. Before Step 3, show the options again with Mac times measured from Step 2's real speed and heat.
+
+---
+
+## Step 2: PPO vs SAC on the normal course (in progress)
+
+### Setup choices (made before training)
+- **"500k" = 524,288 steps for both algorithms.** PPO can only stop at the end of a full practice round (32 robots × 2,048 = 65,536 steps), and 8 rounds = 524,288. SAC gets exactly the same number, so the budget is equal.
+- **PPO's 5M model is the same 3 runs continued.** Each PPO run saves `ppo_524k` at 524,288 steps and keeps going to `ppo_5m` (5,046,272 steps = 77 rounds).
+- **Learning-curve check-ups:** 10 fixed curve courses (2024–2033).
+  - SAC: every 16,384 steps.
+  - PPO: after every brain update (every 65,536 steps; testing more often would re-test the same brain), and every 131,072 steps after 524,288.
+- **Validation:** at every save point, the model is **loaded back from disk** (with its normalization stats) and run on the 100 validation courses (5000–5099). Solved = average 300+.
+- **Model kept:** the final model at each save point (no picking the best check-up).
+
+### Bug found and fixed before training: results depended on what ran before
+- **Symptom:** a model loaded from disk scored −111.5395 on two curve courses, but the same model's in-training check-up said −111.5638.
+- **Cause:** not the model. The game reuses one Box2D physics world for every episode. Leftover internal bookkeeping from earlier episodes slightly changes later ones. Walking is chaotic, so tiny differences grow.
+  - The hand-written walker scored differently on **6 of 10 courses** just by running them in reverse order.
+- **Fix (`walker_env.py`):** every episode starts in a **brand-new physics world**, exactly like a freshly created simulator. The game's rules are unchanged.
+- **Checks after the fix:**
+  - Same scores in order, reversed, and on a fresh simulator. This is now a permanent check in `check_setup.py`.
+  - In-training check-ups and loaded-from-disk tests match exactly.
+  - Two SAC runs with the same seed give identical learning curves and practice episodes.
+- **Why it matters:** the Step 6 videos must replay a test run and match its result exactly, and paired tests need "same course = same conditions".
+- Step 1's sanity-check numbers were re-run with the fix (updated above).
