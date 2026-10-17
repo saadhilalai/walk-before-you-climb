@@ -465,11 +465,11 @@ Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*
 | Body lean, wobble (degrees) | 2–5, 3–5 | 25–27, **10–26** | 19–22, **21–23** | 11–22, 8–10 |
 | Steps per second | **6.0–6.4** | 3.8–4.4 | 3.8–4.6 | 4.2–5.9 |
 | Share of steps taken by leg 1 | 47–50% (even) | 35–64% (uneven) | **67–74%** (one leg does most) | 55–76% |
-| Straighter knee (degrees bent) | 78–90 (both bent) | 15–19 (one leg almost straight) | **11–28** | 59–80 (both bent) |
+| Straighter knee (degrees bent) | 78–86 (both bent) | 15–19 in 2 of 3 seeds (one leg almost straight); 65 in seed 142 | **11–28** | 59–71 (both bent) |
 | Motor effort (0–1) | 0.55–0.60 | 0.45–0.54 | 0.46–0.52 | **0.68–0.70** |
 
 - **SAC "scurries":** body almost level, quick short steps shared evenly by both legs, both feet briefly off the ground about a third of the time. Fastest and smoothest.
-- **PPO "lurches":** leans forward and rocks a lot. In the video, its body tips nose-up by about 50°. One leg stays almost straight and swings high in front while the other does the pushing.
+- **PPO "lurches":** leans forward and rocks a lot. In the video (seed 42), its body tips nose-up by about 50°. In 2 of 3 seeds one leg stays almost straight and swings high in front while the other does the pushing.
 - **A "hops on one leg":** like PPO-5M, it holds one leg straight out in front like a feeler (knee nearly straight, hip ~60° forward), and the other leg takes 67–74% of the steps. It leans and wobbles a lot.
 - **B "strides":** both knees bent and both legs stepping. It's faster and steadier than A, and uses its motors the hardest.
 - Likely reason for the lopsided PPO gaits (not tested): a one-leg "feeler" gait is a common PPO habit on this game. Once found early, small brain updates rarely undo it.
