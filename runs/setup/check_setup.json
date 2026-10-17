@@ -1,0 +1,87 @@
+{
+  "normal": {
+    "random": {
+      "mean_score": -99.3,
+      "outcomes": {
+        "fell": 12,
+        "timed_out": 8
+      },
+      "mean_distance": 1.3
+    },
+    "heuristic": {
+      "mean_score": 27.1,
+      "outcomes": {
+        "fell": 20
+      },
+      "mean_distance": 41.5
+    },
+    "random_example": {
+      "seed": 0,
+      "score": -108.4,
+      "steps": 59,
+      "outcome": "fell",
+      "distance": 0.3,
+      "fell_at": null
+    },
+    "heuristic_example": {
+      "seed": 0,
+      "score": -48.2,
+      "steps": 311,
+      "outcome": "fell",
+      "distance": 17.9,
+      "fell_at": null
+    },
+    "obstacles_100_courses": {
+      "per_course_min": 0,
+      "per_course_mean": 0.0,
+      "per_course_max": 0,
+      "by_kind": {}
+    }
+  },
+  "hardcore": {
+    "random": {
+      "mean_score": -109.9,
+      "outcomes": {
+        "fell": 17,
+        "timed_out": 3
+      },
+      "mean_distance": 1.4
+    },
+    "heuristic": {
+      "mean_score": -61.5,
+      "outcomes": {
+        "timed_out": 2,
+        "fell": 18
+      },
+      "mean_distance": 10.9
+    },
+    "random_example": {
+      "seed": 0,
+      "score": -108.5,
+      "steps": 59,
+      "outcome": "fell",
+      "distance": 0.3,
+      "fell_at": "flat ground"
+    },
+    "heuristic_example": {
+      "seed": 0,
+      "score": 15.8,
+      "steps": 2000,
+      "outcome": "timed_out",
+      "distance": 12.0,
+      "fell_at": null
+    },
+    "obstacles_100_courses": {
+      "per_course_min": 10,
+      "per_course_mean": 13.38,
+      "per_course_max": 19,
+      "by_kind": {
+        "stairs_down": 199,
+        "pit": 456,
+        "stump": 440,
+        "stairs_up": 243
+      }
+    }
+  },
+  "reproducible": true
+}

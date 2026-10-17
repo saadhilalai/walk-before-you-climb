@@ -1,0 +1,13 @@
+{"test": "env", "course": "normal", "steps_per_sec": 9823, "machine": "Darwin arm64", "time": "2026-10-16 19:07:24"}
+{"test": "env", "course": "hardcore", "steps_per_sec": 9559, "machine": "Darwin arm64", "time": "2026-10-16 19:07:26"}
+{"test": "ppo", "tag": "single", "threads": 1, "steps": 131072, "seconds": 31.1, "steps_per_sec": 4209, "practice_seconds": 14.1, "learning_seconds": 16.9, "machine": "Darwin arm64", "time": "2026-10-16 19:08:12"}
+{"test": "ppo", "tag": "single", "threads": 4, "steps": 131072, "seconds": 32.7, "steps_per_sec": 4014, "practice_seconds": 14.7, "learning_seconds": 17.9, "machine": "Darwin arm64", "time": "2026-10-16 19:08:49"}
+{"test": "sac", "tag": "single", "threads": 1, "device": "cpu", "steps": 4096, "seconds": 20.3, "steps_per_sec": 202.2, "first_half_sps": 196.4, "second_half_sps": 208.4, "machine": "Darwin arm64", "time": "2026-10-16 19:09:16"}
+{"test": "sac", "tag": "single", "threads": 4, "device": "cpu", "steps": 4096, "seconds": 23.1, "steps_per_sec": 177.4, "first_half_sps": 180.0, "second_half_sps": 174.9, "machine": "Darwin arm64", "time": "2026-10-16 19:09:43"}
+{"test": "sac", "tag": "single", "threads": 1, "device": "mps", "steps": 4096, "seconds": 66.9, "steps_per_sec": 61.2, "first_half_sps": 59.9, "second_half_sps": 62.6, "machine": "Darwin arm64", "time": "2026-10-16 19:10:58"}
+{"test": "ppo", "tag": "par3", "threads": 1, "steps": 262144, "seconds": 78.3, "steps_per_sec": 3348, "practice_seconds": 36.1, "learning_seconds": 42.2, "machine": "Darwin arm64", "time": "2026-10-16 19:12:25"}
+{"test": "ppo", "tag": "par3", "threads": 1, "steps": 262144, "seconds": 78.4, "steps_per_sec": 3342, "practice_seconds": 36.1, "learning_seconds": 42.3, "machine": "Darwin arm64", "time": "2026-10-16 19:12:25"}
+{"test": "ppo", "tag": "par3", "threads": 1, "steps": 262144, "seconds": 78.5, "steps_per_sec": 3340, "practice_seconds": 36.2, "learning_seconds": 42.2, "machine": "Darwin arm64", "time": "2026-10-16 19:12:25"}
+{"test": "sac", "tag": "par3", "threads": 1, "device": "cpu", "steps": 16384, "seconds": 172.0, "steps_per_sec": 95.2, "first_half_sps": 100.0, "second_half_sps": 90.9, "machine": "Darwin arm64", "time": "2026-10-16 19:15:27"}
+{"test": "sac", "tag": "par3", "threads": 1, "device": "cpu", "steps": 16384, "seconds": 175.5, "steps_per_sec": 93.4, "first_half_sps": 97.2, "second_half_sps": 89.8, "machine": "Darwin arm64", "time": "2026-10-16 19:15:31"}
+{"test": "sac", "tag": "par3", "threads": 1, "device": "cpu", "steps": 16384, "seconds": 176.5, "steps_per_sec": 92.8, "first_half_sps": 98.0, "second_half_sps": 88.2, "machine": "Darwin arm64", "time": "2026-10-16 19:15:32"}

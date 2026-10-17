@@ -1,0 +1,94 @@
+"""
+config.py — every setting used to train and test the walkers, in one place.
+
+All agents of the same kind use EXACTLY these settings, so any difference in
+results comes from the idea being tested, not from luck or different knobs.
+"""
+
+import os
+
+# ---- The two courses ----------------------------------------------------------
+# Gymnasium 1.4.0 registers both names; BipedalWalkerHardcore-v3 is simply
+# BipedalWalker-v3 with hardcore=True and a longer time limit.
+COURSES = {
+    "normal":   dict(env_id="BipedalWalker-v3",         time_limit=1600),  # gently uneven grass
+    "hardcore": dict(env_id="BipedalWalkerHardcore-v3", time_limit=2000),  # + stumps, pits, stairs
+}
+
+# ---- Random seeds (fixed, so every run can be reproduced) -----------------------
+# A training seed sets the network's starting weights and the practice courses.
+# The same seed gives every agent type the same starting point, so comparisons are paired.
+TRAIN_SEEDS = (42, 142, 242)
+
+# Course seeds. Course seed s always builds the exact same course (terrain + starting push).
+SETUP_SEED = 0            # courses 0-99: Step 1 sanity checks only
+CURVE_EVAL_SEED = 2_024   # the quick check-ups drawn on the learning curve
+VALIDATION_SEED = 5_000   # courses 5000-5099: used during training and to pick settings
+ANALYSIS_SEED = 20_000    # courses 20000+: comparing agents along the way
+TEST_SEED = 10_000        # courses 10000-10099: HIDDEN until the final test, used exactly once
+N_VALIDATION_EPISODES = 100
+
+# ---- Definitions (from the project brief) ---------------------------------------
+SOLVED_SCORE = 300        # official mark: average score of 300+ on the normal course
+# Outcome of an episode (see walker_env.WalkerStats):
+#   finished    the body crossed the finish line
+#   fell        the body touched the ground (-100 penalty)
+#   backed_off  walked backwards off the start of the course (the game's other -100 case)
+#   timed_out   neither, before the step limit
+OUTCOMES = ("finished", "fell", "backed_off", "timed_out")
+
+# ---- CPU budget (shared MacBook Air: at most 4 cores in total) --------------------
+MAX_CORES = 4
+
+
+def limit_cpu_threads(n):
+    """Cap how many CPU threads this process's maths libraries may use."""
+    for var in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+        os.environ[var] = str(n)
+    import torch
+    torch.set_num_threads(n)
+
+
+# ---- Algorithm settings ---------------------------------------------------------
+# Starting point: RL Baselines3 Zoo v2.9.1 (rl_zoo3/hyperparams/ppo.yml and sac.yml),
+# entries "BipedalWalker-v3". Copied exactly; the Zoo's own step budget is noted but
+# NOT used (each step of this project sets its own budget).
+
+# PPO (Proximal Policy Optimization): learns only from fresh practice, then throws it away.
+PPO_ZOO = dict(
+    n_envs=32,            # 32 robots practise side by side
+    normalize=True,       # VecNormalize: rescale observations and rewards (stats saved with the model)
+    zoo_n_timesteps=5_000_000,
+    kwargs=dict(
+        policy="MlpPolicy",   # default network: 2 layers of 64 (actor and critic separately)
+        n_steps=2048,         # each robot plays 2048 steps before every learning update
+        batch_size=64,        # learn from 64 moments at a time
+        gae_lambda=0.95,      # smoothing for "was this action better than expected?"
+        gamma=0.999,          # how much future rewards matter (0.999 = very far-sighted)
+        n_epochs=10,          # go over each round of experience 10 times
+        ent_coef=0.0,         # no extra bonus for random exploration
+        learning_rate=3e-4,   # how big each brain update is
+        clip_range=0.18,      # PPO's safety limit: never change the policy too much at once
+    ),
+)
+
+# SAC (Soft Actor-Critic): keeps a memory of past experience and keeps re-learning from it.
+SAC_ZOO = dict(
+    n_envs=1,
+    normalize=False,
+    zoo_n_timesteps=500_000,
+    kwargs=dict(
+        policy="MlpPolicy",
+        learning_rate=7.3e-4,
+        buffer_size=300_000,     # remembers the last 300k moments
+        batch_size=256,          # learns from 256 remembered moments at a time
+        ent_coef="auto",         # automatically balances trying new things vs. exploiting
+        gamma=0.98,
+        tau=0.02,                # how fast the "target" critic follows the main one
+        train_freq=64,           # every 64 steps...
+        gradient_steps=64,       # ...do 64 learning updates
+        learning_starts=10_000,  # first 10k steps: random moves, just to fill the memory
+        use_sde=True,            # gSDE: smoother, more consistent exploration noise
+        policy_kwargs=dict(log_std_init=-3, net_arch=[400, 300]),  # 2 layers: 400 and 300
+    ),
+)

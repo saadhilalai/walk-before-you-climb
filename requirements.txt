@@ -1,0 +1,15 @@
+# Python 3.11 (Homebrew). Box2D needs `swig` to build:  brew install swig
+# Videos need ffmpeg:  brew install ffmpeg
+gymnasium[box2d]==1.4.0
+Box2D==2.3.10
+pygame-ce==2.5.8
+stable-baselines3==2.9.0
+torch==2.14.1
+numpy==2.4.6
+scipy==1.17.1
+pandas==3.0.6
+tensorboard==2.21.0
+matplotlib==3.11.2
+pillow==11.3.0
+imageio==2.38.1
+imageio-ffmpeg==0.6.0
