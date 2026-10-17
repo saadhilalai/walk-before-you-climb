@@ -1,6 +1,6 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-16, 23:40. Step 3 training is starting (see Step 3 below)._
+_Last updated 2026-10-17, 00:15. Step 3 is paused: B's safety check failed for 2 of 3 seeds. Waiting for the director's decision (Step 3, batch 0)._
 
 | Step | Status |
 |---|---|
@@ -311,4 +311,18 @@ Chart: `charts/2_ppo_vs_sac.png`. Left: same practice. Right: same clock.
   - Before this fix, SB3's own schedule would have restarted at every save point.
 - **Re-running phase 2 replaces it cleanly:** identical files to a clean run, no duplicate rows.
 - **Step 2's runs still work with the new code,** and give the same check-up numbers as before (e.g. −109.9656 at 65,536 steps).
+
+### Batch 0: B's normal phase (2026-10-16 23:37 to 00:09): safety check FAILED for 2 of 3 seeds
+| Seed | Normal validation score | Finished | Fell | Distance | First 10-course check-up with 90%+ finished | Hardcore check-up at 5M |
+|---|---|---|---|---|---|---|
+| 42 | 301.5 | **99%** (pass) | 1% | 99.8% | 1.8M steps | −80.2, 0% finished, 9.8% of the way |
+| 142 | 258.5 | **81%** (fail) | 19% | 91.8% | 1.6M steps | −83.2, 0%, 10.0% |
+| 242 | 247.4 | **78%** (fail) | 22% | 89.5% | 1.0M steps | −81.6, 0%, 11.6% |
+
+- **All 3 seeds learned to walk**, and all reached 90%+ on a check-up early (by 1.0–1.8M steps). But their reliability then swung between 40% and 100% from one check-up to the next.
+  - Likely reason (not tested): the learning rate is still 95% of its starting value, so the brain keeps changing a lot.
+- **On hardcore, a 5M normal walker gets ~10% of the way and falls.** That's expected: it has never seen an obstacle.
+- **Speed: 29 min instead of ~21.** It started at ~4,200 steps/s per seed, dropped to ~1,800–2,500 between minutes ~12 and ~25, then recovered to 3,000–4,100.
+  - Likely reason: other apps using CPU (the process list showed a video-call / video-encoding service and Chrome; Mac load ~9). Not tested.
+- Nothing has been trained since. The director decides how to continue.
 
