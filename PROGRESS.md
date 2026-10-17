@@ -1,6 +1,6 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 00:15. Step 3 is paused: B's safety check failed for 2 of 3 seeds. Waiting for the director's decision (Step 3, batch 0)._
+_Last updated 2026-10-17, 00:25. Step 3 training: B's hardcore phase, then A (see Step 3 below)._
 
 | Step | Status |
 |---|---|
@@ -324,5 +324,15 @@ Chart: `charts/2_ppo_vs_sac.png`. Left: same practice. Right: same clock.
 - **On hardcore, a 5M normal walker gets ~10% of the way and falls.** That's expected: it has never seen an obstacle.
 - **Speed: 29 min instead of ~21.** It started at ~4,200 steps/s per seed, dropped to ~1,800–2,500 between minutes ~12 and ~25, then recovered to 3,000–4,100.
   - Likely reason: other apps using CPU (the process list showed a video-call / video-encoding service and Chrome; Mac load ~9). Not tested.
-- Nothing has been trained since. The director decides how to continue.
+- Nothing was trained until the director decided (below).
+
+### Decision after batch 0 (director, 2026-10-17): continue with the 5M split despite the failed safety check
+- **What happened:** the safety check we set **in advance** (every seed must finish at least 90% of the 100 normal validation courses at 5M) **failed for 2 of 3 seeds**: seed 142 finished 81%, seed 242 finished 78% (table above). Seed 42 passed with 99%.
+- **What we did:** we continued anyway, keeping the agreed 5M normal + 95M hardcore split for all three seeds.
+- **Why:**
+  - All 3 seeds had clearly learned to walk: each one finished 90%+ of its check-up courses earlier in the normal phase (at 1.0–1.8M steps).
+  - The drop at 5M looked like normal swings from the still-high learning rate (95% of its starting value at 5M), not a failure to learn. This is a likely reason, not a tested one.
+  - Training longer on the normal course would have cost B more hardcore practice, with no clear sign it would stop the swings.
+- **What this means for the result:** 2 of the 3 B walkers started hardcore as 78–81% reliable normal-course walkers, not 90%+.
+- **Must appear in the README** (Step 7): the failed safety check, the 81% / 78% numbers, the reason we continued, and the table above.
 
