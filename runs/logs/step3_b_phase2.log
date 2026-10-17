@@ -1,0 +1,17 @@
+[00:11:41] b phase 2: seeds [42, 142, 242] side by side, 1 core each
+[07:50:23] done
+  b_5m      seed  42 | normal   |   5,013,504 steps |   29.1 min | score  301.5 ±  17.3 | finished  99.0% | fell   1.0% | backed off  0.0% | timed out   0.0% | distance  99.8%
+  b_25m     seed  42 | hardcore |  25,001,984 steps |  136.9 min | score  -33.7 ±  62.2 | finished   1.0% | fell  56.0% | backed off  0.0% | timed out  43.0% | distance  26.7%
+  b_50m     seed  42 | hardcore |  50,003,968 steps |  267.0 min | score    3.1 ±  93.9 | finished   5.0% | fell  55.0% | backed off  0.0% | timed out  40.0% | distance  36.1%
+  b_75m     seed  42 | hardcore |  75,005,952 steps |  382.5 min | score   13.2 ±  83.9 | finished   5.0% | fell  51.0% | backed off  0.0% | timed out  44.0% | distance  36.1%
+  b_100m    seed  42 | hardcore | 100,007,936 steps |  475.0 min | score   16.6 ±  90.9 | finished   5.0% | fell  57.0% | backed off  0.0% | timed out  38.0% | distance  38.0%
+  b_5m      seed 142 | normal   |   5,013,504 steps |   29.4 min | score  258.5 ± 101.5 | finished  81.0% | fell  19.0% | backed off  0.0% | timed out   0.0% | distance  91.8%
+  b_25m     seed 142 | hardcore |  25,001,984 steps |  137.2 min | score  -12.4 ± 103.5 | finished   6.0% | fell  46.0% | backed off  0.0% | timed out  48.0% | distance  38.1%
+  b_50m     seed 142 | hardcore |  50,003,968 steps |  268.0 min | score    1.8 ±  98.6 | finished   7.0% | fell  47.0% | backed off  0.0% | timed out  46.0% | distance  40.9%
+  b_75m     seed 142 | hardcore |  75,005,952 steps |  383.5 min | score   12.7 ± 120.8 | finished  14.0% | fell  39.0% | backed off  0.0% | timed out  47.0% | distance  39.7%
+  b_100m    seed 142 | hardcore | 100,007,936 steps |  475.7 min | score   48.1 ± 111.5 | finished  13.0% | fell  43.0% | backed off  0.0% | timed out  44.0% | distance  49.6%
+  b_5m      seed 242 | normal   |   5,013,504 steps |   29.0 min | score  247.4 ± 112.7 | finished  78.0% | fell  22.0% | backed off  0.0% | timed out   0.0% | distance  89.5%
+  b_25m     seed 242 | hardcore |  25,001,984 steps |  135.7 min | score    5.1 ±  97.8 | finished   7.0% | fell  69.0% | backed off  0.0% | timed out  24.0% | distance  39.5%
+  b_50m     seed 242 | hardcore |  50,003,968 steps |  265.9 min | score   58.4 ± 123.2 | finished  20.0% | fell  50.0% | backed off  0.0% | timed out  30.0% | distance  52.1%
+  b_75m     seed 242 | hardcore |  75,005,952 steps |  381.3 min | score   73.5 ± 128.9 | finished  22.0% | fell  46.0% | backed off  0.0% | timed out  32.0% | distance  53.8%
+  b_100m    seed 242 | hardcore | 100,007,936 steps |  472.6 min | score   73.5 ± 120.3 | finished  20.0% | fell  52.0% | backed off  0.0% | timed out  28.0% | distance  55.9%

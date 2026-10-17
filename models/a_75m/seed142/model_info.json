@@ -1,0 +1,14 @@
+{
+  "name": "a_75m",
+  "run": "a",
+  "phase": 1,
+  "algo": "ppo",
+  "normalize": true,
+  "course": "hardcore",
+  "train_seed": 142,
+  "steps": 75005952,
+  "train_minutes": 275.49,
+  "wall_minutes": 285.28,
+  "train_seconds": 16529.258,
+  "wall_seconds": 17116.68
+}

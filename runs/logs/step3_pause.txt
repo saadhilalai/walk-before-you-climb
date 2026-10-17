@@ -1,0 +1,2 @@
+paused_at=2026-10-17 13:00:33 wall=1792260033.350 perf_counter=710690.199
+namespace(implementation='mach_absolute_time()', monotonic=True, adjustable=False, resolution=4.166666666666667e-08)

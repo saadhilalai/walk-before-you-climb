@@ -65,3 +65,298 @@
   saved models/b_5m/seed142 at 5,013,504 steps (29.4 min of training)
   validation (100 normal courses): score  258.5 ± 101.5 | finished  81.0% | fell  19.0% | backed off  0.0% | timed out   0.0% | distance  91.8% -> not solved
 phase 1 done: 5,013,504 steps in 29.4 min of training (31.4 min including check-ups)
+[b seed 142] phase 2 of 2: PPO (BipedalWalkerHardcore-v3 settings) on the hardcore course, from 5,013,504 steps; saves at b_25m=25,001,984, b_50m=50,003,968, b_75m=75,005,952, b_100m=100,007,936; whole run 100,007,936 steps
+  5,242,880 steps |    30.5 min |   3491 steps/s | lr 0.000237, clip 0.19
+    hardcore (20 courses): score  -78.4 ±  12.8 | finished   0.0% | fell 100.0% | backed off  0.0% | timed out   0.0% | distance  10.9%
+    normal   (10 courses): score  173.2 ± 114.7 | finished  40.0% | fell  60.0% | backed off  0.0% | timed out   0.0% | distance  78.9%
+  6,291,456 steps |    35.0 min |   3891 steps/s | lr 0.000234, clip 0.187
+    hardcore (20 courses): score  -43.2 ±  46.6 | finished   0.0% | fell  95.0% | backed off  0.0% | timed out   5.0% | distance  25.6%
+    normal   (10 courses): score  262.6 ± 109.1 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  91.5%
+  7,340,032 steps |    39.4 min |   3927 steps/s | lr 0.000232, clip 0.185
+    hardcore (20 courses): score  -34.7 ±  76.3 | finished   5.0% | fell  95.0% | backed off  0.0% | timed out   0.0% | distance  27.5%
+    normal   (10 courses): score  225.4 ± 116.3 | finished  70.0% | fell  30.0% | backed off  0.0% | timed out   0.0% | distance  87.2%
+  8,388,608 steps |    43.5 min |   4281 steps/s | lr 0.000229, clip 0.183
+    hardcore (20 courses): score  -34.6 ±  75.6 | finished   5.0% | fell  95.0% | backed off  0.0% | timed out   0.0% | distance  27.5%
+    normal   (10 courses): score  268.1 ±  67.8 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  96.0%
+  9,437,184 steps |    47.6 min |   4238 steps/s | lr 0.000226, clip 0.181
+    hardcore (20 courses): score    1.3 ± 113.0 | finished  15.0% | fell  75.0% | backed off  0.0% | timed out  10.0% | distance  37.8%
+    normal   (10 courses): score  263.7 ±  79.4 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  94.8%
+ 10,485,760 steps |    51.9 min |   4092 steps/s | lr 0.000224, clip 0.179
+    hardcore (20 courses): score   44.5 ± 129.4 | finished  20.0% | fell  65.0% | backed off  0.0% | timed out  15.0% | distance  51.5%
+    normal   (10 courses): score  253.9 ± 101.0 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  92.3%
+ 11,534,336 steps |    56.1 min |   4127 steps/s | lr 0.000221, clip 0.177
+    hardcore (20 courses): score   -2.6 ± 103.1 | finished  10.0% | fell  50.0% | backed off  0.0% | timed out  40.0% | distance  39.0%
+    normal   (10 courses): score  283.5 ±   2.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 12,582,912 steps |    60.4 min |   4111 steps/s | lr 0.000219, clip 0.175
+    hardcore (20 courses): score   14.4 ± 122.8 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  43.3%
+    normal   (10 courses): score  285.2 ±   2.0 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 13,631,488 steps |    64.6 min |   4132 steps/s | lr 0.000216, clip 0.173
+    hardcore (20 courses): score   46.5 ± 129.5 | finished  20.0% | fell  55.0% | backed off  0.0% | timed out  25.0% | distance  52.2%
+    normal   (10 courses): score  266.1 ±  57.8 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  97.1%
+ 14,680,064 steps |    71.7 min |   2456 steps/s | lr 0.000213, clip 0.171
+    hardcore (20 courses): score   15.2 ± 125.7 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  42.2%
+    normal   (10 courses): score  283.5 ±   2.0 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 15,728,640 steps |    78.5 min |   2567 steps/s | lr 0.000211, clip 0.169
+    hardcore (20 courses): score   32.7 ± 127.7 | finished  20.0% | fell  40.0% | backed off  0.0% | timed out  40.0% | distance  48.9%
+    normal   (10 courses): score  281.9 ±   2.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 16,777,216 steps |    85.3 min |   2567 steps/s | lr 0.000208, clip 0.166
+    hardcore (20 courses): score   27.8 ± 112.9 | finished  15.0% | fell  60.0% | backed off  0.0% | timed out  25.0% | distance  50.0%
+    normal   (10 courses): score  281.7 ±   3.0 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 17,825,792 steps |    92.6 min |   2399 steps/s | lr 0.000205, clip 0.164
+    hardcore (20 courses): score   13.2 ± 108.0 | finished  10.0% | fell  65.0% | backed off  0.0% | timed out  25.0% | distance  43.3%
+    normal   (10 courses): score  270.6 ±  33.5 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  99.9%
+ 18,874,368 steps |   101.2 min |   2041 steps/s | lr 0.000203, clip 0.162
+    hardcore (20 courses): score   -0.3 ± 107.4 | finished  10.0% | fell  65.0% | backed off  0.0% | timed out  25.0% | distance  42.3%
+    normal   (10 courses): score  281.4 ±   1.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 19,922,944 steps |   108.2 min |   2477 steps/s | lr 0.0002, clip 0.16
+    hardcore (20 courses): score   -0.6 ± 106.1 | finished  10.0% | fell  55.0% | backed off  0.0% | timed out  35.0% | distance  38.6%
+    normal   (10 courses): score  281.1 ±   2.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 20,971,520 steps |   114.5 min |   2808 steps/s | lr 0.000198, clip 0.158
+    hardcore (20 courses): score  -10.2 ±  94.4 | finished   5.0% | fell  65.0% | backed off  0.0% | timed out  30.0% | distance  36.7%
+    normal   (10 courses): score  280.7 ±   1.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 22,020,096 steps |   120.8 min |   2757 steps/s | lr 0.000195, clip 0.156
+    hardcore (20 courses): score    8.1 ±  98.7 | finished  10.0% | fell  65.0% | backed off  0.0% | timed out  25.0% | distance  41.1%
+    normal   (10 courses): score  281.3 ±   2.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 23,068,672 steps |   126.9 min |   2889 steps/s | lr 0.000192, clip 0.154
+    hardcore (20 courses): score   15.8 ± 129.2 | finished  20.0% | fell  50.0% | backed off  0.0% | timed out  30.0% | distance  41.7%
+    normal   (10 courses): score  280.4 ±   2.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 24,117,248 steps |   132.5 min |   3083 steps/s | lr 0.00019, clip 0.152
+    hardcore (20 courses): score   -8.7 ±  69.2 | finished   0.0% | fell  55.0% | backed off  0.0% | timed out  45.0% | distance  39.4%
+    normal   (10 courses): score  281.8 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 25,001,984 steps |   137.2 min |   3142 steps/s | lr 0.000188, clip 0.15
+    hardcore (20 courses): score   56.2 ± 132.4 | finished  25.0% | fell  35.0% | backed off  0.0% | timed out  40.0% | distance  55.0%
+    normal   (10 courses): score  282.4 ±   1.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  saved models/b_25m/seed142 at 25,001,984 steps (137.2 min of training)
+  validation (100 hardcore courses): score  -12.4 ± 103.5 | finished   6.0% | fell  46.0% | backed off  0.0% | timed out  48.0% | distance  38.1% -> not solved
+ 25,165,824 steps |   138.1 min |   3113 steps/s | lr 0.000187, clip 0.15
+    hardcore (20 courses): score  -17.3 ± 106.1 | finished  10.0% | fell  70.0% | backed off  0.0% | timed out  20.0% | distance  35.4%
+    normal   (10 courses): score  282.4 ±   1.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 26,214,400 steps |   143.8 min |   3049 steps/s | lr 0.000184, clip 0.148
+    hardcore (20 courses): score   21.2 ± 128.2 | finished  20.0% | fell  60.0% | backed off  0.0% | timed out  20.0% | distance  43.3%
+    normal   (10 courses): score  246.2 ± 106.4 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  91.5%
+ 27,262,976 steps |   150.0 min |   2853 steps/s | lr 0.000182, clip 0.145
+    hardcore (20 courses): score  -12.8 ± 100.8 | finished  10.0% | fell  70.0% | backed off  0.0% | timed out  20.0% | distance  34.3%
+    normal   (10 courses): score  283.1 ±   3.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 28,311,552 steps |   156.0 min |   2890 steps/s | lr 0.000179, clip 0.143
+    hardcore (20 courses): score   12.5 ± 105.7 | finished  15.0% | fell  70.0% | backed off  0.0% | timed out  15.0% | distance  42.1%
+    normal   (10 courses): score  282.9 ±   1.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 29,360,128 steps |   161.8 min |   3036 steps/s | lr 0.000177, clip 0.141
+    hardcore (20 courses): score  -25.9 ±  78.8 | finished   5.0% | fell  55.0% | backed off  0.0% | timed out  40.0% | distance  32.5%
+    normal   (10 courses): score  283.7 ±   2.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 30,408,704 steps |   167.2 min |   3189 steps/s | lr 0.000174, clip 0.139
+    hardcore (20 courses): score   10.2 ± 122.9 | finished  15.0% | fell  55.0% | backed off  0.0% | timed out  30.0% | distance  42.3%
+    normal   (10 courses): score  267.1 ±  49.9 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  98.0%
+ 31,457,280 steps |   172.8 min |   3151 steps/s | lr 0.000171, clip 0.137
+    hardcore (20 courses): score    3.5 ± 118.7 | finished  15.0% | fell  55.0% | backed off  0.0% | timed out  30.0% | distance  42.1%
+    normal   (10 courses): score  285.1 ±   2.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 32,505,856 steps |   178.3 min |   3150 steps/s | lr 0.000169, clip 0.135
+    hardcore (20 courses): score   22.6 ± 116.9 | finished  15.0% | fell  45.0% | backed off  0.0% | timed out  40.0% | distance  45.6%
+    normal   (10 courses): score  283.6 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 33,554,432 steps |   183.8 min |   3182 steps/s | lr 0.000166, clip 0.133
+    hardcore (20 courses): score   36.9 ± 125.6 | finished  20.0% | fell  55.0% | backed off  0.0% | timed out  25.0% | distance  47.9%
+    normal   (10 courses): score  285.5 ±   1.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 34,603,008 steps |   189.2 min |   3252 steps/s | lr 0.000163, clip 0.131
+    hardcore (20 courses): score   -1.7 ± 107.5 | finished  10.0% | fell  55.0% | backed off  0.0% | timed out  35.0% | distance  38.5%
+    normal   (10 courses): score  286.4 ±   2.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 35,651,584 steps |   194.3 min |   3419 steps/s | lr 0.000161, clip 0.129
+    hardcore (20 courses): score  -26.5 ±  86.1 | finished   5.0% | fell  50.0% | backed off  0.0% | timed out  45.0% | distance  33.6%
+    normal   (10 courses): score  284.9 ±   2.2 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 36,700,160 steps |   199.5 min |   3337 steps/s | lr 0.000158, clip 0.127
+    hardcore (20 courses): score   67.5 ± 131.5 | finished  20.0% | fell  25.0% | backed off  0.0% | timed out  55.0% | distance  58.5%
+    normal   (10 courses): score  284.1 ±   3.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 37,748,736 steps |   204.8 min |   3303 steps/s | lr 0.000156, clip 0.125
+    hardcore (20 courses): score   14.4 ± 123.4 | finished  15.0% | fell  55.0% | backed off  0.0% | timed out  30.0% | distance  41.9%
+    normal   (10 courses): score  284.9 ±   3.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 38,797,312 steps |   210.2 min |   3275 steps/s | lr 0.000153, clip 0.122
+    hardcore (20 courses): score   -3.4 ±  95.8 | finished   5.0% | fell  55.0% | backed off  0.0% | timed out  40.0% | distance  37.0%
+    normal   (10 courses): score  285.2 ±   1.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 39,845,888 steps |   215.5 min |   3311 steps/s | lr 0.00015, clip 0.12
+    hardcore (20 courses): score   -1.7 ± 107.8 | finished  10.0% | fell  50.0% | backed off  0.0% | timed out  40.0% | distance  41.7%
+    normal   (10 courses): score  284.6 ±   1.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 40,894,464 steps |   220.8 min |   3288 steps/s | lr 0.000148, clip 0.118
+    hardcore (20 courses): score    0.2 ± 123.4 | finished  15.0% | fell  55.0% | backed off  0.0% | timed out  30.0% | distance  37.5%
+    normal   (10 courses): score  284.1 ±   2.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 41,943,040 steps |   226.1 min |   3268 steps/s | lr 0.000145, clip 0.116
+    hardcore (20 courses): score   26.6 ± 118.4 | finished  15.0% | fell  60.0% | backed off  0.0% | timed out  25.0% | distance  46.1%
+    normal   (10 courses): score  285.5 ±   1.2 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 42,991,616 steps |   231.7 min |   3151 steps/s | lr 0.000143, clip 0.114
+    hardcore (20 courses): score   -1.9 ± 103.5 | finished  10.0% | fell  75.0% | backed off  0.0% | timed out  15.0% | distance  38.8%
+    normal   (10 courses): score  284.3 ±   2.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 44,040,192 steps |   237.2 min |   3149 steps/s | lr 0.00014, clip 0.112
+    hardcore (20 courses): score   -6.7 ± 107.0 | finished  10.0% | fell  70.0% | backed off  0.0% | timed out  20.0% | distance  37.6%
+    normal   (10 courses): score  285.0 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 45,088,768 steps |   242.6 min |   3233 steps/s | lr 0.000137, clip 0.11
+    hardcore (20 courses): score   15.4 ± 106.1 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  42.1%
+    normal   (10 courses): score  283.8 ±   2.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 46,137,344 steps |   248.0 min |   3265 steps/s | lr 0.000135, clip 0.108
+    hardcore (20 courses): score   27.8 ± 125.4 | finished  20.0% | fell  40.0% | backed off  0.0% | timed out  40.0% | distance  45.0%
+    normal   (10 courses): score  282.2 ±   2.2 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 47,185,920 steps |   253.3 min |   3274 steps/s | lr 0.000132, clip 0.106
+    hardcore (20 courses): score   27.4 ± 109.5 | finished  15.0% | fell  45.0% | backed off  0.0% | timed out  40.0% | distance  46.9%
+    normal   (10 courses): score  282.7 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 48,234,496 steps |   258.8 min |   3165 steps/s | lr 0.000129, clip 0.104
+    hardcore (20 courses): score    2.4 ± 118.9 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  38.5%
+    normal   (10 courses): score  283.4 ±   2.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 49,283,072 steps |   264.4 min |   3161 steps/s | lr 0.000127, clip 0.101
+    hardcore (20 courses): score   26.1 ± 116.7 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  46.1%
+    normal   (10 courses): score  283.4 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 50,003,968 steps |   268.0 min |   3301 steps/s | lr 0.000125, clip 0.1
+    hardcore (20 courses): score   13.7 ± 113.7 | finished  10.0% | fell  55.0% | backed off  0.0% | timed out  35.0% | distance  42.7%
+    normal   (10 courses): score  281.9 ±   1.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  saved models/b_50m/seed142 at 50,003,968 steps (268.0 min of training)
+  validation (100 hardcore courses): score    1.8 ±  98.6 | finished   7.0% | fell  47.0% | backed off  0.0% | timed out  46.0% | distance  40.9% -> not solved
+ 50,331,648 steps |   269.7 min |   3301 steps/s | lr 0.000124, clip 0.0993
+    hardcore (20 courses): score    9.7 ± 112.9 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  42.0%
+    normal   (10 courses): score  282.5 ±   3.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 51,380,224 steps |   275.0 min |   3298 steps/s | lr 0.000122, clip 0.0972
+    hardcore (20 courses): score   33.3 ± 114.6 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  49.9%
+    normal   (10 courses): score  284.1 ±   2.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 52,428,800 steps |   280.2 min |   3300 steps/s | lr 0.000119, clip 0.0952
+    hardcore (20 courses): score    8.2 ± 107.8 | finished  10.0% | fell  60.0% | backed off  0.0% | timed out  30.0% | distance  42.7%
+    normal   (10 courses): score  284.0 ±   1.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 53,477,376 steps |   285.5 min |   3319 steps/s | lr 0.000116, clip 0.0931
+    hardcore (20 courses): score   -2.0 ± 103.9 | finished  10.0% | fell  60.0% | backed off  0.0% | timed out  30.0% | distance  38.0%
+    normal   (10 courses): score  285.2 ±   2.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 54,525,952 steps |   290.9 min |   3248 steps/s | lr 0.000114, clip 0.091
+    hardcore (20 courses): score   17.1 ± 102.6 | finished  10.0% | fell  55.0% | backed off  0.0% | timed out  35.0% | distance  44.6%
+    normal   (10 courses): score  284.0 ±   2.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 55,574,528 steps |   296.4 min |   3162 steps/s | lr 0.000111, clip 0.0889
+    hardcore (20 courses): score   18.0 ± 113.5 | finished  15.0% | fell  55.0% | backed off  0.0% | timed out  30.0% | distance  43.6%
+    normal   (10 courses): score  283.6 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 56,623,104 steps |   301.7 min |   3297 steps/s | lr 0.000108, clip 0.0868
+    hardcore (20 courses): score   22.6 ± 114.5 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  44.8%
+    normal   (10 courses): score  285.5 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 57,671,680 steps |   307.2 min |   3208 steps/s | lr 0.000106, clip 0.0847
+    hardcore (20 courses): score   28.2 ± 103.4 | finished  10.0% | fell  45.0% | backed off  0.0% | timed out  45.0% | distance  45.8%
+    normal   (10 courses): score  284.7 ±   2.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 58,720,256 steps |   312.4 min |   3326 steps/s | lr 0.000103, clip 0.0826
+    hardcore (20 courses): score  -28.5 ±  57.3 | finished   0.0% | fell  75.0% | backed off  0.0% | timed out  25.0% | distance  31.1%
+    normal   (10 courses): score  285.1 ±   1.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 59,768,832 steps |   317.7 min |   3328 steps/s | lr 0.000101, clip 0.0805
+    hardcore (20 courses): score   -0.3 ± 102.2 | finished  10.0% | fell  60.0% | backed off  0.0% | timed out  30.0% | distance  39.7%
+    normal   (10 courses): score  285.1 ±   1.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 60,817,408 steps |   322.8 min |   3404 steps/s | lr 9.8e-05, clip 0.0784
+    hardcore (20 courses): score    4.5 ± 104.6 | finished  10.0% | fell  50.0% | backed off  0.0% | timed out  40.0% | distance  40.8%
+    normal   (10 courses): score  284.9 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 61,865,984 steps |   327.8 min |   3530 steps/s | lr 9.53e-05, clip 0.0763
+    hardcore (20 courses): score    6.2 ± 120.9 | finished  15.0% | fell  40.0% | backed off  0.0% | timed out  45.0% | distance  40.0%
+    normal   (10 courses): score  285.6 ±   1.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 62,914,560 steps |   332.9 min |   3419 steps/s | lr 9.27e-05, clip 0.0742
+    hardcore (20 courses): score   10.8 ± 101.8 | finished  10.0% | fell  50.0% | backed off  0.0% | timed out  40.0% | distance  43.1%
+    normal   (10 courses): score  287.1 ±   1.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 63,963,136 steps |   338.0 min |   3414 steps/s | lr 9.01e-05, clip 0.0721
+    hardcore (20 courses): score   46.3 ± 135.0 | finished  25.0% | fell  45.0% | backed off  0.0% | timed out  30.0% | distance  48.1%
+    normal   (10 courses): score  286.6 ±   1.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 65,011,712 steps |   343.1 min |   3400 steps/s | lr 8.75e-05, clip 0.07
+    hardcore (20 courses): score    8.2 ± 112.3 | finished  10.0% | fell  65.0% | backed off  0.0% | timed out  25.0% | distance  41.5%
+    normal   (10 courses): score  286.3 ±   2.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 66,060,288 steps |   348.2 min |   3425 steps/s | lr 8.49e-05, clip 0.0679
+    hardcore (20 courses): score   -0.1 ± 106.1 | finished  10.0% | fell  50.0% | backed off  0.0% | timed out  40.0% | distance  34.9%
+    normal   (10 courses): score  286.4 ±   1.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 67,108,864 steps |   353.3 min |   3424 steps/s | lr 8.22e-05, clip 0.0658
+    hardcore (20 courses): score   -5.2 ±  80.4 | finished   5.0% | fell  60.0% | backed off  0.0% | timed out  35.0% | distance  37.1%
+    normal   (10 courses): score  286.5 ±   1.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 68,157,440 steps |   358.1 min |   3683 steps/s | lr 7.96e-05, clip 0.0637
+    hardcore (20 courses): score   21.7 ± 107.2 | finished  10.0% | fell  60.0% | backed off  0.0% | timed out  30.0% | distance  47.1%
+    normal   (10 courses): score  285.9 ±   2.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 69,206,016 steps |   362.1 min |   4343 steps/s | lr 7.7e-05, clip 0.0616
+    hardcore (20 courses): score   54.4 ± 139.8 | finished  25.0% | fell  25.0% | backed off  0.0% | timed out  50.0% | distance  51.9%
+    normal   (10 courses): score  287.2 ±   1.2 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 70,254,592 steps |   366.0 min |   4502 steps/s | lr 7.44e-05, clip 0.0595
+    hardcore (20 courses): score   47.1 ± 120.7 | finished  20.0% | fell  40.0% | backed off  0.0% | timed out  40.0% | distance  49.5%
+    normal   (10 courses): score  288.0 ±   1.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 71,303,168 steps |   369.9 min |   4510 steps/s | lr 7.18e-05, clip 0.0574
+    hardcore (20 courses): score   51.9 ± 128.6 | finished  20.0% | fell  20.0% | backed off  0.0% | timed out  60.0% | distance  49.3%
+    normal   (10 courses): score  287.5 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 72,351,744 steps |   373.7 min |   4522 steps/s | lr 6.91e-05, clip 0.0553
+    hardcore (20 courses): score   27.4 ± 114.6 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  44.7%
+    normal   (10 courses): score  286.5 ±   2.0 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 73,400,320 steps |   377.6 min |   4505 steps/s | lr 6.65e-05, clip 0.0532
+    hardcore (20 courses): score   22.5 ± 115.4 | finished  15.0% | fell  45.0% | backed off  0.0% | timed out  40.0% | distance  43.6%
+    normal   (10 courses): score  289.5 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 74,448,896 steps |   381.5 min |   4515 steps/s | lr 6.39e-05, clip 0.0511
+    hardcore (20 courses): score   79.4 ± 137.9 | finished  30.0% | fell  45.0% | backed off  0.0% | timed out  25.0% | distance  57.9%
+    normal   (10 courses): score  287.5 ±   1.2 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 75,005,952 steps |   383.5 min |   4518 steps/s | lr 6.25e-05, clip 0.05
+    hardcore (20 courses): score   36.9 ± 112.8 | finished  15.0% | fell  40.0% | backed off  0.0% | timed out  45.0% | distance  47.1%
+    normal   (10 courses): score  288.5 ±   2.2 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  saved models/b_75m/seed142 at 75,005,952 steps (383.5 min of training)
+  validation (100 hardcore courses): score   12.7 ± 120.8 | finished  14.0% | fell  39.0% | backed off  0.0% | timed out  47.0% | distance  39.7% -> not solved
+ 75,497,472 steps |   385.3 min |   4525 steps/s | lr 6.13e-05, clip 0.049
+    hardcore (20 courses): score   64.3 ± 126.4 | finished  25.0% | fell  40.0% | backed off  0.0% | timed out  35.0% | distance  53.4%
+    normal   (10 courses): score  287.7 ±   1.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 76,546,048 steps |   389.2 min |   4500 steps/s | lr 5.87e-05, clip 0.0469
+    hardcore (20 courses): score   49.8 ± 125.1 | finished  20.0% | fell  35.0% | backed off  0.0% | timed out  45.0% | distance  49.7%
+    normal   (10 courses): score  287.4 ±   1.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 77,594,624 steps |   393.1 min |   4506 steps/s | lr 5.6e-05, clip 0.0448
+    hardcore (20 courses): score   33.5 ± 111.1 | finished  10.0% | fell  55.0% | backed off  0.0% | timed out  35.0% | distance  46.0%
+    normal   (10 courses): score  289.1 ±   2.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 78,643,200 steps |   397.0 min |   4516 steps/s | lr 5.34e-05, clip 0.0427
+    hardcore (20 courses): score   59.1 ± 123.9 | finished  25.0% | fell  40.0% | backed off  0.0% | timed out  35.0% | distance  49.9%
+    normal   (10 courses): score  288.9 ±   2.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 79,691,776 steps |   400.8 min |   4517 steps/s | lr 5.08e-05, clip 0.0406
+    hardcore (20 courses): score   37.1 ±  96.0 | finished  10.0% | fell  50.0% | backed off  0.0% | timed out  40.0% | distance  46.5%
+    normal   (10 courses): score  288.8 ±   1.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 80,740,352 steps |   404.7 min |   4518 steps/s | lr 4.82e-05, clip 0.0385
+    hardcore (20 courses): score   17.3 ± 107.9 | finished  10.0% | fell  55.0% | backed off  0.0% | timed out  35.0% | distance  43.0%
+    normal   (10 courses): score  288.7 ±   1.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 81,788,928 steps |   408.6 min |   4508 steps/s | lr 4.55e-05, clip 0.0364
+    hardcore (20 courses): score   28.3 ± 111.6 | finished  15.0% | fell  40.0% | backed off  0.0% | timed out  45.0% | distance  44.3%
+    normal   (10 courses): score  287.4 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 82,837,504 steps |   412.5 min |   4512 steps/s | lr 4.29e-05, clip 0.0343
+    hardcore (20 courses): score   58.1 ± 109.3 | finished  15.0% | fell  45.0% | backed off  0.0% | timed out  40.0% | distance  52.0%
+    normal   (10 courses): score  288.5 ±   1.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 83,886,080 steps |   416.4 min |   4493 steps/s | lr 4.03e-05, clip 0.0322
+    hardcore (20 courses): score   64.0 ± 138.6 | finished  30.0% | fell  55.0% | backed off  0.0% | timed out  15.0% | distance  54.0%
+    normal   (10 courses): score  288.4 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 84,934,656 steps |   420.2 min |   4496 steps/s | lr 3.77e-05, clip 0.0301
+    hardcore (20 courses): score   50.4 ± 119.8 | finished  20.0% | fell  45.0% | backed off  0.0% | timed out  35.0% | distance  50.0%
+    normal   (10 courses): score  289.6 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 85,983,232 steps |   424.1 min |   4508 steps/s | lr 3.51e-05, clip 0.028
+    hardcore (20 courses): score    0.1 ±  86.6 | finished   5.0% | fell  60.0% | backed off  0.0% | timed out  35.0% | distance  39.2%
+    normal   (10 courses): score  288.8 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 87,031,808 steps |   428.0 min |   4510 steps/s | lr 3.24e-05, clip 0.026
+    hardcore (20 courses): score   48.7 ± 118.6 | finished  20.0% | fell  35.0% | backed off  0.0% | timed out  45.0% | distance  48.2%
+    normal   (10 courses): score  287.6 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 88,080,384 steps |   431.9 min |   4510 steps/s | lr 2.98e-05, clip 0.0239
+    hardcore (20 courses): score   17.9 ± 116.4 | finished  15.0% | fell  55.0% | backed off  0.0% | timed out  30.0% | distance  42.4%
+    normal   (10 courses): score  288.6 ±   1.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 89,128,960 steps |   435.8 min |   4468 steps/s | lr 2.72e-05, clip 0.0218
+    hardcore (20 courses): score   15.0 ±  90.8 | finished   5.0% | fell  65.0% | backed off  0.0% | timed out  30.0% | distance  41.6%
+    normal   (10 courses): score  287.7 ±   2.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 90,177,536 steps |   439.7 min |   4489 steps/s | lr 2.46e-05, clip 0.0197
+    hardcore (20 courses): score   18.8 ±  87.1 | finished   5.0% | fell  65.0% | backed off  0.0% | timed out  30.0% | distance  43.2%
+    normal   (10 courses): score  289.5 ±   2.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 91,226,112 steps |   443.6 min |   4500 steps/s | lr 2.2e-05, clip 0.0176
+    hardcore (20 courses): score   31.3 ± 106.6 | finished  10.0% | fell  55.0% | backed off  0.0% | timed out  35.0% | distance  46.1%
+    normal   (10 courses): score  287.9 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 92,274,688 steps |   447.4 min |   4519 steps/s | lr 1.93e-05, clip 0.0155
+    hardcore (20 courses): score   33.4 ± 108.8 | finished  10.0% | fell  40.0% | backed off  0.0% | timed out  50.0% | distance  45.6%
+    normal   (10 courses): score  289.2 ±   2.0 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 93,323,264 steps |   451.3 min |   4505 steps/s | lr 1.67e-05, clip 0.0134
+    hardcore (20 courses): score   30.0 ± 106.6 | finished  10.0% | fell  45.0% | backed off  0.0% | timed out  45.0% | distance  44.6%
+    normal   (10 courses): score  288.6 ±   2.0 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 94,371,840 steps |   455.2 min |   4504 steps/s | lr 1.41e-05, clip 0.0113
+    hardcore (20 courses): score   56.8 ± 131.2 | finished  25.0% | fell  45.0% | backed off  0.0% | timed out  30.0% | distance  51.0%
+    normal   (10 courses): score  288.2 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 95,420,416 steps |   459.1 min |   4492 steps/s | lr 1.15e-05, clip 0.00917
+    hardcore (20 courses): score   56.7 ± 132.4 | finished  25.0% | fell  50.0% | backed off  0.0% | timed out  25.0% | distance  49.9%
+    normal   (10 courses): score  287.9 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 96,468,992 steps |   462.9 min |   4512 steps/s | lr 8.85e-06, clip 0.00708
+    hardcore (20 courses): score   37.4 ± 107.9 | finished  15.0% | fell  65.0% | backed off  0.0% | timed out  20.0% | distance  48.1%
+    normal   (10 courses): score  289.3 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 97,517,568 steps |   466.8 min |   4513 steps/s | lr 6.23e-06, clip 0.00498
+    hardcore (20 courses): score   32.7 ± 108.9 | finished  15.0% | fell  60.0% | backed off  0.0% | timed out  25.0% | distance  48.2%
+    normal   (10 courses): score  288.5 ±   2.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 98,566,144 steps |   470.7 min |   4528 steps/s | lr 3.6e-06, clip 0.00288
+    hardcore (20 courses): score   40.8 ± 131.5 | finished  25.0% | fell  40.0% | backed off  0.0% | timed out  35.0% | distance  45.2%
+    normal   (10 courses): score  288.4 ±   1.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+ 99,614,720 steps |   474.4 min |   4695 steps/s | lr 9.83e-07, clip 0.000786
+    hardcore (20 courses): score   56.2 ± 116.4 | finished  20.0% | fell  45.0% | backed off  0.0% | timed out  35.0% | distance  52.2%
+    normal   (10 courses): score  288.9 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+100,007,936 steps |   475.7 min |   4942 steps/s | lr 0, clip 0
+    hardcore (20 courses): score   24.5 ± 108.3 | finished  15.0% | fell  50.0% | backed off  0.0% | timed out  35.0% | distance  42.5%
+    normal   (10 courses): score  288.6 ±   2.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  saved models/b_100m/seed142 at 100,007,936 steps (475.7 min of training)
+  validation (100 hardcore courses): score   48.1 ± 111.5 | finished  13.0% | fell  43.0% | backed off  0.0% | timed out  44.0% | distance  49.6% -> not solved
+phase 2 done: 100,007,936 steps in 475.7 min of training (489.8 min including check-ups)

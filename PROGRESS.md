@@ -1,6 +1,6 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 00:25. Step 3 training: B's hardcore phase, then A (see Step 3 below)._
+_Last updated 2026-10-17, 13:01. **Step 3 training is PAUSED (frozen) while the Mac is moved.** See "Pause" at the end of Step 3 to resume._
 
 | Step | Status |
 |---|---|
@@ -335,4 +335,22 @@ Chart: `charts/2_ppo_vs_sac.png`. Left: same practice. Right: same clock.
   - Training longer on the normal course would have cost B more hardcore practice, with no clear sign it would stop the swings.
 - **What this means for the result:** 2 of the 3 B walkers started hardcore as 78–81% reliable normal-course walkers, not 90%+.
 - **Must appear in the README** (Step 7): the failed safety check, the 81% / 78% numbers, the reason we continued, and the table above.
+
+### Pause (2026-10-17 13:00:33): Mac moved, power and internet off for ~45 min
+- **Done before the pause:** B finished all 100,007,936 steps (00:11 to ~07:50). Its models (`b_25m` … `b_100m`) and logs are saved and committed.
+- **What's paused:** A (`train.py --run a`), at about 80.7M of 100M steps (last check-up at 80,740,352). Its newest saved model is `a_75m` (75,005,952 steps).
+- **How:** the processes were **frozen**, not killed (`kill -STOP`). They keep everything in memory and continue exactly where they stopped. Nothing is lost, and the results will be bit-for-bit the same as without the pause.
+  - The code has no way to save a checkpoint on demand, so no extra checkpoint was made.
+  - Frozen process IDs: main `48006`, workers `48008 48009 48010`. The bookkeeping helper `48007` was left alone; it's idle.
+  - The `caffeinate` (48006's parent chain: 37327 / 37328) was left running.
+- **Resume:**
+  ```bash
+  kill -CONT 48008 48009 48010 48006
+  ps -o pid,stat,pcpu -p 48006,48008,48009,48010   # expect R / S states and ~100% CPU on the 3 workers
+  ```
+  Then check that new check-up lines appear in `runs/a/seed*/train.log`.
+- **Effect on timing:**
+  - The training clock (`mach_absolute_time`) doesn't count time the Mac is asleep, but it does count time it's awake while frozen.
+  - The check-up after resuming will therefore include those awake-but-frozen minutes. The exact amount = `perf_counter` at resume − 710690.199 (see `runs/logs/step3_pause.txt`). We subtract it when reporting A's training time.
+- **If the processes don't survive** (e.g. the Mac shuts down): B is safe (complete and committed). A would have to be re-run from scratch, `train.py --run a`, about 7.5 h. There's no code yet to continue A from `a_75m`.
 

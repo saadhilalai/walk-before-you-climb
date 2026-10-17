@@ -1,0 +1,14 @@
+{
+  "name": "a_50m",
+  "run": "a",
+  "phase": 1,
+  "algo": "ppo",
+  "normalize": true,
+  "course": "hardcore",
+  "train_seed": 42,
+  "steps": 50003968,
+  "train_minutes": 182.79,
+  "wall_minutes": 189.57,
+  "train_seconds": 10967.359,
+  "wall_seconds": 11374.256
+}
