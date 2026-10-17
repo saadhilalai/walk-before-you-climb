@@ -1,0 +1,4 @@
+seed 42: b_5m finished 99% of 100 normal validation courses (score 301.5) -> pass
+seed 142: b_5m finished 81% of 100 normal validation courses (score 258.5) -> FAIL
+seed 242: b_5m finished 78% of 100 normal validation courses (score 247.4) -> FAIL
+Gate (every seed finishes at least 90%): FAILED

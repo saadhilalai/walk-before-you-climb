@@ -1,0 +1,14 @@
+{
+  "name": "b_5m",
+  "run": "b",
+  "phase": 1,
+  "algo": "ppo",
+  "normalize": true,
+  "course": "normal",
+  "train_seed": 242,
+  "steps": 5013504,
+  "train_minutes": 29.0,
+  "wall_minutes": 30.66,
+  "train_seconds": 1740.26,
+  "wall_seconds": 1839.434
+}

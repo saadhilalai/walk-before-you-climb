@@ -1,0 +1,5 @@
+[23:37:29] b phase 1: seeds [42, 142, 242] side by side, 1 core each
+[00:08:56] done
+  b_5m      seed  42 | normal   |   5,013,504 steps |   29.1 min | score  301.5 ±  17.3 | finished  99.0% | fell   1.0% | backed off  0.0% | timed out   0.0% | distance  99.8%
+  b_5m      seed 142 | normal   |   5,013,504 steps |   29.4 min | score  258.5 ± 101.5 | finished  81.0% | fell  19.0% | backed off  0.0% | timed out   0.0% | distance  91.8%
+  b_5m      seed 242 | normal   |   5,013,504 steps |   29.0 min | score  247.4 ± 112.7 | finished  78.0% | fell  22.0% | backed off  0.0% | timed out   0.0% | distance  89.5%

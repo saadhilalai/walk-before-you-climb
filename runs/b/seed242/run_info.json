@@ -1,0 +1,105 @@
+{
+  "run": "b",
+  "train_seed": 242,
+  "smoke": false,
+  "phases_done": 1,
+  "total_steps": 5013504,
+  "train_minutes": 29.0,
+  "wall_minutes": 30.92,
+  "saved_models": {
+    "b_5m": {
+      "name": "b_5m",
+      "run": "b",
+      "phase": 1,
+      "algo": "ppo",
+      "normalize": true,
+      "course": "normal",
+      "train_seed": 242,
+      "steps": 5013504,
+      "train_minutes": 29.0,
+      "wall_minutes": 30.66,
+      "train_seconds": 1740.26,
+      "wall_seconds": 1839.434,
+      "validation": {
+        "episodes": 100,
+        "mean_score": 247.38310636029055,
+        "std_score": 112.68093519883249,
+        "solved": false,
+        "finished_rate": 0.78,
+        "fell_rate": 0.22,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.0,
+        "mean_distance": 89.46642683044313,
+        "mean_steps": 733.1
+      }
+    }
+  },
+  "settings": {
+    "algo": "ppo",
+    "n_envs": 16,
+    "normalize": true,
+    "hyperparameters": {
+      "policy": "MlpPolicy",
+      "n_steps": 2048,
+      "batch_size": 64,
+      "gae_lambda": 0.95,
+      "gamma": 0.99,
+      "n_epochs": 10,
+      "ent_coef": 0.001,
+      "learning_rate": [
+        "lin",
+        0.00025
+      ],
+      "clip_range": [
+        "lin",
+        0.2
+      ]
+    },
+    "hyperparameter_source": "RL Baselines3 Zoo v2.9.1, BipedalWalkerHardcore-v3",
+    "schedules": "[\"lin\", x] = straight line from x down to 0 over the whole run (run_total_steps)",
+    "run_total_steps": 100007936,
+    "train_seed": 242,
+    "phases": [
+      {
+        "course": "normal",
+        "env_id": "BipedalWalker-v3",
+        "time_limit": 1600,
+        "saves": {
+          "b_5m": 5013504
+        },
+        "checkup_every": 262144,
+        "checkup_every_late": 262144
+      },
+      {
+        "course": "hardcore",
+        "env_id": "BipedalWalkerHardcore-v3",
+        "time_limit": 2000,
+        "saves": {
+          "b_25m": 25001984,
+          "b_50m": 50003968,
+          "b_75m": 75005952,
+          "b_100m": 100007936
+        },
+        "checkup_every": 1048576,
+        "checkup_every_late": 1048576
+      }
+    ],
+    "checkups": {
+      "hardcore": 20,
+      "normal": 10
+    },
+    "curve_eval_seed": 2024,
+    "validation_seed": 5000,
+    "validation_episodes": 100,
+    "solved_score": 300,
+    "cpu_threads": 1
+  },
+  "versions": {
+    "python": "3.11.17",
+    "torch": "2.14.1",
+    "stable_baselines3": "2.9.0",
+    "gymnasium": "1.4.0",
+    "numpy": "2.4.6",
+    "machine": "Darwin arm64"
+  }
+}
