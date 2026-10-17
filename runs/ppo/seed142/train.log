@@ -1,0 +1,50 @@
+[ppo seed 142] PPO on the normal course, saves at ppo_524k=524,288, ppo_5m=5,000,000 steps
+        0 steps |    0.0 min |      0 steps/s | score  -91.9 ±   0.2 | finished   0.0% | fell 100.0% | backed off  0.0% | timed out   0.0% | distance   2.9%
+   65,536 steps |    0.3 min |   3476 steps/s | score -106.1 ±  13.7 | finished   0.0% | fell 100.0% | backed off  0.0% | timed out   0.0% | distance   1.5%
+  131,072 steps |    0.6 min |   3946 steps/s | score   -4.2 ±   2.7 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   2.7%
+  196,608 steps |    0.9 min |   4035 steps/s | score   -7.6 ±   3.3 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   2.1%
+  262,144 steps |    1.1 min |   4156 steps/s | score  -21.2 ±   1.8 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   1.9%
+  327,680 steps |    1.4 min |   3860 steps/s | score  -73.9 ±  30.5 | finished   0.0% | fell  70.0% | backed off  0.0% | timed out  30.0% | distance   3.3%
+  393,216 steps |    1.7 min |   3971 steps/s | score  -58.5 ±  35.6 | finished   0.0% | fell  50.0% | backed off  0.0% | timed out  50.0% | distance   3.0%
+  458,752 steps |    1.9 min |   4126 steps/s | score  -24.9 ±   6.8 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   1.8%
+  524,288 steps |    2.2 min |   3835 steps/s | score  -32.6 ±   6.4 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   2.1%
+  saved models/ppo_524k/seed142 at 524,288 steps (2.2 min of training)
+  validation (100 courses): score  -37.9 ±   6.0 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   2.1% -> not solved
+  655,360 steps |    2.8 min |   4180 steps/s | score  -41.3 ±   0.8 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   0.3%
+  786,432 steps |    3.3 min |   4072 steps/s | score  -44.1 ±   5.1 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   1.8%
+  917,504 steps |    3.9 min |   3596 steps/s | score   28.7 ±  80.4 | finished   0.0% | fell  30.0% | backed off  0.0% | timed out  70.0% | distance  29.1%
+1,048,576 steps |    4.6 min |   2955 steps/s | score   29.6 ±  71.3 | finished   0.0% | fell  20.0% | backed off  0.0% | timed out  80.0% | distance  27.1%
+1,179,648 steps |    5.2 min |   3602 steps/s | score  112.5 ±  93.0 | finished   0.0% | fell  20.0% | backed off  0.0% | timed out  80.0% | distance  52.0%
+1,310,720 steps |    5.8 min |   3696 steps/s | score  208.2 ±  54.7 | finished   0.0% | fell  20.0% | backed off  0.0% | timed out  80.0% | distance  80.9%
+1,441,792 steps |    6.4 min |   4008 steps/s | score  292.6 ±   6.9 | finished  80.0% | fell   0.0% | backed off  0.0% | timed out  20.0% | distance  99.4%
+1,572,864 steps |    7.0 min |   3598 steps/s | score  298.7 ±   2.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+1,703,936 steps |    7.7 min |   3245 steps/s | score  301.2 ±   3.0 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+1,835,008 steps |    8.3 min |   3404 steps/s | score  303.8 ±   2.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+1,966,080 steps |    8.9 min |   3719 steps/s | score  302.1 ±   2.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+2,097,152 steps |    9.5 min |   3440 steps/s | score  303.5 ±   1.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+2,228,224 steps |   10.1 min |   3660 steps/s | score  301.5 ±   1.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+2,359,296 steps |   10.7 min |   3777 steps/s | score  300.7 ±   1.2 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+2,490,368 steps |   11.3 min |   3934 steps/s | score  299.7 ±   1.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+2,621,440 steps |   11.9 min |   3220 steps/s | score  302.3 ±   1.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+2,752,512 steps |   12.5 min |   3830 steps/s | score  300.6 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+2,883,584 steps |   13.0 min |   4198 steps/s | score  299.5 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+3,014,656 steps |   13.5 min |   4193 steps/s | score  300.0 ±   1.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+3,145,728 steps |   14.1 min |   4251 steps/s | score  300.1 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+3,276,800 steps |   14.6 min |   4275 steps/s | score  299.1 ±   1.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+3,407,872 steps |   15.1 min |   4306 steps/s | score  297.1 ±   1.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+3,538,944 steps |   15.6 min |   4219 steps/s | score  298.6 ±   0.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+3,670,016 steps |   16.1 min |   4237 steps/s | score  297.7 ±   1.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+3,801,088 steps |   16.6 min |   4237 steps/s | score  298.6 ±   1.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+3,932,160 steps |   17.2 min |   4097 steps/s | score  267.2 ±  96.2 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  92.9%
+4,063,232 steps |   17.7 min |   4180 steps/s | score  298.5 ±   1.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+4,194,304 steps |   18.2 min |   4085 steps/s | score  296.4 ±   1.1 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+4,325,376 steps |   18.8 min |   4020 steps/s | score  295.3 ±   0.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+4,456,448 steps |   19.3 min |   4376 steps/s | score  294.7 ±   2.2 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+4,587,520 steps |   19.8 min |   4325 steps/s | score  296.7 ±   1.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+4,718,592 steps |   20.3 min |   4299 steps/s | score  296.2 ±   1.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+4,849,664 steps |   20.8 min |   4330 steps/s | score  270.8 ±  79.8 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  95.3%
+4,980,736 steps |   21.3 min |   4513 steps/s | score  298.5 ±   1.4 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+5,046,272 steps |   21.5 min |   4687 steps/s | score  299.6 ±   1.2 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  saved models/ppo_5m/seed142 at 5,046,272 steps (21.5 min of training)
+  validation (100 courses): score  297.1 ±  27.3 | finished  99.0% | fell   1.0% | backed off  0.0% | timed out   0.0% | distance  99.5% -> not solved
+done: 5,046,272 steps in 21.5 min of training (23.9 min including check-ups)

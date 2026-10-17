@@ -1,0 +1,11 @@
+{
+  "name": "ppo_5m",
+  "run": "ppo",
+  "algo": "ppo",
+  "normalize": true,
+  "course": "normal",
+  "train_seed": 242,
+  "steps": 5046272,
+  "train_minutes": 21.08,
+  "wall_minutes": 23.3
+}

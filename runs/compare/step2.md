@@ -1,0 +1,18 @@
+## step2: normal course, 1,000 analysis courses x 3 seeds = 3,000 episodes per model
+
+| Model | Steps | Training time (min, per seed) | Score (± across seeds) | Finished | Fell | Backed off | Timed out | Distance | Solved (300+)? |
+|---|---|---|---|---|---|---|---|---|---|
+| sac_524k | 524,288 | 60 | 282.2 ± 28.7 | 87.3% | 12.7% | 0.0% | 0.0% | 94.2% | no |
+| ppo_524k | 524,288 | 2 | -30.0 ± 6.4 | 0.0% | 0.0% | 0.0% | 100.0% | 1.4% | no |
+| ppo_5m | 5,046,272 | 21 | 287.8 ± 8.7 | 99.1% | 0.9% | 0.0% | 0.0% | 99.7% | no |
+
+Per seed (score / finished):
+
+- sac_524k: seed 42: 242.6 / 73.7%, seed 142: 310.1 / 98.4%, seed 242: 293.7 / 89.8%
+- ppo_524k: seed 42: -27.6 / 0.0%, seed 142: -38.7 / 0.0%, seed 242: -23.6 / 0.0%
+- ppo_5m: seed 42: 288.3 / 99.5%, seed 142: 298.2 / 99.5%, seed 242: 277.0 / 98.2%
+
+Paired tests (same course, same training seed):
+
+- **ppo_524k vs sac_524k**: finished only by ppo_524k 0, only by sac_524k 2619 (p < 0.001); score difference -312.1 mean, -344.2 median (p < 0.001); distance -92.8 points (p < 0.001); higher score in 0 of 3 seeds
+- **ppo_5m vs sac_524k**: finished only by ppo_5m 379, only by sac_524k 26 (p < 0.001); score difference +5.7 mean, -20.5 median (p < 0.001); distance +5.4 points (p < 0.001); higher score in 1 of 3 seeds

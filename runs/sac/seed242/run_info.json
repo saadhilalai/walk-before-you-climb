@@ -1,0 +1,83 @@
+{
+  "run": "sac",
+  "train_seed": 242,
+  "smoke": false,
+  "total_steps": 524288,
+  "train_minutes": 61.59,
+  "wall_minutes": 63.29,
+  "saved_models": {
+    "sac_524k": {
+      "name": "sac_524k",
+      "run": "sac",
+      "algo": "sac",
+      "normalize": false,
+      "course": "normal",
+      "train_seed": 242,
+      "steps": 524288,
+      "train_minutes": 61.59,
+      "wall_minutes": 63.08,
+      "validation": {
+        "episodes": 100,
+        "mean_score": 289.54946488304995,
+        "std_score": 83.08951833304617,
+        "solved": false,
+        "finished_rate": 0.88,
+        "fell_rate": 0.12,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.0,
+        "mean_distance": 95.02431187175571,
+        "mean_steps": 701.47
+      }
+    }
+  },
+  "settings": {
+    "algo": "sac",
+    "course": "normal",
+    "env_id": "BipedalWalker-v3",
+    "time_limit": 1600,
+    "n_envs": 1,
+    "normalize": false,
+    "hyperparameters": {
+      "policy": "MlpPolicy",
+      "learning_rate": 0.00073,
+      "buffer_size": 300000,
+      "batch_size": 256,
+      "ent_coef": "auto",
+      "gamma": 0.98,
+      "tau": 0.02,
+      "train_freq": 64,
+      "gradient_steps": 64,
+      "learning_starts": 10000,
+      "use_sde": true,
+      "policy_kwargs": {
+        "log_std_init": -3,
+        "net_arch": [
+          400,
+          300
+        ],
+        "use_sde": true
+      }
+    },
+    "hyperparameter_source": "RL Baselines3 Zoo v2.9.1, BipedalWalker-v3",
+    "save_points": {
+      "sac_524k": 524288
+    },
+    "train_seed": 242,
+    "curve_eval_seed": 2024,
+    "curve_eval_episodes": 10,
+    "curve_eval_every": 16384,
+    "curve_eval_every_late": 131072,
+    "validation_seed": 5000,
+    "validation_episodes": 100,
+    "solved_score": 300,
+    "cpu_threads": 1
+  },
+  "versions": {
+    "python": "3.11.17",
+    "torch": "2.14.1",
+    "stable_baselines3": "2.9.0",
+    "gymnasium": "1.4.0",
+    "numpy": "2.4.6",
+    "machine": "Darwin arm64"
+  }
+}

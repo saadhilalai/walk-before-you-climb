@@ -1,0 +1,1 @@
+{"test": "ppo", "course": "hardcore", "tag": "pre3", "threads": 1, "steps": 65536, "seconds": 15.1, "steps_per_sec": 4353, "practice_seconds": 7.3, "learning_seconds": 7.7, "machine": "Darwin arm64", "time": "2026-10-16 22:03:27"}

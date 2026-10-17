@@ -1,0 +1,8 @@
+[20:19:53] ppo: seeds [42, 142, 242] side by side, 1 core each
+[20:43:49] done
+  ppo_524k  seed  42 |   524,288 steps |    2.2 min | score  -27.5 ±   5.9 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   1.4%
+  ppo_5m    seed  42 | 5,046,272 steps |   21.1 min | score  284.5 ±  35.2 | finished  98.0% | fell   2.0% | backed off  0.0% | timed out   0.0% | distance  99.2%
+  ppo_524k  seed 142 |   524,288 steps |    2.2 min | score  -37.9 ±   6.0 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   2.1%
+  ppo_5m    seed 142 | 5,046,272 steps |   21.5 min | score  297.1 ±  27.3 | finished  99.0% | fell   1.0% | backed off  0.0% | timed out   0.0% | distance  99.5%
+  ppo_524k  seed 242 |   524,288 steps |    2.2 min | score  -24.4 ±   5.2 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   0.6%
+  ppo_5m    seed 242 | 5,046,272 steps |   21.1 min | score  278.0 ±  30.1 | finished  99.0% | fell   1.0% | backed off  0.0% | timed out   0.0% | distance  99.3%

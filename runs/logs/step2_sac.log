@@ -1,0 +1,5 @@
+[20:43:50] sac: seeds [42, 142, 242] side by side, 1 core each
+[21:47:08] done
+  sac_524k  seed  42 |   524,288 steps |   58.8 min | score  236.3 ± 127.4 | finished  71.0% | fell  29.0% | backed off  0.0% | timed out   0.0% | distance  86.7%
+  sac_524k  seed 142 |   524,288 steps |   60.6 min | score  312.2 ±  14.8 | finished  99.0% | fell   1.0% | backed off  0.0% | timed out   0.0% | distance  99.9%
+  sac_524k  seed 242 |   524,288 steps |   61.6 min | score  289.5 ±  83.1 | finished  88.0% | fell  12.0% | backed off  0.0% | timed out   0.0% | distance  95.0%

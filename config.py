@@ -99,6 +99,22 @@ SAC_ZOO = dict(
     ),
 )
 
+# The Zoo's separate settings for "BipedalWalkerHardcore-v3", copied exactly. Which set
+# Step 3 uses is decided before Step 3. ("lin", x) is the Zoo's "lin_x": start at x and
+# shrink in a straight line to 0 by the end of training. It must be measured over the
+# WHOLE run's budget (SB3's own schedule restarts every time training is resumed).
+PPO_ZOO_HARDCORE = dict(
+    n_envs=16, normalize=True, zoo_n_timesteps=100_000_000,
+    kwargs=dict(policy="MlpPolicy", n_steps=2048, batch_size=64, gae_lambda=0.95, gamma=0.99, n_epochs=10,
+                ent_coef=0.001, learning_rate=("lin", 2.5e-4), clip_range=("lin", 0.2)),
+)
+SAC_ZOO_HARDCORE = dict(
+    n_envs=1, normalize=False, zoo_n_timesteps=10_000_000,
+    kwargs=dict(policy="MlpPolicy", learning_rate=("lin", 7.3e-4), buffer_size=1_000_000, batch_size=256,
+                ent_coef=0.005, gamma=0.99, tau=0.01, train_freq=1, gradient_steps=1, learning_starts=10_000,
+                policy_kwargs=dict(net_arch=[400, 300])),
+)
+
 
 # ---- Training runs ----------------------------------------------------------------
 # 524,288 = 8 full PPO practice rounds (32 robots x 2,048 steps). PPO can only stop at the

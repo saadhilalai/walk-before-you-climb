@@ -1,0 +1,97 @@
+{
+  "run": "ppo",
+  "train_seed": 142,
+  "smoke": false,
+  "total_steps": 5046272,
+  "train_minutes": 21.5,
+  "wall_minutes": 23.85,
+  "saved_models": {
+    "ppo_524k": {
+      "name": "ppo_524k",
+      "run": "ppo",
+      "algo": "ppo",
+      "normalize": true,
+      "course": "normal",
+      "train_seed": 142,
+      "steps": 524288,
+      "train_minutes": 2.23,
+      "wall_minutes": 2.53,
+      "validation": {
+        "episodes": 100,
+        "mean_score": -37.93701771960361,
+        "std_score": 5.96609177848362,
+        "solved": false,
+        "finished_rate": 0.0,
+        "fell_rate": 0.0,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 1.0,
+        "mean_distance": 2.1011103543024214,
+        "mean_steps": 1600.0
+      }
+    },
+    "ppo_5m": {
+      "name": "ppo_5m",
+      "run": "ppo",
+      "algo": "ppo",
+      "normalize": true,
+      "course": "normal",
+      "train_seed": 142,
+      "steps": 5046272,
+      "train_minutes": 21.5,
+      "wall_minutes": 23.58,
+      "validation": {
+        "episodes": 100,
+        "mean_score": 297.09169014397196,
+        "std_score": 27.313666448729403,
+        "solved": false,
+        "finished_rate": 0.99,
+        "fell_rate": 0.01,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.0,
+        "mean_distance": 99.49666592431447,
+        "mean_steps": 1024.12
+      }
+    }
+  },
+  "settings": {
+    "algo": "ppo",
+    "course": "normal",
+    "env_id": "BipedalWalker-v3",
+    "time_limit": 1600,
+    "n_envs": 32,
+    "normalize": true,
+    "hyperparameters": {
+      "policy": "MlpPolicy",
+      "n_steps": 2048,
+      "batch_size": 64,
+      "gae_lambda": 0.95,
+      "gamma": 0.999,
+      "n_epochs": 10,
+      "ent_coef": 0.0,
+      "learning_rate": 0.0003,
+      "clip_range": 0.18
+    },
+    "hyperparameter_source": "RL Baselines3 Zoo v2.9.1, BipedalWalker-v3",
+    "save_points": {
+      "ppo_524k": 524288,
+      "ppo_5m": 5000000
+    },
+    "train_seed": 142,
+    "curve_eval_seed": 2024,
+    "curve_eval_episodes": 10,
+    "curve_eval_every": 16384,
+    "curve_eval_every_late": 131072,
+    "validation_seed": 5000,
+    "validation_episodes": 100,
+    "solved_score": 300,
+    "cpu_threads": 1
+  },
+  "versions": {
+    "python": "3.11.17",
+    "torch": "2.14.1",
+    "stable_baselines3": "2.9.0",
+    "gymnasium": "1.4.0",
+    "numpy": "2.4.6",
+    "machine": "Darwin arm64"
+  }
+}

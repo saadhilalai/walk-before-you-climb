@@ -1,0 +1,11 @@
+{
+  "name": "sac_524k",
+  "run": "sac",
+  "algo": "sac",
+  "normalize": false,
+  "course": "normal",
+  "train_seed": 242,
+  "steps": 524288,
+  "train_minutes": 61.59,
+  "wall_minutes": 63.08
+}

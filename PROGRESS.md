@@ -1,11 +1,11 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-16 evening. Step 2 training is running (see Step 2 below)._
+_Last updated 2026-10-16, 22:10. Step 2 is done. Waiting for the director to pick the Step 3 algorithm and budget (end of Step 2 below)._
 
 | Step | Status |
 |---|---|
 | 1. Setup, speed test, time budget | ✅ Done |
-| 2. First walker: PPO vs SAC (normal course) | 🔄 Training |
+| 2. First walker: PPO vs SAC (normal course) | ✅ Done (winner not yet picked) |
 | 3. Hardcore: from scratch (A) vs curriculum (B) | Not started |
 | 4. Checkpoint review | Not started |
 | 5. Final test (once) | Not started |
@@ -37,6 +37,8 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `benchmark_speed.py` | Step 1 speed test. Results in `runs/setup/benchmark.jsonl` |
 | `evaluate.py` | Loads a saved model (always with its normalization stats, if it has them) and runs it on a list of courses |
 | `train.py` | Trains a run (`ppo` or `sac`), all 3 seeds side by side on 1 core each. Saves models, curves, logs, `run_info.json` |
+| `compare.py` | Tests models on the same analysis courses and runs the paired tests. Results in `runs/compare/<name>.md/.json/_episodes.csv` |
+| `make_charts.py` | Draws the charts in `charts/` from saved results (never re-runs anything) |
 | `models/<name>/seed<N>/` | A trained model: `model.zip`, `vecnormalize.pkl` (PPO only) and `model_info.json` |
 | `runs/<run>/seed<N>/` | `train.log`, `curve.csv` (learning curve), `practice_episodes.csv` (every practice episode), `progress.csv` (SB3's own stats), `run_info.json` |
 | `runs/setup/` | Step 1 outputs: `check_setup.json`, rendered frames, `courses_overview.png`, `benchmark.jsonl` |
@@ -167,7 +169,7 @@ The Mac was not idle: background apps (video call / screen encoder) used roughly
 
 ---
 
-## Step 2: PPO vs SAC on the normal course (in progress)
+## Step 2: PPO vs SAC on the normal course (done 2026-10-16)
 
 ### Setup choices (made before training)
 - **"500k" = 524,288 steps for both algorithms.** PPO can only stop at the end of a full practice round (32 robots × 2,048 = 65,536 steps), and 8 rounds = 524,288. SAC gets exactly the same number, so the budget is equal.
@@ -189,3 +191,84 @@ The Mac was not idle: background apps (video call / screen encoder) used roughly
   - Two SAC runs with the same seed give identical learning curves and practice episodes.
 - **Why it matters:** the Step 6 videos must replay a test run and match its result exactly, and paired tests need "same course = same conditions".
 - Step 1's sanity-check numbers were re-run with the fix (updated above).
+
+### Wall-clock time (3 seeds side by side, 1 core each)
+| Run | Practice steps | Training time per seed | Speed per seed |
+|---|---|---|---|
+| PPO to 524k | 524,288 | 2.2 min | ~4,000 steps/s |
+| PPO to 5M (same runs, continued) | 5,046,272 | 21.0–21.5 min (24 min on the clock, with check-ups) | ~3,900–4,000 steps/s |
+| SAC | 524,288 | 58.8–61.6 min (63 min on the clock, with check-ups) | ~142–149 steps/s |
+
+- **PPO practises about 27× more steps per second than SAC.**
+- **Heat:** no slowdown over SAC's hour of training (speed bounced between 115 and 180 steps/s, with no downward trend). PPO dipped ~10% around minutes 4–12, then sped back up. The likely reason is the other session's work, not heat. Runs longer than an hour haven't been measured yet.
+- SAC ran faster than Step 1's benchmark predicted (145 vs 94 steps/s). The likely reason is the Mac being busier during that benchmark.
+
+### Validation (100 courses, 5000–5099; model loaded from disk)
+| Model | Seed 42 | Seed 142 | Seed 242 |
+|---|---|---|---|
+| SAC 524k | 236.3 (finished 71%) | **312.2 (99%): solved** | 289.5 (88%) |
+| PPO 524k | −27.5 (timed out 100%) | −37.9 (timed out 100%) | −24.4 (timed out 100%) |
+| PPO 5M | 284.5 (98%) | 297.1 (99%) | 278.0 (99%) |
+
+### Analysis courses (1,000 courses, 20000–20999, × 3 seeds = 3,000 episodes per model)
+| Model | Steps | Training min/seed | Score (± across seeds) | Finished | Fell | Backed off | Timed out | Distance | Solved? |
+|---|---|---|---|---|---|---|---|---|---|
+| SAC 524k | 524,288 | 60 | 282.2 ± 28.7 | 87.3% | 12.7% | 0.0% | 0.0% | 94.2% | 1 of 3 seeds (seed 142: 310.1) |
+| PPO 524k | 524,288 | 2 | −30.0 ± 6.4 | 0.0% | 0.0% | 0.0% | 100.0% | 1.4% | no |
+| PPO 5M | 5,046,272 | 21 | 287.8 ± 8.7 | 99.1% | 0.9% | 0.0% | 0.0% | 99.7% | no (best seed 298.2) |
+
+Paired tests (same course, same training seed). Full output: `runs/compare/step2.md`.
+- **Same practice (SAC 524k vs PPO 524k): SAC is far better. Proven.**
+  - SAC finished 2,619 courses that PPO didn't; PPO finished none that SAC didn't (McNemar p < 0.001).
+  - Score: +312 per course for SAC (Wilcoxon p < 0.001). Distance: +92.8 points. SAC is ahead in 3 of 3 seeds.
+- **PPO with 10× the practice (PPO 5M vs SAC 524k): a split result.**
+  - **PPO 5M is more reliable. Proven:** it finished 379 courses that SAC didn't, and SAC finished only 26 that PPO didn't (p < 0.001). It falls on 0.9% of courses vs SAC's 12.7%.
+  - **SAC scores higher on a typical course. Proven:** SAC is ahead on 87% of courses (median +20.5 for SAC; Wilcoxon p < 0.001).
+    - On the 2,593 courses both finished, SAC scored higher on **every one**, by 24.7 points on average.
+    - SAC also crossed the line in 760 steps (15 s of game time) vs PPO's 1,248 (25 s), so **SAC walks ~1.6× faster**.
+    - Likely reason for the higher score (not tested): fewer steps means less motor-energy cost, which the score subtracts at every step.
+  - **Average score is about equal:** PPO +5.7 overall, because SAC's falls (about −100 each) pull its average down. PPO is ahead in only 1 of 3 seeds (seed 42, SAC's weakest; it had 263 of SAC's 381 falls).
+  - PPO 5M used about a third of SAC's clock time (21 vs 60 min per seed).
+
+Chart: `charts/2_ppo_vs_sac.png`. Left: same practice. Right: same clock.
+
+### Why SAC learned more from the same practice (plain English)
+- **SAC keeps a memory** of its last 300,000 moments. After every practice step it makes a small brain update from 256 remembered moments. Each moment gets reused many times.
+  - In 524,288 steps that's **524,288 small brain updates**.
+- **PPO learns only from fresh practice.** 32 robots practise 65,536 steps, PPO makes one careful brain update from them, then **throws them away**.
+  - In 524,288 steps that's only **8 brain updates**. That wasn't enough to get past the "stand still" trap (next point).
+- **PPO's advantage is speed.** Nothing to re-learn from memory, so each step is cheap: 27× more steps per second. With 10× more steps, it caught up in a third of the time.
+
+### What the learning curves show
+- **Both fell into the "freeze" trap first.** Standing still until time runs out scores about −10 to −40, which beats falling (−100).
+  - SAC escaped after ~150–260k steps, depending on the seed.
+  - PPO was still frozen at 524k (100% timed out on every seed) and escaped at about 1M steps.
+- **Odd thing: PPO's "slow walker" phase.** From about 1M to 3M steps, PPO walked forward but too slowly to reach the finish in the 32 s allowed (timed out 100%, while getting 52–96% of the way). We'll watch the gait in Step 4's videos.
+- **SAC's check-up scores jump around** (seed 42: between 95 and 317 from one check-up to the next). Likely reason: its brain changes after every step, so a check-up can catch it in a bad moment. PPO's curve is smooth after 3M steps.
+
+### Measured speed for planning Step 3 (2026-10-16, 22:00)
+- **Hardcore speed test** (`benchmark_speed.py --hardcore`, the Zoo's hardcore settings on the hardcore course, 3 side by side):
+  - SAC: 134–174 steps/s, vs 124–181 for the normal settings in the same test. About 5% slower.
+  - PPO: ~4,360, vs ~4,550 for the normal settings. About 4% slower.
+- **Applied to Step 2's real speed:** SAC ~138 steps/s per run and PPO ~3,800 per run, plus check-up time (~5% for SAC, ~12% for PPO).
+- Step 3 = 6 runs (A and B × 3 seeds), 3 at a time, so **2 batches back to back**:
+
+| Practice steps per agent | SAC: total time | PPO: total time |
+|---|---|---|
+| 1M | ~4 h | ~10 min |
+| 2M | ~8.5 h | ~20 min |
+| 5M | ~21 h | ~50 min |
+| 10M (Zoo's SAC hardcore budget) | ~42 h | ~1.6 h |
+| 25M | | ~4 h |
+| 50M | | ~8 h |
+| 100M (Zoo's PPO hardcore budget) | | ~16.5 h |
+
+- **Heat risk:** runs over an hour haven't been tested. The time could be ~20% longer if the Mac slows down overnight. I'll watch the speed in the logs.
+- **What the Zoo's own trained agents scored on hardcore** ([RL Zoo benchmark](https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/benchmark.md), one published agent each):
+  - PPO after 100M steps: **122 ± 118**
+  - SAC after 10M steps: **4 ± 104**
+  - (The Zoo's best is TQC, an upgraded SAC: 235 after 2M. It wasn't in our comparison.)
+- **The Zoo's separate hardcore settings** are written down exactly in `config.py` (`PPO_ZOO_HARDCORE`, `SAC_ZOO_HARDCORE`).
+  - Both use learning rates that shrink to 0 by the end of training. This has to be measured over the **whole** run, so I'll write that myself: SB3's built-in version restarts each time training is resumed.
+  - Which settings Step 3 uses is still to be decided.
+

@@ -1,0 +1,37 @@
+[sac seed 142] SAC on the normal course, saves at sac_524k=524,288 steps
+        0 steps |    0.0 min |      0 steps/s | score  -14.6 ±   1.9 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   0.3%
+   16,384 steps |    0.8 min |    351 steps/s | score -103.2 ±   2.3 | finished   0.0% | fell  70.0% | backed off  0.0% | timed out  30.0% | distance   3.3%
+   32,768 steps |    2.3 min |    175 steps/s | score  -87.5 ±   6.4 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   0.0%
+   49,152 steps |    3.9 min |    174 steps/s | score  -93.5 ±  13.6 | finished   0.0% | fell  70.0% | backed off  0.0% | timed out  30.0% | distance   3.6%
+   65,536 steps |    5.5 min |    169 steps/s | score  -99.5 ±   3.0 | finished   0.0% | fell 100.0% | backed off  0.0% | timed out   0.0% | distance   4.6%
+   81,920 steps |    7.2 min |    162 steps/s | score  -61.6 ±   0.7 | finished   0.0% | fell   0.0% | backed off  0.0% | timed out 100.0% | distance   1.9%
+   98,304 steps |    8.7 min |    184 steps/s | score  -93.5 ±  23.8 | finished   0.0% | fell  80.0% | backed off  0.0% | timed out  20.0% | distance   1.7%
+  114,688 steps |   11.1 min |    115 steps/s | score    9.8 ±  72.7 | finished   0.0% | fell  30.0% | backed off  0.0% | timed out  70.0% | distance  27.5%
+  131,072 steps |   12.6 min |    183 steps/s | score  -29.5 ±  34.4 | finished   0.0% | fell  20.0% | backed off  0.0% | timed out  80.0% | distance  16.3%
+  147,456 steps |   14.8 min |    125 steps/s | score  137.7 ± 142.8 | finished  40.0% | fell  50.0% | backed off  0.0% | timed out  10.0% | distance  71.0%
+  163,840 steps |   16.6 min |    146 steps/s | score  188.9 ± 163.9 | finished  70.0% | fell  30.0% | backed off  0.0% | timed out   0.0% | distance  75.3%
+  180,224 steps |   18.5 min |    146 steps/s | score  264.2 ±  79.0 | finished  80.0% | fell  20.0% | backed off  0.0% | timed out   0.0% | distance  94.6%
+  196,608 steps |   20.3 min |    152 steps/s | score  241.7 ± 128.3 | finished  80.0% | fell  20.0% | backed off  0.0% | timed out   0.0% | distance  87.2%
+  212,992 steps |   21.8 min |    180 steps/s | score  303.5 ±   0.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  229,376 steps |   23.3 min |    180 steps/s | score  283.7 ±  61.0 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  97.1%
+  245,760 steps |   25.5 min |    129 steps/s | score  305.0 ±   0.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  262,144 steps |   27.4 min |    142 steps/s | score  237.5 ±  86.0 | finished  60.0% | fell  40.0% | backed off  0.0% | timed out   0.0% | distance  92.7%
+  278,528 steps |   30.0 min |    103 steps/s | score  241.9 ± 130.9 | finished  80.0% | fell  20.0% | backed off  0.0% | timed out   0.0% | distance  86.1%
+  294,912 steps |   32.4 min |    114 steps/s | score  309.6 ±   0.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  311,296 steps |   34.4 min |    138 steps/s | score  309.2 ±   0.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  327,680 steps |   36.3 min |    143 steps/s | score  308.4 ±   0.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  344,064 steps |   38.3 min |    140 steps/s | score  312.4 ±   0.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  360,448 steps |   40.2 min |    142 steps/s | score  310.5 ±   0.6 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  376,832 steps |   42.0 min |    148 steps/s | score  279.3 ± 101.2 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  92.8%
+  393,216 steps |   43.6 min |    173 steps/s | score  293.2 ±  62.8 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  96.9%
+  409,600 steps |   46.0 min |    116 steps/s | score  277.0 ±  82.5 | finished  80.0% | fell  20.0% | backed off  0.0% | timed out   0.0% | distance  94.8%
+  425,984 steps |   47.7 min |    159 steps/s | score  319.6 ±   0.8 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  442,368 steps |   50.0 min |    120 steps/s | score  297.1 ±  66.6 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  96.6%
+  458,752 steps |   53.4 min |     79 steps/s | score  319.8 ±   0.9 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  475,136 steps |   55.4 min |    135 steps/s | score  319.4 ±   0.7 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  491,520 steps |   57.1 min |    164 steps/s | score  300.3 ±  62.4 | finished  90.0% | fell  10.0% | backed off  0.0% | timed out   0.0% | distance  97.0%
+  507,904 steps |   58.8 min |    162 steps/s | score  320.2 ±   0.5 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  524,288 steps |   60.6 min |    149 steps/s | score  314.1 ±   1.3 | finished 100.0% | fell   0.0% | backed off  0.0% | timed out   0.0% | distance 100.0%
+  saved models/sac_524k/seed142 at 524,288 steps (60.6 min of training)
+  validation (100 courses): score  312.2 ±  14.8 | finished  99.0% | fell   1.0% | backed off  0.0% | timed out   0.0% | distance  99.9% -> SOLVED
+done: 524,288 steps in 60.6 min of training (62.1 min including check-ups)
