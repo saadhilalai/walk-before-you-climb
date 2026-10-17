@@ -22,7 +22,8 @@ TRAIN_SEEDS = (42, 142, 242)
 
 # Course seeds. Course seed s always builds the exact same course (terrain + starting push).
 SETUP_SEED = 0            # courses 0-99: Step 1 sanity checks only
-CURVE_EVAL_SEED = 2_024   # the quick check-ups drawn on the learning curve
+CURVE_EVAL_SEED = 2_024   # the quick check-ups drawn on the learning curve (a hardcore course with seed s
+                          # is a different course from the normal one with seed s)
 VALIDATION_SEED = 5_000   # courses 5000-5099: used during training and to pick settings
 ANALYSIS_SEED = 20_000    # courses 20000+: comparing agents along the way
 TEST_SEED = 10_000        # courses 10000-10099: HIDDEN until the final test, used exactly once
@@ -99,10 +100,11 @@ SAC_ZOO = dict(
     ),
 )
 
-# The Zoo's separate settings for "BipedalWalkerHardcore-v3", copied exactly. Which set
-# Step 3 uses is decided before Step 3. ("lin", x) is the Zoo's "lin_x": start at x and
-# shrink in a straight line to 0 by the end of training. It must be measured over the
-# WHOLE run's budget (SB3's own schedule restarts every time training is resumed).
+# The Zoo's separate settings for "BipedalWalkerHardcore-v3", copied exactly.
+# Step 3 uses PPO_ZOO_HARDCORE for BOTH agents (director's decision, 2026-10-16).
+# ("lin", x) is the Zoo's "lin_x": start at x and shrink in a straight line to 0 by the end
+# of training. train.py measures it over the WHOLE run (SB3's own version restarts every
+# time training is resumed, e.g. at a save point or when B switches courses).
 PPO_ZOO_HARDCORE = dict(
     n_envs=16, normalize=True, zoo_n_timesteps=100_000_000,
     kwargs=dict(policy="MlpPolicy", n_steps=2048, batch_size=64, gae_lambda=0.95, gamma=0.99, n_epochs=10,
@@ -114,25 +116,61 @@ SAC_ZOO_HARDCORE = dict(
                 ent_coef=0.005, gamma=0.99, tau=0.01, train_freq=1, gradient_steps=1, learning_starts=10_000,
                 policy_kwargs=dict(net_arch=[400, 300])),
 )
+PPO_ZOO["zoo_entry"] = SAC_ZOO["zoo_entry"] = "BipedalWalker-v3"
+PPO_ZOO_HARDCORE["zoo_entry"] = SAC_ZOO_HARDCORE["zoo_entry"] = "BipedalWalkerHardcore-v3"
 
 
 # ---- Training runs ----------------------------------------------------------------
-# 524,288 = 8 full PPO practice rounds (32 robots x 2,048 steps). PPO can only stop at the
-# end of a round, so "500k" is rounded up to this for BOTH algorithms: the budget stays equal.
+# A run trains one algorithm with one set of settings. It has one or more phases, each on
+# one course; every phase saves a model at each listed step count (counted from the start
+# of the run). Check-ups happen every `every` steps (`every_late` after the phase's first
+# save) on the run's `checkups` courses: {course: number of curve courses}.
+
+# Step 2. 524,288 = 8 full PPO practice rounds (32 robots x 2,048 steps). PPO can only stop
+# at the end of a round, so "500k" is rounded up to this for BOTH algorithms.
 STEP2_STEPS = 524_288
 PPO_LONG_STEPS = 5_000_000   # PPO continued to its Zoo budget (it stops at the end of a round: 5,046,272)
 
-# A run trains one algorithm and saves a model at each listed step count.
-RUNS = {
-    "ppo": dict(algo="ppo", course="normal", saves={"ppo_524k": STEP2_STEPS, "ppo_5m": PPO_LONG_STEPS}),
-    "sac": dict(algo="sac", course="normal", saves={"sac_524k": STEP2_STEPS}),
-}
-ALGOS = {"ppo": PPO_ZOO, "sac": SAC_ZOO}
+# Step 3. PPO's practice round with the hardcore settings is 16 robots x 2,048 = 32,768 steps,
+# so every budget is rounded up to whole rounds. A and B get exactly the same total.
+STEP3_ROUND = PPO_ZOO_HARDCORE["n_envs"] * PPO_ZOO_HARDCORE["kwargs"]["n_steps"]
 
-# ---- Learning-curve check-ups ---------------------------------------------------------
-CURVE_EVAL_EPISODES = 10      # courses per check-up (curve courses 2024-2033, the same every time)
-CURVE_EVAL_EVERY = 16_384     # steps between check-ups (32 points over 524k)
-CURVE_EVAL_EVERY_LATE = 131_072   # after 524,288 steps (PPO's long run only)
+
+def whole_rounds(steps, round_size=STEP3_ROUND):
+    return -(-steps // round_size) * round_size
+
+
+STEP3_TOTAL_STEPS = whole_rounds(100_000_000)   # 100,007,936 for both A and B
+B_NORMAL_STEPS = whole_rounds(5_000_000)        # 5,013,504: B's normal phase (counts toward its total)
+STEP3_CHECKUPS = {"hardcore": 20, "normal": 10}  # both agents are checked on both courses
+STEP3_EVERY = 1_048_576                         # check-up every 32 rounds (~1M steps)
+B_NORMAL_EVERY = 262_144                        # more often while B learns to walk (8 rounds)
+
+
+def step3_saves(prefix):
+    saves = {f"{prefix}_{m}m": whole_rounds(m * 1_000_000) for m in (25, 50, 75)}
+    saves[f"{prefix}_100m"] = STEP3_TOTAL_STEPS
+    return saves
+
+
+RUNS = {
+    # Step 2: PPO vs SAC on the normal course
+    "ppo": dict(algo="ppo", hp=PPO_ZOO, checkups={"normal": 10}, phases=[
+        dict(course="normal", every=16_384, every_late=131_072,
+             saves={"ppo_524k": STEP2_STEPS, "ppo_5m": PPO_LONG_STEPS})]),
+    "sac": dict(algo="sac", hp=SAC_ZOO, checkups={"normal": 10}, phases=[
+        dict(course="normal", every=16_384, every_late=131_072, saves={"sac_524k": STEP2_STEPS})]),
+    # Step 3: hardcore. A = from scratch, B = curriculum (normal first, then hardcore).
+    "a": dict(algo="ppo", hp=PPO_ZOO_HARDCORE, checkups=STEP3_CHECKUPS, phases=[
+        dict(course="hardcore", every=STEP3_EVERY, saves=step3_saves("a"))]),
+    "b": dict(algo="ppo", hp=PPO_ZOO_HARDCORE, checkups=STEP3_CHECKUPS, phases=[
+        dict(course="normal", every=B_NORMAL_EVERY, saves={"b_5m": B_NORMAL_STEPS}),
+        dict(course="hardcore", every=STEP3_EVERY, saves=step3_saves("b"))]),
+}
+
+# Safety check between B's two phases (agreed before training): B only moves on to hardcore
+# if every seed finishes at least 90% of the 100 normal validation courses at 5M steps.
+B_GATE = dict(run="b", model="b_5m", min_finished=0.90)
 
 # ---- Comparisons ------------------------------------------------------------------------
 N_ANALYSIS_EPISODES = 1_000   # analysis courses per trained seed

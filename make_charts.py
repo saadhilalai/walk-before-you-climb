@@ -51,14 +51,15 @@ def title(fig, main, sub):
     fig.text(0.01, 0.915, sub, fontsize=10.5, color=INK_2, va="top")
 
 
-def load_curves(run):
-    """Learning curves of all seeds of a run, trimmed to the check-ups every seed has reached.
-    Returns steps, minutes (mean over seeds) and a (seeds x check-ups) array per column."""
+def load_curves(run, course="normal"):
+    """Learning curves (check-ups on one course) of all seeds of a run, trimmed to the check-ups
+    every seed has reached. Returns steps, minutes (mean over seeds) and a (seeds x check-ups)
+    array per column. Step 2's curve files have no "course" column: they are all normal course."""
     rows = []
     for seed in config.TRAIN_SEEDS:
         path = Path("runs") / run / f"seed{seed}" / "curve.csv"
         if path.exists():
-            rows.append(list(csv.DictReader(path.open())))
+            rows.append([r for r in csv.DictReader(path.open()) if r.get("course", "normal") == course])
     if not rows:
         return None
     n = min(len(r) for r in rows)

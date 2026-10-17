@@ -1,12 +1,12 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-16, 22:10. Step 2 is done. Waiting for the director to pick the Step 3 algorithm and budget (end of Step 2 below)._
+_Last updated 2026-10-16, 23:40. Step 3 training is starting (see Step 3 below)._
 
 | Step | Status |
 |---|---|
 | 1. Setup, speed test, time budget | ✅ Done |
-| 2. First walker: PPO vs SAC (normal course) | ✅ Done (winner not yet picked) |
-| 3. Hardcore: from scratch (A) vs curriculum (B) | Not started |
+| 2. First walker: PPO vs SAC (normal course) | ✅ Done (PPO picked for Step 3) |
+| 3. Hardcore: from scratch (A) vs curriculum (B) | 🔄 Training |
 | 4. Checkpoint review | Not started |
 | 5. Final test (once) | Not started |
 | 6. Charts and videos | Not started |
@@ -39,8 +39,9 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `train.py` | Trains a run (`ppo` or `sac`), all 3 seeds side by side on 1 core each. Saves models, curves, logs, `run_info.json` |
 | `compare.py` | Tests models on the same analysis courses and runs the paired tests. Results in `runs/compare/<name>.md/.json/_episodes.csv` |
 | `make_charts.py` | Draws the charts in `charts/` from saved results (never re-runs anything) |
+| `gate.py` | Step 3 safety check between B's two phases (B moves on only if every seed finishes 90%+ of normal validation courses) |
 | `models/<name>/seed<N>/` | A trained model: `model.zip`, `vecnormalize.pkl` (PPO only) and `model_info.json` |
-| `runs/<run>/seed<N>/` | `train.log`, `curve.csv` (learning curve), `practice_episodes.csv` (every practice episode), `progress.csv` (SB3's own stats), `run_info.json` |
+| `runs/<run>/seed<N>/` | `train.log`, `curve.csv` (learning curve), `practice_episodes.csv.gz` (every practice episode; Step 2: `.csv`), `progress.csv` (SB3's own stats; B has one per phase), `run_info.json` |
 | `runs/setup/` | Step 1 outputs: `check_setup.json`, rendered frames, `courses_overview.png`, `benchmark.jsonl` |
 
 ---
@@ -271,4 +272,43 @@ Chart: `charts/2_ppo_vs_sac.png`. Left: same practice. Right: same clock.
 - **The Zoo's separate hardcore settings** are written down exactly in `config.py` (`PPO_ZOO_HARDCORE`, `SAC_ZOO_HARDCORE`).
   - Both use learning rates that shrink to 0 by the end of training. This has to be measured over the **whole** run, so I'll write that myself: SB3's built-in version restarts each time training is resumed.
   - Which settings Step 3 uses is still to be decided.
+
+---
+
+## Step 3: hardcore, from scratch (A) vs curriculum (B) (in progress)
+
+### Decisions (director, 2026-10-16)
+1. **Algorithm: PPO.** SAC learned more from the same practice, but PPO wins on time on this Mac, and the Zoo's own results show SAC barely learns hardcore (4 after 10M steps).
+2. **Budget: 100M steps per agent** (~16.5 h). It matches the Zoo's PPO hardcore budget, so our A can be compared with the Zoo's 122 (a rough comparison only: their single agent, different courses).
+3. **Settings: the Zoo's hardcore settings (`PPO_ZOO_HARDCORE`), identical for A and B.**
+   - 16 robots, gamma 0.99, a small exploration bonus (0.001).
+   - The learning rate (2.5e-4) and the clip range (0.2) shrink in a straight line to 0 over the whole run.
+4. **B's split: 5M normal, then 95M hardcore.**
+   - Exact: 5,013,504 normal + 94,994,432 hardcore = 100,007,936. A gets 100,007,936 hardcore.
+   - PPO stops only at the end of a 32,768-step practice round, so every budget is whole rounds.
+   - Why 5M: in Step 2, PPO learned to finish normal courses by ~3M steps. 5M adds margin, is the Zoo's normal budget, and costs B only 5% of its hardcore practice.
+
+### How it's run
+- **What B keeps at the switch:** everything (brain, optimizer memory, step counter, normalization stats, which keep updating). Phase 2 starts from B's 5M model loaded from disk, so the switch is exactly reproducible.
+- **Same start:** A and B with the same seed begin with identical brain weights (checked: all 13 weight tables equal).
+- **Check-ups:**
+  - Both agents, on 20 hardcore and 10 normal curve courses, every 1,048,576 steps (32 rounds).
+  - During B's normal phase: every 262,144 steps.
+- **Saves:** 25M, 50M, 75M and 100M (plus B at 5M), each validated on 100 validation courses of its phase's course. We keep the final 100M model.
+- **Safety check (`gate.py`):** B moves on to hardcore only if every seed finishes at least 90% of the 100 normal validation courses at 5M. If not: stop and ask.
+- **Order:**
+  - Batch 0: B's normal phase (~25 min)
+  - Safety check
+  - Batch 1: B's hardcore phase (~7 h)
+  - Batch 2: A (~7.5 h)
+
+### Smoke test (tiny budgets, scratch folder, seed 42): all passed
+- The whole chain runs: B phase 1 → safety check → B phase 2, plus A.
+  - The safety check correctly **failed** the barely trained smoke model (0% finished) and exits with an error, so a chained command stops there.
+- **Exactly reproducible:** B run twice in separate folders gave an identical curve, practice log and final brain.
+- **The schedule shrinks over the whole run, not per piece:**
+  - Learning rate 2.5e-4 → 2e-4 at the switch → … → 0 at the end, matching the whole-run formula.
+  - Before this fix, SB3's own schedule would have restarted at every save point.
+- **Re-running phase 2 replaces it cleanly:** identical files to a clean run, no duplicate rows.
+- **Step 2's runs still work with the new code,** and give the same check-up numbers as before (e.g. −109.9656 at 65,536 steps).
 
