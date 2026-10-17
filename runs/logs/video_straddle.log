@@ -1,0 +1,5 @@
+A stops making progress at 2.9 s; B clears the same stump at 3.0 s -> 10 s clip
+Replaying hardcore analysis course 20821, training seed 142:
+  a_100m: replay timed_out, score -8.794230, 2000 steps | recorded timed_out, score -8.794230 -> MATCH
+  b_100m: replay finished, score 264.790865, 1226 steps | recorded finished, score 264.790865 -> MATCH
+Saved videos/step4_stump_straddle_a_vs_b.mp4 (651 frames, 13.0 s, 3616x1344)

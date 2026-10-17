@@ -1,0 +1,1702 @@
+{
+  "a_100m": {
+    "examples": [
+      {
+        "seed": 42,
+        "course": 20000,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.65,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -8.0
+      },
+      {
+        "seed": 42,
+        "course": 20002,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.33,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": -5.1
+      },
+      {
+        "seed": 42,
+        "course": 20003,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -9.72,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": 9.9
+      },
+      {
+        "seed": 42,
+        "course": 20004,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.47,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 19.6
+      },
+      {
+        "seed": 42,
+        "course": 20005,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -5.94,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 2.2
+      },
+      {
+        "seed": 42,
+        "course": 20009,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.32,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -7.3
+      },
+      {
+        "seed": 42,
+        "course": 20011,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 1.48,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -4.5
+      },
+      {
+        "seed": 42,
+        "course": 20013,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 2.74,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0004,
+        "moved_last_10s": 0.004,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -11.0
+      },
+      {
+        "seed": 42,
+        "course": 20017,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -7.64,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -12.7
+      },
+      {
+        "seed": 42,
+        "course": 20019,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.83,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          false
+        ],
+        "lean_deg": -5.5
+      },
+      {
+        "seed": 42,
+        "course": 20022,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 1.04,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -7.0
+      },
+      {
+        "seed": 42,
+        "course": 20025,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.67,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -5.4
+      },
+      {
+        "seed": 42,
+        "course": 20027,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.54,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": 9.0
+      },
+      {
+        "seed": 42,
+        "course": 20028,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.46,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": -1.7
+      },
+      {
+        "seed": 42,
+        "course": 20029,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 2.72,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -11.4
+      },
+      {
+        "seed": 42,
+        "course": 20031,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -6.7,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -13.5
+      },
+      {
+        "seed": 42,
+        "course": 20033,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -5.33,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -2.5
+      },
+      {
+        "seed": 42,
+        "course": 20035,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.37,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -4.9
+      },
+      {
+        "seed": 42,
+        "course": 20036,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -3.93,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 23.0
+      },
+      {
+        "seed": 42,
+        "course": 20040,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 0.15,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.5899,
+        "moved_last_10s": 0.198,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": 4.1
+      },
+      {
+        "seed": 142,
+        "course": 20002,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.78,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -0.5
+      },
+      {
+        "seed": 142,
+        "course": 20003,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -9.74,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": 6.9
+      },
+      {
+        "seed": 142,
+        "course": 20005,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -5.04,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 5.6
+      },
+      {
+        "seed": 142,
+        "course": 20006,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 1.43,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -3.2
+      },
+      {
+        "seed": 142,
+        "course": 20007,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.37,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -5.5
+      },
+      {
+        "seed": 142,
+        "course": 20008,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -3.35,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": 29.9
+      },
+      {
+        "seed": 142,
+        "course": 20009,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.91,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -7.9
+      },
+      {
+        "seed": 142,
+        "course": 20011,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 0.62,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": 0.3
+      },
+      {
+        "seed": 142,
+        "course": 20013,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.33,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 0.7
+      },
+      {
+        "seed": 142,
+        "course": 20015,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.24,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.2128,
+        "moved_last_10s": 0.168,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 7.4
+      },
+      {
+        "seed": 142,
+        "course": 20019,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.8,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -5.4
+      },
+      {
+        "seed": 142,
+        "course": 20021,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 0.85,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          false
+        ],
+        "lean_deg": -4.7
+      },
+      {
+        "seed": 142,
+        "course": 20022,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.92,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": 22.9
+      },
+      {
+        "seed": 142,
+        "course": 20024,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.6,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 1.2
+      },
+      {
+        "seed": 142,
+        "course": 20026,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 0.63,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": -0.9
+      },
+      {
+        "seed": 142,
+        "course": 20027,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -6.6,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -12.0
+      },
+      {
+        "seed": 142,
+        "course": 20028,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 2.25,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -10.8
+      },
+      {
+        "seed": 142,
+        "course": 20029,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 1.26,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -4.8
+      },
+      {
+        "seed": 142,
+        "course": 20033,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.73,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -2.6
+      },
+      {
+        "seed": 142,
+        "course": 20034,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 0.92,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          false
+        ],
+        "lean_deg": -5.3
+      },
+      {
+        "seed": 242,
+        "course": 20000,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -3.72,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -1.3
+      },
+      {
+        "seed": 242,
+        "course": 20001,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -1.9,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -0.4
+      },
+      {
+        "seed": 242,
+        "course": 20005,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.68,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 8.3
+      },
+      {
+        "seed": 242,
+        "course": 20006,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.29,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": 1.7
+      },
+      {
+        "seed": 242,
+        "course": 20008,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.88,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": -5.3
+      },
+      {
+        "seed": 242,
+        "course": 20009,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -5.19,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -8.1
+      },
+      {
+        "seed": 242,
+        "course": 20011,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.68,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 0.7
+      },
+      {
+        "seed": 242,
+        "course": 20012,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.44,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 1.9
+      },
+      {
+        "seed": 242,
+        "course": 20013,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 0.17,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.3861,
+        "moved_last_10s": 0.392,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -7.9
+      },
+      {
+        "seed": 242,
+        "course": 20018,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 2.38,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -10.5
+      },
+      {
+        "seed": 242,
+        "course": 20019,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 0.48,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": 5.0
+      },
+      {
+        "seed": 242,
+        "course": 20021,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.87,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 3.0
+      },
+      {
+        "seed": 242,
+        "course": 20022,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -3.54,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -6.0
+      },
+      {
+        "seed": 242,
+        "course": 20024,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.43,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          false
+        ],
+        "lean_deg": 1.8
+      },
+      {
+        "seed": 242,
+        "course": 20026,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.4,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": 1.5
+      },
+      {
+        "seed": 242,
+        "course": 20028,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.73,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -4.4
+      },
+      {
+        "seed": 242,
+        "course": 20029,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.26,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 1.2
+      },
+      {
+        "seed": 242,
+        "course": 20031,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 2.79,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -14.7
+      },
+      {
+        "seed": 242,
+        "course": 20032,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -1.95,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 1.0
+      },
+      {
+        "seed": 242,
+        "course": 20034,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.62,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": 0.5
+      }
+    ],
+    "pose": {
+      "in front of it": 44,
+      "straddling it": 16
+    },
+    "median_joint_speed_last_10s": 0.0,
+    "median_moved_last_10s": 0.0
+  },
+  "b_100m": {
+    "examples": [
+      {
+        "seed": 42,
+        "course": 20001,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -1.8,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -19.8
+      },
+      {
+        "seed": 42,
+        "course": 20002,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.06,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -10.8
+      },
+      {
+        "seed": 42,
+        "course": 20003,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.21,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -7.0
+      },
+      {
+        "seed": 42,
+        "course": 20004,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.2,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -15.3
+      },
+      {
+        "seed": 42,
+        "course": 20006,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -1.81,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -18.5
+      },
+      {
+        "seed": 42,
+        "course": 20009,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.01,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -9.9
+      },
+      {
+        "seed": 42,
+        "course": 20010,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.03,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -13.5
+      },
+      {
+        "seed": 42,
+        "course": 20012,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -1.89,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -16.7
+      },
+      {
+        "seed": 42,
+        "course": 20013,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.02,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -14.6
+      },
+      {
+        "seed": 42,
+        "course": 20017,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -1.94,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -16.4
+      },
+      {
+        "seed": 42,
+        "course": 20018,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.2,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -6.1
+      },
+      {
+        "seed": 42,
+        "course": 20019,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.02,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -20.7
+      },
+      {
+        "seed": 42,
+        "course": 20023,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -1.84,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -18.1
+      },
+      {
+        "seed": 42,
+        "course": 20029,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.03,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -12.8
+      },
+      {
+        "seed": 42,
+        "course": 20031,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.09,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -12.3
+      },
+      {
+        "seed": 42,
+        "course": 20033,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.11,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -11.8
+      },
+      {
+        "seed": 42,
+        "course": 20034,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -1.95,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -16.3
+      },
+      {
+        "seed": 42,
+        "course": 20035,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.07,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -8.7
+      },
+      {
+        "seed": 42,
+        "course": 20039,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.16,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -6.9
+      },
+      {
+        "seed": 42,
+        "course": 20040,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.09,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -11.4
+      },
+      {
+        "seed": 142,
+        "course": 20002,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.44,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 2.2
+      },
+      {
+        "seed": 142,
+        "course": 20003,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.69,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": 8.5
+      },
+      {
+        "seed": 142,
+        "course": 20008,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.48,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.4401,
+        "moved_last_10s": 0.152,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 7.1
+      },
+      {
+        "seed": 142,
+        "course": 20009,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.43,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 6.2
+      },
+      {
+        "seed": 142,
+        "course": 20012,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.35,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -1.5
+      },
+      {
+        "seed": 142,
+        "course": 20013,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.57,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": 5.2
+      },
+      {
+        "seed": 142,
+        "course": 20015,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.26,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 1.8683,
+        "moved_last_10s": 0.294,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -3.9
+      },
+      {
+        "seed": 142,
+        "course": 20017,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.75,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 2.0586,
+        "moved_last_10s": 0.338,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -0.8
+      },
+      {
+        "seed": 142,
+        "course": 20024,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.43,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 1.9
+      },
+      {
+        "seed": 142,
+        "course": 20026,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.38,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -0.2
+      },
+      {
+        "seed": 142,
+        "course": 20029,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.43,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -0.8
+      },
+      {
+        "seed": 142,
+        "course": 20030,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.59,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 1.943,
+        "moved_last_10s": 0.223,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": 3.7
+      },
+      {
+        "seed": 142,
+        "course": 20031,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.62,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 2.0179,
+        "moved_last_10s": 0.33,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 3.4
+      },
+      {
+        "seed": 142,
+        "course": 20032,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.32,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -2.5
+      },
+      {
+        "seed": 142,
+        "course": 20034,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 1.11,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          false
+        ],
+        "lean_deg": -13.0
+      },
+      {
+        "seed": 142,
+        "course": 20039,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.3,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -2.6
+      },
+      {
+        "seed": 142,
+        "course": 20040,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.63,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": 9.8
+      },
+      {
+        "seed": 142,
+        "course": 20049,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.57,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 2.7
+      },
+      {
+        "seed": 142,
+        "course": 20050,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.43,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 1.683,
+        "moved_last_10s": 0.389,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -1.6
+      },
+      {
+        "seed": 142,
+        "course": 20051,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 1.4,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -16.8
+      },
+      {
+        "seed": 242,
+        "course": 20004,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.69,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 2.7
+      },
+      {
+        "seed": 242,
+        "course": 20005,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.59,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 9.7
+      },
+      {
+        "seed": 242,
+        "course": 20007,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.73,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 6.2
+      },
+      {
+        "seed": 242,
+        "course": 20009,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.41,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": -2.1
+      },
+      {
+        "seed": 242,
+        "course": 20019,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.47,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 3.8
+      },
+      {
+        "seed": 242,
+        "course": 20021,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.28,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": -4.5
+      },
+      {
+        "seed": 242,
+        "course": 20028,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -3.46,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 7.6
+      },
+      {
+        "seed": 242,
+        "course": 20034,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.4,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": -0.3
+      },
+      {
+        "seed": 242,
+        "course": 20036,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.92,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 3.8
+      },
+      {
+        "seed": 242,
+        "course": 20039,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.99,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -1.0
+      },
+      {
+        "seed": 242,
+        "course": 20040,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.78,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 6.3
+      },
+      {
+        "seed": 242,
+        "course": 20045,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.71,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 8.8
+      },
+      {
+        "seed": 242,
+        "course": 20049,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.55,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 3.6
+      },
+      {
+        "seed": 242,
+        "course": 20051,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.37,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": 1.2
+      },
+      {
+        "seed": 242,
+        "course": 20054,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -3.09,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 2.4054,
+        "moved_last_10s": 0.394,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 5.8
+      },
+      {
+        "seed": 242,
+        "course": 20057,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.17,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          false
+        ],
+        "lean_deg": -6.4
+      },
+      {
+        "seed": 242,
+        "course": 20058,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.89,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 1.7
+      },
+      {
+        "seed": 242,
+        "course": 20061,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.59,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 3.5
+      },
+      {
+        "seed": 242,
+        "course": 20062,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.58,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 5.3
+      },
+      {
+        "seed": 242,
+        "course": 20066,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -2.9,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 10.8
+      }
+    ],
+    "pose": {
+      "in front of it": 58,
+      "straddling it": 2
+    },
+    "median_joint_speed_last_10s": 0.0,
+    "median_moved_last_10s": 0.0
+  }
+}

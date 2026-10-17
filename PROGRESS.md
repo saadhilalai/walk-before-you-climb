@@ -1,13 +1,13 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 16:25. Step 3 is done. Waiting for the director (optional Agent C, then Step 4)._
+_Last updated 2026-10-17, 18:40. Step 4 (checkpoint review) is done. Waiting for the director to pick which fixes (at most 2) to apply before Step 5._
 
 | Step | Status |
 |---|---|
 | 1. Setup, speed test, time budget | ✅ Done |
 | 2. First walker: PPO vs SAC (normal course) | ✅ Done (PPO picked for Step 3) |
 | 3. Hardcore: from scratch (A) vs curriculum (B) | ✅ Done |
-| 4. Checkpoint review | Not started |
+| 4. Checkpoint review | ✅ Done (fixes not yet picked) |
 | 5. Final test (once) | Not started |
 | 6. Charts and videos | Not started |
 | 7. Package it | Not started |
@@ -40,6 +40,9 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `compare.py` | Tests models on the same analysis courses and runs the paired tests. Results in `runs/compare/<name>.md/.json/_episodes.csv` |
 | `make_charts.py` | Draws the charts in `charts/` from saved results (never re-runs anything) |
 | `falls.py` | Where agents fall (and get stuck) on hardcore, per obstacle kind, fairly counted per obstacle reached |
+| `render.py` | Draws the game sharply at k× size (vector redraw, same look as the game); fonts for labels |
+| `make_videos.py` | Videos that replay real recorded runs; refuses to save unless the replay's score and outcome match the recording exactly |
+| `review.py` | Step 4: gait numbers, what the robots do when stuck at stumps, where "flat ground" falls happen |
 | `gate.py` | Step 3 safety check between B's two phases (B moves on only if every seed finishes 90%+ of normal validation courses) |
 | `models/<name>/seed<N>/` | A trained model: `model.zip`, `vecnormalize.pkl` (PPO only) and `model_info.json` |
 | `runs/<run>/seed<N>/` | `train.log`, `curve.csv` (learning curve), `practice_episodes.csv.gz` (every practice episode; Step 2: `.csv`), `progress.csv` (SB3's own stats; B has one per phase), `run_info.json` |
@@ -420,4 +423,64 @@ Per seed:
 - A, trained only on hardcore, still walks the normal course (90% finished). B didn't lose its walking skill during 95M hardcore steps.
 
 Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*`, `runs/compare/step3_falls.json`, chart `charts/3_a_vs_b_curves.png` (draft; the final Step 6 charts come later).
+
+### Director's decision after Step 3 (2026-10-17)
+- **No Agent C.** Go straight to Step 4.
+- In the videos, show A freezing at a stump next to B getting past one, on the same course, side by side.
+
+---
+
+## Step 4: checkpoint review (done 2026-10-17)
+
+### Videos (`videos/`, every clip replays recorded analysis-course runs, checked to match the recorded score exactly)
+| File | What it shows |
+|---|---|
+| `step4_stump_a_vs_b.mp4` (16 s, 3616×1344) | **A freezing at a stump next to B getting past it.** Hardcore analysis course 20107, training seed 142 (the middle seed, so not A's worst). A clears the first obstacle, then stops 2 tiles in front of a stump at 6.0 s and never moves again. Whole run: out of time after 40 s, 18% of the way, score +16.4. B jumps the same stump at 6.8 s and finishes in 29.1 s, score +251.8. |
+| `step4_stump_straddle_a_vs_b.mp4` (13 s) | The less common freeze: on course 20821, A gets one leg over a 2-tile stump and freezes **straddling** it in a wide split for 37 s (score −8.8). B passes at 3.0 s and finishes (264.8). |
+| `step4_gaits_normal.mp4` (14 s, 2416×1792) + `step4_gaits_filmstrip.png` | The four trained agents walking the same normal course (#20000, the first analysis course; all four finish it), seed 42. |
+
+### Odd behaviour found
+1. **Freezing at stumps (both agents, mostly A).** The robot stops and holds a pose until time runs out. That's about −10 to +40 points instead of the −100 for falling: the "freeze" trap from Step 2, now at obstacles.
+   - It's **complete** stillness. In 60 checked runs each, the last 10 s show median joint speed 0.0000 and no body movement (`runs/review/stumps.json`).
+   - **A:** in front of the stump in 44 of 60 runs, straddling it in 16. On courses that **start** with a stump (about a third of all courses), A never got past that first stump in 43% of runs (430 of 1,005).
+   - **B** freezes too when it gets stuck (in front of the stump in 58 of 60), but it gets stuck much less: 38.7% of runs time out vs A's 62.9%.
+   - Likely reason (not tested): standing still is a safe, stable choice the robot found during practice. The test always uses the robot's "average" move (deterministic), so nothing jiggles it out of the pose.
+2. **"Flat ground" falls are mostly falls just after an obstacle.** This is a measuring issue, not a robot issue (`runs/review/flat.json`).
+   - Of B's 515 "flat ground" falls, 62% happen within 3 tiles **after** an obstacle (median 2.7 tiles), mostly after stumps (310) and pits (157). For A: 48% within 3 tiles (median 3.1).
+   - Our "fell at" window only reaches 1 tile past an obstacle. The robot is about 3 tiles long, so a fall while landing after a stump or pit gets labelled "flat ground".
+3. **Per obstacle, both agents look fairly good, but a course has ~13 obstacles and the risks multiply.**
+
+   | Share of obstacles reached that the agent got past | Stump | Pit | Stairs up | Stairs down |
+   |---|---|---|---|---|
+   | A | 77% | 77% | 95% | 93% |
+   | B | 83% | **92%** | 94% | 96% |
+
+   - Stairs are easy for both. Pits are where B is clearly better. Stumps are the hardest obstacle for B.
+4. **No cheating found.** No robot walks backwards off the start (0% backed off everywhere). Nobody scores by an exploit: when they finish, the scores (A 262, B 268, SAC/PPO 280–315 on normal) are what genuine walking earns.
+
+### How they walk (normal course, 10 finished courses per seed; `runs/review/gaits.json`, filmstrip)
+| | SAC (524k) | PPO (5M) | A (hardcore only) | B (curriculum) |
+|---|---|---|---|---|
+| Speed (% of course per 10 s) | **67–71** (~15 s per course) | 36–51 | 34–38 | 50–55 |
+| Body lean, wobble (degrees) | 2–5, 3–5 | 25–27, **10–26** | 19–22, **21–23** | 11–22, 8–10 |
+| Steps per second | **6.0–6.4** | 3.8–4.4 | 3.8–4.6 | 4.2–5.9 |
+| Share of steps taken by leg 1 | 47–50% (even) | 35–64% (uneven) | **67–74%** (one leg does most) | 55–76% |
+| Straighter knee (degrees bent) | 78–90 (both bent) | 15–19 (one leg almost straight) | **11–28** | 59–80 (both bent) |
+| Motor effort (0–1) | 0.55–0.60 | 0.45–0.54 | 0.46–0.52 | **0.68–0.70** |
+
+- **SAC "scurries":** body almost level, quick short steps shared evenly by both legs, both feet briefly off the ground about a third of the time. Fastest and smoothest.
+- **PPO "lurches":** leans forward and rocks a lot. In the video, its body tips nose-up by about 50°. One leg stays almost straight and swings high in front while the other does the pushing.
+- **A "hops on one leg":** like PPO-5M, it holds one leg straight out in front like a feeler (knee nearly straight, hip ~60° forward), and the other leg takes 67–74% of the steps. It leans and wobbles a lot.
+- **B "strides":** both knees bent and both legs stepping. It's faster and steadier than A, and uses its motors the hardest.
+- Likely reason for the lopsided PPO gaits (not tested): a one-leg "feeler" gait is a common PPO habit on this game. Once found early, small brain updates rarely undo it.
+- Step 2's odd moments (PPO's slow-walker phase, SAC's jumpy check-ups) can't be replayed: we only saved models at 524k and 5M. They're described from the learning curves in Step 2.
+
+### Learning curves (charts 2 and 3) reviewed
+- **Step 3:** B's finish rate jumped to ~14% within 10M steps of switching to hardcore, dipped back to ~10%, then climbed to ~21% (check-ups).
+  - A finished almost nothing until ~45M steps.
+  - Distance tells the same story: B is 10–20 points ahead from ~10M steps onward.
+- **Nothing looks broken:**
+  - The learning rate shrank to 0 on schedule.
+  - No sudden collapses after 25M steps.
+  - Speed held steady (no heat slowdown over 6+ hours).
 

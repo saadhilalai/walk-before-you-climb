@@ -1,0 +1,3 @@
+a_100m: 60 runs stuck at a stump -> {'in front of it': 44, 'straddling it': 16}; in the last 10 s: median joint speed 0.0000, body moved 0.000 units (a stump is 0.47 wide)
+b_100m: 60 runs stuck at a stump -> {'in front of it': 58, 'straddling it': 2}; in the last 10 s: median joint speed 0.0000, body moved 0.000 units (a stump is 0.47 wide)
+Saved runs/review/stumps.json
