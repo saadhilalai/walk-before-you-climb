@@ -1,6 +1,6 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 22:20. Step 5 is done: the final test ran once. Waiting for the director before Step 6._
+_Last updated 2026-10-17, 22:55. Step 6 (charts and videos) is done. Waiting for the director before Step 7._
 
 | Step | Status |
 |---|---|
@@ -9,7 +9,7 @@ _Last updated 2026-10-17, 22:20. Step 5 is done: the final test ran once. Waitin
 | 3. Hardcore: from scratch (A) vs curriculum (B) | ✅ Done |
 | 4. Checkpoint review | ✅ Done (both fixes applied) |
 | 5. Final test (once) | ✅ Done (ran once) |
-| 6. Charts and videos | Not started |
+| 6. Charts and videos | ✅ Done |
 | 7. Package it | Not started |
 
 ---
@@ -42,6 +42,9 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `falls.py` | Where agents fall (and get stuck) on hardcore, per obstacle kind, fairly counted per obstacle reached |
 | `render.py` | Draws the game sharply at k× size (vector redraw, same look as the game); fonts for labels |
 | `make_videos.py` | Videos that replay real recorded runs; refuses to save unless the replay's score and outcome match the recording exactly |
+| `make_untrained.py` | Saves the untrained robot (A's exact starting state) for the "collapse" video |
+| `final_eval.py` | Step 5: the one-time final test (refuses to run twice or with uncommitted files) |
+| `TEST_PLAN.md` | The final test plan, committed before the test ran |
 | `review.py` | Step 4: gait numbers, what the robots do when stuck at stumps, where "flat ground" falls happen |
 | `gate.py` | Step 3 safety check between B's two phases (B moves on only if every seed finishes 90%+ of normal validation courses) |
 | `models/<name>/seed<N>/` | A trained model: `model.zip`, `vecnormalize.pkl` (PPO only) and `model_info.json` |
@@ -628,4 +631,42 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
 4. PPO 5M finishes normal more often than SAC 524k but scores lower on a typical course.
 5. A and B are about equal on normal.
 6. Nobody solves hardcore.
+
+---
+
+## Step 6: charts and videos (done 2026-10-17)
+
+### Charts (`charts/`, drawn by `make_charts.py` from saved results only)
+- **Style:** same as the rocket project.
+- **One colour per agent, kept across every chart:** SAC blue, PPO orange, A aqua, B yellow.
+  - The palette passes a colourblind-safety check.
+  - Aqua and yellow are faint against the light background, so every value is also written as text.
+
+| File | What it shows |
+|---|---|
+| `1_learning_curves.png` | Every agent's learning curve. Normal course (SAC, PPO) and hardcore (A, B), mean of 3 seeds with a best-to-worst band. |
+| `2_ppo_vs_sac.png` | PPO vs SAC: same practice (left) and same clock (right). Footnote: final test numbers. |
+| `3_a_vs_b_hardcore.png` | **The main result.** Final test score, finish rate and distance for A and B: all 300 runs as bars, each seed as a marker, with the paired test and verdict under each panel. |
+| `3b_a_vs_b_curves.png` | A vs B learning curves on hardcore (check-ups). |
+| `4_where_agents_fall.png` | Where they fall on the hardcore final test: falls per 100 obstacles reached, and each agent's share of falls by place. Footnote: timeouts frozen at a stump. |
+
+### Videos (`videos/final/`, made by `python make_videos.py final`, 21 min)
+- **Format:** 3840×2160 (4K, 16:9), 50 fps (real time), H.264 High, CRF 12, preset slow, yuv420p.
+- **Look:** the game redrawn as sharp vector shapes at 5.4× its size. The camera is widened to 16:9 to show more of the course ahead; the game's own height, colours and look stay the same.
+- **Two versions:** every main clip comes **labelled** (names, live stats, the verified whole-run result, how it was picked) and **clean** (no text, for editing).
+- **Every clip replays a recorded FINAL TEST run.** The run is picked by the rules fixed in TEST_PLAN.md (seed 42, the first test course in order that matches). All 12 source runs matched their recorded score and outcome exactly; a file is only kept if they do. `videos/final/manifest.json` lists every clip, its source run and its check.
+
+| File | Length | Source test run | What happens |
+|---|---|---|---|
+| `collapse_to_walking.mp4` / `_clean` | 31 s | untrained → `sac_229k` → `sac_524k`, normal courses 10000, 10000, 10001 | **From collapse to walking.** The untrained robot topples in 2.3 s. Early SAC (229k steps) wobbles (first 10 s shown; whole run: out of time at 52% of the way). Trained SAC (524k) finishes in 15.9 s (score 310.8). |
+| `untrained_normal_clean.mp4`, `sac_229k_normal_clean.mp4`, `sac_524k_normal_clean.mp4` | 3 s, 33 s, 17 s | the same three runs, whole | Clean single clips of each stage, for editing. |
+| `a_freezes_b_gets_past.mp4` / `_clean` | 12 s | A and B, hardcore course 10007 | **A freezes at a stump; B gets over it.** A stops at 2.4 s and never moves again (out of time at 40 s, 9% of the way). B climbs over at 3.9 s, then falls at 4.9 s at the next obstacle (17% of the way). |
+| `a_vs_b_hardcore.mp4` / `_clean` | 29 s | A and B, hardcore course 10024 | **A vs B on the same course.** A falls at 8.7 s (23%); B finishes in 27.4 s (score 253.2). Labelled as chosen to illustrate the main result, with the overall finish rates (B 13.3%, A 2.0%). |
+| `broll_1_b_finishes_hardcore.mp4` | 28 s | B, hardcore 10024 | B finishes a hardcore course. |
+| `broll_2_a_falls_at_pit.mp4` | 5 s | A, hardcore 10002 | A falls into a pit. |
+| `broll_3_b_falls_at_stump.mp4` | 6 s | B, hardcore 10000 | B falls at a stump. |
+| `broll_4_ppo_walks_normal.mp4` | 29 s | PPO 5M, normal 10000 | The lurching PPO gait, finishing. |
+| `broll_5_a_walks_normal.mp4` | 28 s | A, normal 10000 | A's one-leg hop on flat ground, finishing. |
+
+- **Cosmetic quirk (the game's own look):** after a robot crosses the finish line, the camera shows past the end of the course, where the game draws no ground. The original game shows the same thing.
 

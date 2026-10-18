@@ -1,0 +1,327 @@
+{
+  "collapse_to_walking": [
+    {
+      "files": [
+        "videos/final/collapse_to_walking.mp4",
+        "videos/final/collapse_to_walking_clean.mp4"
+      ],
+      "frames": 1559,
+      "sources": [
+        {
+          "agent": "untrained",
+          "course": "normal",
+          "train_seed": 42,
+          "course_seed": 10000,
+          "outcome": "fell",
+          "score": -92.149068046303,
+          "steps": 113,
+          "distance": 2.809915466914101,
+          "match": true
+        },
+        {
+          "agent": "sac_229k",
+          "course": "normal",
+          "train_seed": 42,
+          "course_seed": 10000,
+          "outcome": "timed_out",
+          "score": 106.92955218162388,
+          "steps": 1600,
+          "distance": 51.69736922733368,
+          "match": true
+        },
+        {
+          "agent": "sac_524k",
+          "course": "normal",
+          "train_seed": 42,
+          "course_seed": 10001,
+          "outcome": "finished",
+          "score": 310.7624542117119,
+          "steps": 794,
+          "distance": 100.0,
+          "match": true
+        }
+      ],
+      "rule": "untrained: course 10000; early SAC: first normal course >= 20% and not finished (first 10 s shown in the sequence); trained SAC: first normal course it finishes",
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 31.18,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    },
+    {
+      "files": [
+        "videos/final/untrained_normal_clean.mp4"
+      ],
+      "frames": 164,
+      "sources": [
+        {
+          "agent": "untrained",
+          "course": "normal",
+          "train_seed": 42,
+          "course_seed": 10000,
+          "outcome": "fell",
+          "score": -92.149068046303,
+          "steps": 113,
+          "distance": 2.809915466914101,
+          "match": true
+        }
+      ],
+      "rule": "whole run",
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 3.28,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    },
+    {
+      "files": [
+        "videos/final/sac_229k_normal_clean.mp4"
+      ],
+      "frames": 1651,
+      "sources": [
+        {
+          "agent": "sac_229k",
+          "course": "normal",
+          "train_seed": 42,
+          "course_seed": 10000,
+          "outcome": "timed_out",
+          "score": 106.92955218162388,
+          "steps": 1600,
+          "distance": 51.69736922733368,
+          "match": true
+        }
+      ],
+      "rule": "whole run",
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 33.02,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    },
+    {
+      "files": [
+        "videos/final/sac_524k_normal_clean.mp4"
+      ],
+      "frames": 845,
+      "sources": [
+        {
+          "agent": "sac_524k",
+          "course": "normal",
+          "train_seed": 42,
+          "course_seed": 10001,
+          "outcome": "finished",
+          "score": 310.7624542117119,
+          "steps": 794,
+          "distance": 100.0,
+          "match": true
+        }
+      ],
+      "rule": "whole run",
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 16.9,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    }
+  ],
+  "a_freezes_b_gets_past": [
+    {
+      "files": [
+        "videos/final/a_freezes_b_gets_past.mp4",
+        "videos/final/a_freezes_b_gets_past_clean.mp4"
+      ],
+      "frames": 601,
+      "sources": [
+        {
+          "agent": "a_100m",
+          "course": "hardcore",
+          "train_seed": 42,
+          "course_seed": 10007,
+          "outcome": "timed_out",
+          "score": -24.333127371035516,
+          "steps": 2000,
+          "distance": 9.150264755127921,
+          "match": true
+        },
+        {
+          "agent": "b_100m",
+          "course": "hardcore",
+          "train_seed": 42,
+          "course_seed": 10007,
+          "outcome": "fell",
+          "score": -59.82467389892554,
+          "steps": 245,
+          "distance": 16.94247079274011,
+          "match": true
+        }
+      ],
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 12.02,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    }
+  ],
+  "a_vs_b_hardcore": [
+    {
+      "files": [
+        "videos/final/a_vs_b_hardcore.mp4",
+        "videos/final/a_vs_b_hardcore_clean.mp4"
+      ],
+      "frames": 1472,
+      "sources": [
+        {
+          "agent": "a_100m",
+          "course": "hardcore",
+          "train_seed": 42,
+          "course_seed": 10024,
+          "outcome": "fell",
+          "score": -43.56765340245329,
+          "steps": 433,
+          "distance": 23.43880259801471,
+          "match": true
+        },
+        {
+          "agent": "b_100m",
+          "course": "hardcore",
+          "train_seed": 42,
+          "course_seed": 10024,
+          "outcome": "finished",
+          "score": 253.21044184011407,
+          "steps": 1371,
+          "distance": 100.0,
+          "match": true
+        }
+      ],
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 29.44,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    }
+  ],
+  "broll_1_b_finishes_hardcore": [
+    {
+      "files": [
+        "videos/final/broll_1_b_finishes_hardcore.mp4"
+      ],
+      "frames": 1422,
+      "sources": [
+        {
+          "agent": "b_100m",
+          "course": "hardcore",
+          "train_seed": 42,
+          "course_seed": 10024,
+          "outcome": "finished",
+          "score": 253.21044184011407,
+          "steps": 1371,
+          "distance": 100.0,
+          "match": true
+        }
+      ],
+      "rule": "whole run",
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 28.44,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    }
+  ],
+  "broll_2_a_falls_at_pit": [
+    {
+      "files": [
+        "videos/final/broll_2_a_falls_at_pit.mp4"
+      ],
+      "frames": 268,
+      "sources": [
+        {
+          "agent": "a_100m",
+          "course": "hardcore",
+          "train_seed": 42,
+          "course_seed": 10002,
+          "outcome": "fell",
+          "score": -69.690636807587,
+          "steps": 217,
+          "distance": 15.90628321208651,
+          "match": true
+        }
+      ],
+      "rule": "whole run",
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 5.36,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    }
+  ],
+  "broll_3_b_falls_at_stump": [
+    {
+      "files": [
+        "videos/final/broll_3_b_falls_at_stump.mp4"
+      ],
+      "frames": 277,
+      "sources": [
+        {
+          "agent": "b_100m",
+          "course": "hardcore",
+          "train_seed": 42,
+          "course_seed": 10000,
+          "outcome": "fell",
+          "score": -51.97789018321782,
+          "steps": 226,
+          "distance": 20.55113807557121,
+          "match": true
+        }
+      ],
+      "rule": "whole run",
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 5.54,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    }
+  ],
+  "broll_4_ppo_walks_normal": [
+    {
+      "files": [
+        "videos/final/broll_4_ppo_walks_normal.mp4"
+      ],
+      "frames": 1452,
+      "sources": [
+        {
+          "agent": "ppo_5m",
+          "course": "normal",
+          "train_seed": 42,
+          "course_seed": 10000,
+          "outcome": "finished",
+          "score": 292.2845697818557,
+          "steps": 1401,
+          "distance": 100.0,
+          "match": true
+        }
+      ],
+      "rule": "whole run",
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 29.04,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    }
+  ],
+  "broll_5_a_walks_normal": [
+    {
+      "files": [
+        "videos/final/broll_5_a_walks_normal.mp4"
+      ],
+      "frames": 1380,
+      "sources": [
+        {
+          "agent": "a_100m",
+          "course": "normal",
+          "train_seed": 42,
+          "course_seed": 10000,
+          "outcome": "finished",
+          "score": 282.94836301298346,
+          "steps": 1329,
+          "distance": 100.0,
+          "match": true
+        }
+      ],
+      "rule": "whole run",
+      "resolution": "3840x2160",
+      "fps": 50,
+      "seconds": 27.6,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+    }
+  ]
+}

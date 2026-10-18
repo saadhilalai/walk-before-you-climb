@@ -41,13 +41,14 @@ def font(size, bold=False):
     return _font_cache[key]
 
 
-def render_hires(game, k):
+def render_hires(game, k, width=None):
     """BipedalWalker's own render(), redrawn at k times the size. Returns an RGB array
     (400k x 600k x 3). Like the original, it advances the lidar-flash counter, which only
-    affects drawing."""
+    affects drawing. width (pixels) widens the camera to show more of the course ahead
+    (e.g. a 16:9 frame); the height, the robot's place on screen and the look stay the same."""
     S = bw.SCALE * k
-    W, H = round(bw.VIEWPORT_W * k), round(bw.VIEWPORT_H * k)
-    view_w = bw.VIEWPORT_W / bw.SCALE              # 20 world units across
+    W, H = round(width or bw.VIEWPORT_W * k), round(bw.VIEWPORT_H * k)
+    view_w = W / S                                 # world units across (20 in the original)
     sx = max(0.0, game.scroll)                     # the original crops its canvas the same way
     lw = max(1, round(k))
 
