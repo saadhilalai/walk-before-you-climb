@@ -1,8 +1,6 @@
 # Step 5: Final test plan
 
-> **DRAFT, NOT APPROVED (2026-10-17 19:40).** Saved in git only so nothing is lost while the project is parked. It becomes the official plan only after the director's OK, in a later commit that removes this note. The final test has NOT been run.
-
-Written on 2026-10-17, before the final test, and committed to git before it runs. Everything
+Written on 2026-10-17 and **approved by the director on 2026-10-17** (all three new points: the video-only agents, testing Step 2's agents, the video-pick rules). Committed to git before the test runs. Everything
 below is fixed in advance. Nothing about the agents, the measurements or the statistics may
 change after the test has run.
 
@@ -88,3 +86,11 @@ If no test course matches a rule, the clip is dropped and the README says so. We
 3. **Commit** this plan, `final_eval.py`, the two new agents and everything else.
 4. **Run the final test once:** `python final_eval.py` (~5–10 min, 3 cores). Results go to `runs/final/`: `episodes.csv` (every run), `results.json`, `results.md`, `falls.json`.
 5. **Report** in plain English with a simple table, update PROGRESS.md, and commit.
+
+## 6. Preparation, done before this commit
+- **Untrained robot** (`make_untrained.py`, `models/untrained/seed42`): on the check-up courses it scores exactly what A scored before any practice (hardcore −92.0965, normal −92.0546), so it is A's exact starting state.
+- **Early SAC** (`train.py --run sac_early --seeds 42`, `models/sac_229k/seed42`, 15.4 min of training):
+  - All 15 learning-curve check-ups (0 to 229,376 steps) are identical to Step 2's SAC seed 42.
+  - Validation: −15.1, 0% finished, fell 78%, 33% of the way.
+- **Dry run** (`final_eval.py --dry-run`, 10 analysis courses per seed, scratch folder): all 24 model files ran, and all outputs and tests were produced. The test courses were not touched.
+

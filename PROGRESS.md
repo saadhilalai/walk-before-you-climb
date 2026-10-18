@@ -1,6 +1,6 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 19:40. **PARKED.** Step 5's test plan is a DRAFT waiting for the director's OK. Nothing is running. See "Parked" at the end._
+_Last updated 2026-10-17, 22:15. Step 5: the test plan is approved and committed; the final test is running once._
 
 | Step | Status |
 |---|---|
@@ -8,7 +8,7 @@ _Last updated 2026-10-17, 19:40. **PARKED.** Step 5's test plan is a DRAFT waiti
 | 2. First walker: PPO vs SAC (normal course) | ✅ Done (PPO picked for Step 3) |
 | 3. Hardcore: from scratch (A) vs curriculum (B) | ✅ Done |
 | 4. Checkpoint review | ✅ Done (both fixes applied) |
-| 5. Final test (once) | 📝 Plan drafted, waiting for OK (not run) |
+| 5. Final test (once) | 🔄 Plan approved and committed; running |
 | 6. Charts and videos | Not started |
 | 7. Package it | Not started |
 
@@ -535,7 +535,7 @@ Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*
 
 ---
 
-## Step 5: final test (plan drafted, NOT run)
+## Step 5: final test
 
 ### Parked (2026-10-17 19:40): exactly where we stopped
 - **Nothing is running.** No training, tests or videos; nothing frozen. The hidden test courses (10000–10099) have **not** been touched.
@@ -559,4 +559,12 @@ Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*
   3. Remove the DRAFT note and commit everything.
   4. `python final_eval.py`: once, ~5–10 min.
   5. Report, update PROGRESS.md, commit.
+
+### Resumed and approved (2026-10-17)
+- **The director approved all three new points:** the video-only agents, testing Step 2's agents on the normal test courses, and the video-pick rules.
+- **Preparation** (details in TEST_PLAN.md, section 6):
+  - Untrained robot: identical to A's starting state.
+  - Early SAC (`sac_229k`): 15 of 15 check-ups identical to Step 2's run.
+  - Dry run on analysis courses: OK.
+- **The DRAFT note was removed and the plan committed.** Then `python final_eval.py` was run once.
 

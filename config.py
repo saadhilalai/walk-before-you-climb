@@ -166,6 +166,10 @@ RUNS = {
              saves={"ppo_524k": STEP2_STEPS, "ppo_5m": PPO_LONG_STEPS})]),
     "sac": dict(algo="sac", hp=SAC_ZOO, checkups={"normal": 10}, phases=[
         dict(course="normal", every=16_384, every_late=131_072, saves={"sac_524k": STEP2_STEPS})]),
+    # Step 5 (video only): Step 2's SAC seed 42 re-created up to 229,376 steps, for the "early
+    # wobbly steps" clip. Same settings and check-up schedule, so its curve must match Step 2's exactly.
+    "sac_early": dict(algo="sac", hp=SAC_ZOO, checkups={"normal": 10}, phases=[
+        dict(course="normal", every=16_384, every_late=131_072, saves={"sac_229k": 229_376})]),
     # Step 3: hardcore. A = from scratch, B = curriculum (normal first, then hardcore).
     "a": dict(algo="ppo", hp=PPO_ZOO_HARDCORE, checkups=STEP3_CHECKUPS, phases=[
         dict(course="hardcore", every=STEP3_EVERY, saves=step3_saves("a"))]),

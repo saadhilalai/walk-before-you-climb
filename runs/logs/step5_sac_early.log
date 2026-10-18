@@ -1,0 +1,3 @@
+[21:51:04] sac_early phase 1: seeds [42] side by side, 1 core each
+[22:07:17] done
+  sac_229k  seed  42 | normal   |     229,376 steps |   15.4 min | score  -15.1 ±  69.7 | finished   0.0% | fell  78.0% | backed off  0.0% | timed out  22.0% | distance  33.0%

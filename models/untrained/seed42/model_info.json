@@ -1,0 +1,14 @@
+{
+  "name": "untrained",
+  "run": "untrained",
+  "algo": "ppo",
+  "normalize": true,
+  "course": null,
+  "train_seed": 42,
+  "steps": 0,
+  "train_minutes": 0.0,
+  "wall_minutes": 0.0,
+  "train_seconds": 0.0,
+  "wall_seconds": 0.0,
+  "note": "A's exact starting state (Zoo hardcore PPO settings, seed 42), never trained"
+}

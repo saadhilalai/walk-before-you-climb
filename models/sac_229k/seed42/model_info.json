@@ -1,0 +1,14 @@
+{
+  "name": "sac_229k",
+  "run": "sac_early",
+  "phase": 1,
+  "algo": "sac",
+  "normalize": false,
+  "course": "normal",
+  "train_seed": 42,
+  "steps": 229376,
+  "train_minutes": 15.4,
+  "wall_minutes": 15.89,
+  "train_seconds": 923.903,
+  "wall_seconds": 953.476
+}
