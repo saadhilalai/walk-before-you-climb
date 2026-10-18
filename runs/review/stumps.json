@@ -3,20 +3,6 @@
     "examples": [
       {
         "seed": 42,
-        "course": 20000,
-        "where": "in front of it",
-        "body_minus_stump_start_tiles": -4.65,
-        "stump_tiles": 2,
-        "joint_speed_last_10s": 0.0,
-        "moved_last_10s": 0.0,
-        "feet_down": [
-          true,
-          true
-        ],
-        "lean_deg": -8.0
-      },
-      {
-        "seed": 42,
         "course": 20002,
         "where": "in front of it",
         "body_minus_stump_start_tiles": -4.33,
@@ -28,20 +14,6 @@
           false
         ],
         "lean_deg": -5.1
-      },
-      {
-        "seed": 42,
-        "course": 20003,
-        "where": "in front of it",
-        "body_minus_stump_start_tiles": -9.72,
-        "stump_tiles": 2,
-        "joint_speed_last_10s": 0.0,
-        "moved_last_10s": 0.0,
-        "feet_down": [
-          true,
-          false
-        ],
-        "lean_deg": 9.9
       },
       {
         "seed": 42,
@@ -157,20 +129,6 @@
       },
       {
         "seed": 42,
-        "course": 20025,
-        "where": "in front of it",
-        "body_minus_stump_start_tiles": -4.67,
-        "stump_tiles": 2,
-        "joint_speed_last_10s": 0.0,
-        "moved_last_10s": 0.0,
-        "feet_down": [
-          true,
-          true
-        ],
-        "lean_deg": -5.4
-      },
-      {
-        "seed": 42,
         "course": 20027,
         "where": "in front of it",
         "body_minus_stump_start_tiles": -4.54,
@@ -182,20 +140,6 @@
           false
         ],
         "lean_deg": 9.0
-      },
-      {
-        "seed": 42,
-        "course": 20028,
-        "where": "in front of it",
-        "body_minus_stump_start_tiles": -4.46,
-        "stump_tiles": 2,
-        "joint_speed_last_10s": 0.0,
-        "moved_last_10s": 0.0,
-        "feet_down": [
-          true,
-          false
-        ],
-        "lean_deg": -1.7
       },
       {
         "seed": 42,
@@ -227,34 +171,6 @@
       },
       {
         "seed": 42,
-        "course": 20033,
-        "where": "in front of it",
-        "body_minus_stump_start_tiles": -5.33,
-        "stump_tiles": 2,
-        "joint_speed_last_10s": 0.0,
-        "moved_last_10s": 0.0,
-        "feet_down": [
-          true,
-          true
-        ],
-        "lean_deg": -2.5
-      },
-      {
-        "seed": 42,
-        "course": 20035,
-        "where": "in front of it",
-        "body_minus_stump_start_tiles": -4.37,
-        "stump_tiles": 2,
-        "joint_speed_last_10s": 0.0,
-        "moved_last_10s": 0.0,
-        "feet_down": [
-          true,
-          true
-        ],
-        "lean_deg": -4.9
-      },
-      {
-        "seed": 42,
         "course": 20036,
         "where": "in front of it",
         "body_minus_stump_start_tiles": -3.93,
@@ -282,6 +198,90 @@
         "lean_deg": 4.1
       },
       {
+        "seed": 42,
+        "course": 20045,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -4.93,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": 10.2
+      },
+      {
+        "seed": 42,
+        "course": 20046,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 2.74,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -14.0
+      },
+      {
+        "seed": 42,
+        "course": 20049,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -5.42,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -12.9
+      },
+      {
+        "seed": 42,
+        "course": 20050,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -5.23,
+        "stump_tiles": 1,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -13.6
+      },
+      {
+        "seed": 42,
+        "course": 20051,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -3.99,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          true,
+          true
+        ],
+        "lean_deg": -12.0
+      },
+      {
+        "seed": 42,
+        "course": 20055,
+        "where": "in front of it",
+        "body_minus_stump_start_tiles": -5.73,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -22.9
+      },
+      {
         "seed": 142,
         "course": 20002,
         "where": "in front of it",
@@ -294,20 +294,6 @@
           true
         ],
         "lean_deg": -0.5
-      },
-      {
-        "seed": 142,
-        "course": 20003,
-        "where": "in front of it",
-        "body_minus_stump_start_tiles": -9.74,
-        "stump_tiles": 2,
-        "joint_speed_last_10s": 0.0,
-        "moved_last_10s": 0.0,
-        "feet_down": [
-          false,
-          true
-        ],
-        "lean_deg": 6.9
       },
       {
         "seed": 142,
@@ -392,6 +378,20 @@
           false
         ],
         "lean_deg": 0.3
+      },
+      {
+        "seed": 142,
+        "course": 20012,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 2.5,
+        "stump_tiles": 2,
+        "joint_speed_last_10s": 0.0,
+        "moved_last_10s": 0.0,
+        "feet_down": [
+          false,
+          true
+        ],
+        "lean_deg": -3.5
       },
       {
         "seed": 142,
@@ -494,9 +494,9 @@
       {
         "seed": 142,
         "course": 20027,
-        "where": "in front of it",
-        "body_minus_stump_start_tiles": -6.6,
-        "stump_tiles": 2,
+        "where": "straddling it",
+        "body_minus_stump_start_tiles": 1.4,
+        "stump_tiles": 1,
         "joint_speed_last_10s": 0.0,
         "moved_last_10s": 0.0,
         "feet_down": [
@@ -843,8 +843,8 @@
       }
     ],
     "pose": {
-      "in front of it": 44,
-      "straddling it": 16
+      "in front of it": 41,
+      "straddling it": 19
     },
     "median_joint_speed_last_10s": 0.0,
     "median_moved_last_10s": 0.0

@@ -126,35 +126,36 @@
         "videos/final/a_freezes_b_gets_past.mp4",
         "videos/final/a_freezes_b_gets_past_clean.mp4"
       ],
-      "frames": 601,
+      "frames": 651,
       "sources": [
         {
           "agent": "a_100m",
           "course": "hardcore",
           "train_seed": 42,
-          "course_seed": 10007,
+          "course_seed": 10016,
           "outcome": "timed_out",
-          "score": -24.333127371035516,
+          "score": -81.67349647986703,
           "steps": 2000,
-          "distance": 9.150264755127921,
+          "distance": 20.15356487698025,
           "match": true
         },
         {
           "agent": "b_100m",
           "course": "hardcore",
           "train_seed": 42,
-          "course_seed": 10007,
-          "outcome": "fell",
-          "score": -59.82467389892554,
-          "steps": 245,
-          "distance": 16.94247079274011,
+          "course_seed": 10016,
+          "outcome": "timed_out",
+          "score": 10.86864665756002,
+          "steps": 2000,
+          "distance": 25.009240801372222,
           "match": true
         }
       ],
       "resolution": "3840x2160",
       "fps": 50,
-      "seconds": 12.02,
-      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)"
+      "seconds": 13.02,
+      "codec": "H.264 (libx264, CRF 12, preset slow, yuv420p)",
+      "note": "Re-picked in Step 7. The first render used course 10007, because the 'stuck at' check looked at the robot's furthest point: there A got just past a pit's edge, slid back and stayed stuck in the pit, so it wasn't a stump at all. The check now uses where the run ended; with the same rule otherwise, the first matching course is 10016."
     }
   ],
   "a_vs_b_hardcore": [

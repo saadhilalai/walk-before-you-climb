@@ -7,7 +7,10 @@ each course from its seed, and for every model counts:
     counts alone would be unfair. An obstacle counts as reached once the robot's furthest
     point is within 2 tiles of its start (the same window walker_env uses for "fell at").
   * falls by kind (walker_env's "fell_at"), and falls per 100 obstacles of that kind reached.
-  * for timed-out episodes, the obstacle the robot was stuck at (the first one not yet passed).
+  * for timed-out episodes, the obstacle the robot was stuck at: the first one its body had not
+    passed (by more than 1 tile) where the run ENDED. (Before Step 7 this used the furthest point
+    instead, which blamed the next obstacle when a robot got past an obstacle's edge and slid back;
+    runs/final/falls.json was made that way and is kept as recorded.)
 
 Usage:
     python falls.py --episodes runs/compare/step3_episodes.csv --name step3
@@ -50,7 +53,8 @@ def analyse(rows, obstacles):
         if r["outcome"] == "fell":
             m["falls"][r["fell_at"]] += 1   # walker_env's label (config.FALL_WINDOW_TILES)
         elif r["outcome"] == "timed_out":
-            ahead = [o for o in obs if o["x_end"] + STEP >= x]
+            x_end = float(r["end_x"]) if r.get("end_x") not in (None, "") else x
+            ahead = [o for o in obs if o["x_end"] + STEP >= x_end]
             m["stuck"][ahead[0]["kind"] if ahead else "past the last obstacle"] += 1
     report = {}
     for model, m in by_model.items():

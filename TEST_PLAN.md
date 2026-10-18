@@ -94,3 +94,15 @@ If no test course matches a rule, the clip is dropped and the README says so. We
   - Validation: −15.1, 0% finished, fell 78%, 33% of the way.
 - **Dry run** (`final_eval.py --dry-run`, 10 analysis courses per seed, scratch folder): all 24 model files ran, and all outputs and tests were produced. The test courses were not touched.
 
+
+## 7. After the test (added 2026-10-17; nothing above was changed)
+- **A measuring flaw found while making the Step 6 videos.**
+  - "Where a timed-out run got stuck" was judged from the robot's *furthest* point.
+  - On test course 10007, A got its body just past a pit's far edge, slid back, and stayed stuck in the pit. The furthest-point check counted the pit as passed and blamed the next obstacle, a stump.
+  - The check now uses where the run **ended**.
+- **Effect on the results:** this only touches a secondary, descriptive number. A's timeouts stuck at a stump go from 145 to 139 of 188 (B: 120 of 123, unchanged).
+  - `runs/final/falls.json` is kept exactly as recorded. The README reports both counts.
+  - Nothing about the primary result, the scores or the paired tests changes.
+- **Effect on the videos:** the "A freezes, B gets past" clip had picked course 10007, where A isn't at a stump at all.
+  - With the same rule, measured where the run ended, the first matching course is **10016**, and the clip was re-made from it.
+  - The mislabelled first version was not kept. `videos/final/manifest.json` notes the change.

@@ -125,8 +125,8 @@ def run_stumps(per_seed=20):
             for (m, s, cs), r in sorted(eps.items()):
                 if m != model or s != seed or r["outcome"] != "timed_out" or picked >= per_seed:
                     continue
-                x_far = START_X + float(r["distance"]) / 100 * (FINISH_X - START_X)
-                ahead = [o for o in obs[cs] if o["x_end"] + STEP >= x_far]
+                x_end = float(r["end_x"])          # where the run ended (Step 7 fix; was the furthest point)
+                ahead = [o for o in obs[cs] if o["x_end"] + STEP >= x_end]
                 if not ahead or ahead[0]["kind"] != "stump":
                     continue
                 picked += 1

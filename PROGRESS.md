@@ -1,6 +1,6 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 22:55. Step 6 (charts and videos) is done. Waiting for the director before Step 7._
+_Last updated 2026-10-17, 23:30. Step 7 (packaging) is done. Waiting for the director to create the GitHub repo and send the link._
 
 | Step | Status |
 |---|---|
@@ -10,7 +10,7 @@ _Last updated 2026-10-17, 22:55. Step 6 (charts and videos) is done. Waiting for
 | 4. Checkpoint review | ✅ Done (both fixes applied) |
 | 5. Final test (once) | ✅ Done (ran once) |
 | 6. Charts and videos | ✅ Done |
-| 7. Package it | Not started |
+| 7. Package it | ✅ Done (waiting for the GitHub link) |
 
 ---
 
@@ -445,7 +445,7 @@ Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*
 ### Odd behaviour found
 1. **Freezing at stumps (both agents, mostly A).** The robot stops and holds a pose until time runs out. That's about −10 to +40 points instead of the −100 for falling: the "freeze" trap from Step 2, now at obstacles.
    - It's **complete** stillness. In 60 checked runs each, the last 10 s show median joint speed 0.0000 and no body movement (`runs/review/stumps.json`).
-   - **A:** in front of the stump in 44 of 60 runs, straddling it in 16. On courses that **start** with a stump (about a third of all courses), A never got past that first stump in 43% of runs (430 of 1,005).
+   - **A:** in front of the stump in 44 of 60 runs, straddling it in 16. (Re-checked in Step 7 with the corrected "stuck at" rule: 41 in front, 19 straddling.) On courses that **start** with a stump (about a third of all courses), A never got past that first stump in 43% of runs (430 of 1,005).
    - **B** freezes too when it gets stuck (in front of the stump in 58 of 60), but it gets stuck much less: 38.7% of runs time out vs A's 62.9%.
    - Likely reason (not tested): standing still is a safe, stable choice the robot found during practice. The test always uses the robot's "average" move (deterministic), so nothing jiggles it out of the pose.
 2. **"Flat ground" falls are mostly falls just after an obstacle.** This is a measuring issue, not a robot issue (`runs/review/flat.json`).
@@ -603,7 +603,7 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
 - **Where they fall** (falls per 100 obstacles reached):
   - A: pit **20.5**, stump 6.8, stairs up 1.0, stairs down 4.8.
   - B: stump 9.4, pit 9.5, stairs up 3.6, stairs down 2.0.
-  - When they time out, they're stuck at a stump: A 145 of 188 times, B 120 of 123.
+  - When they time out, they're stuck at a stump: A 145 of 188 times, B 120 of 123. (Step 7 correction, judged by where the run ended: A 139 of 188, B 120 of 123. See Step 7.)
 
 **Normal test courses (secondary):**
 
@@ -660,7 +660,7 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
 |---|---|---|---|
 | `collapse_to_walking.mp4` / `_clean` | 31 s | untrained → `sac_229k` → `sac_524k`, normal courses 10000, 10000, 10001 | **From collapse to walking.** The untrained robot topples in 2.3 s. Early SAC (229k steps) wobbles (first 10 s shown; whole run: out of time at 52% of the way). Trained SAC (524k) finishes in 15.9 s (score 310.8). |
 | `untrained_normal_clean.mp4`, `sac_229k_normal_clean.mp4`, `sac_524k_normal_clean.mp4` | 3 s, 33 s, 17 s | the same three runs, whole | Clean single clips of each stage, for editing. |
-| `a_freezes_b_gets_past.mp4` / `_clean` | 12 s | A and B, hardcore course 10007 | **A freezes at a stump; B gets over it.** A stops at 2.4 s and never moves again (out of time at 40 s, 9% of the way). B climbs over at 3.9 s, then falls at 4.9 s at the next obstacle (17% of the way). |
+| `a_freezes_b_gets_past.mp4` / `_clean` | 13 s | A and B, hardcore course **10016** (re-picked in Step 7) | **A freezes at a stump; B gets over it.** A stops in front of a stump at 4.8 s and holds a tense pose for the rest of the run (out of time at 40 s, 20% of the way, score −81.7). B climbs over the same stump at 6.6 s, then freezes at the next one (out of time, 25%, score +10.9). The first render used course 10007, where A was really stuck in a pit (see Step 7). |
 | `a_vs_b_hardcore.mp4` / `_clean` | 29 s | A and B, hardcore course 10024 | **A vs B on the same course.** A falls at 8.7 s (23%); B finishes in 27.4 s (score 253.2). Labelled as chosen to illustrate the main result, with the overall finish rates (B 13.3%, A 2.0%). |
 | `broll_1_b_finishes_hardcore.mp4` | 28 s | B, hardcore 10024 | B finishes a hardcore course. |
 | `broll_2_a_falls_at_pit.mp4` | 5 s | A, hardcore 10002 | A falls into a pit. |
@@ -669,4 +669,65 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
 | `broll_5_a_walks_normal.mp4` | 28 s | A, normal 10000 | A's one-leg hop on flat ground, finishing. |
 
 - **Cosmetic quirk (the game's own look):** after a robot crosses the finish line, the camera shows past the end of the course, where the game draws no ground. The original game shows the same thing.
+
+---
+
+## Step 7: packaging (done 2026-10-17)
+
+### Director's requests for Step 7
+- A "How this was built" section: the director directed the project (experiments, decisions, fairness rules).
+- Every commit uses the name "Saad Hilal" and the GitHub no-reply address. **Checked:** all commits do, as both author and committer.
+- MIT license, copyright "Saad Hilal".
+- Suggest 2–3 GitHub repo names. The director creates the repo and sends the link; nothing is pushed before that.
+
+### What was added
+| File | What it is |
+|---|---|
+| `README.md` | The project write-up: results at a glance, how it was built, the setup in plain words, every step, the failed safety check (with its table), what the robots do, bugs found, limits, videos, how to run it |
+| `INTERVIEW.md` | Ten interview questions with plain answers |
+| `LICENSE` | MIT, © 2026 Saad Hilal |
+| `docs/a_freezes_b_gets_past.gif` | The README's top animation (1280×720, 2.9 MB), made from the final freeze clip |
+| `requirements.txt` | Exact versions. pandas and tensorboard were removed: no project code uses them. |
+| `.gitignore` | Also ignores half-written video files (`*.partial.mp4`) |
+
+- **Clean-install check:**
+  - A brand-new environment built only from `requirements.txt` installed cleanly and passed `check_setup.py`.
+  - It replayed a final-test run (B, seed 42, course 10024) to exactly its recorded score: 253.21044184011407.
+- **Personal-info check:**
+  - No email address, no home-folder path and no username appear in any committed file.
+  - The trained models and normalization files contain no paths either.
+
+### A measuring flaw found while packaging (reported, not hidden)
+- **How it was found:** while making the README's GIF, a frame showed that the Step 6 clip titled "A freezes at the stump" (test course 10007) really shows **A stuck in a pit.**
+- **Cause:** "where a timed-out run got stuck" was judged from the robot's *furthest* point. A had got its body just past the pit's far edge, slid back, and stayed in the pit, so the check counted the pit as passed and blamed the next obstacle.
+- **Fix:** judge by where the run **ended** (`falls.py`, `review.py`, `make_videos.py`).
+- **Effect on the numbers (secondary only):**
+  - Final test: A's timeouts at a stump go from 145 to **139 of 188**; B unchanged at 120 of 123.
+  - Analysis courses: A 1,399 → 1,377 of 1,888; B unchanged.
+  - Step 4's sample: A in front 44 → 41, straddling 16 → 19.
+  - Nothing about the primary result, the scores or the paired tests changes.
+  - `runs/final/falls.json` is kept exactly as recorded. Chart 4 and the README use the corrected count and say so. TEST_PLAN.md has a dated "after the test" note (section 7).
+- **The clip:** re-picked with the same rule, measured correctly, which gives test course **10016**, and re-rendered.
+  - Both replays match their recorded runs.
+  - The mislabelled version was not kept.
+  - `videos/final/manifest.json` records the change.
+
+### Resume bullets (real numbers)
+- **Directed a deep reinforcement-learning project** in which simulated two-legged robots taught themselves to walk (PPO and SAC, Stable-Baselines3/PyTorch): 617M simulation steps across 13 training runs on a laptop CPU. SAC needed ~10× less practice than PPO to walk; PPO reached 99% course completion in a third of SAC's training time.
+- **Designed a controlled curriculum-learning experiment:** 5M steps on flat ground then 95M on an obstacle course, vs 100M from scratch, with equal budgets and 3 seeds each. The curriculum agent finished **13.3% vs 2.0%** of 300 hidden test courses (McNemar p < 0.001) and got 15 points further along the course (44% vs 29%), in a pre-registered, run-once final test.
+- **Built a rigorous evaluation pipeline:**
+  - paired statistical tests (McNemar, Wilcoxon) over 61,000 evaluation episodes
+  - a fix for history-dependent physics that made training bit-for-bit reproducible
+  - per-obstacle failure analysis that exposed a "freeze" local optimum
+  - 4K video replays verified against the recorded test runs
+
+### Suggested GitHub repo names
+1. **`robot-walker-curriculum`** (recommended): says what it is and what it tests.
+2. `walk-before-you-climb`: catchier, good for a portfolio link.
+3. `bipedal-curriculum-rl`: the most technical.
+
+### To resume
+- Waiting for the director to create the GitHub repo and send the link.
+- After that: add it as `origin`, push `main`, and check that the README, charts and GIF display on GitHub.
+- Nothing has been pushed anywhere yet.
 

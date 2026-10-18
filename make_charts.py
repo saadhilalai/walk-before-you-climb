@@ -299,14 +299,20 @@ def where_agents_fall():
     right.set_title("Where each agent's falls happen (share of its falls)", loc="left", fontsize=11.5)
     right.set_xlabel("% of the agent's falls")
     left.legend(loc="lower right")
-    stuck = {m: falls[m]["timed_out_stuck_at"] for m in ("a_100m", "b_100m")}
+    # Where timed-out runs got stuck, judged by where the run ENDED (falls.py, fixed in Step 7). The recorded
+    # falls.json used the furthest point instead (A: 145 of 188 at a stump); the corrected count is used here.
+    from falls import analyse, obstacles_by_course
+    rows = [r for r in csv.DictReader((Path("runs") / "final" / "episodes.csv").open())
+            if r["course"] == "hardcore" and r["model"] in ("a_100m", "b_100m")]
+    corrected = analyse(rows, obstacles_by_course({int(r["course_seed"]) for r in rows}))
+    stuck = {m: corrected[m]["timed_out_stuck_at"] for m in ("a_100m", "b_100m")}
     note = "  ·  ".join(f"{RUN_STYLE[m[0]][0].split(':')[0]}: {s.get('stump', 0)} of {sum(s.values())} at a stump"
                         for m, s in stuck.items())
     title(fig, "Where the agents fall on the hardcore course (final test)",
           "300 test runs each. A fall belongs to an obstacle if the body was from 2 tiles before it to 3 tiles after it "
           "(one body length), otherwise 'open ground'. Rule fixed before the test.")
     fig.tight_layout(rect=(0, 0.05, 1, 0.87))
-    fig.text(0.01, 0.012, f"Runs that ran out of time were almost always frozen at a stump: {note}.",
+    fig.text(0.01, 0.012, f"Runs that ran out of time mostly ended frozen at a stump: {note}.",
              fontsize=10, color=INK_2)
     fig.savefig(OUT / "4_where_agents_fall.png", dpi=170)
     plt.close(fig)

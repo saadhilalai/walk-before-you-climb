@@ -168,7 +168,7 @@ def stump_timing(train_seed, course_seed):
     """Quick pass without drawing: when A stops making progress, and when B clears that same stump."""
     a, b = Replay("a_100m", train_seed, "hardcore", course_seed), Replay("b_100m", train_seed, "hardcore", course_seed)
     a.finish()
-    stump = next(o for o in a.env.obstacles if o["x_end"] + STEP >= a.best_x)
+    stump = next(o for o in a.env.obstacles if o["x_end"] + STEP >= a.game.hull.position.x)   # where A ended up
     assert stump["kind"] == "stump", f"A is not stuck at a stump but at {stump['kind']}"
     while not b.done and b.game.hull.position.x <= stump["x_end"] + STEP:
         b.step()
@@ -322,7 +322,7 @@ def final_picks(seed=42):
         a, b = g("a_100m", "hardcore", cs), g("b_100m", "hardcore", cs)
         if a["outcome"] != "timed_out":
             return False
-        ahead = [o for o in obs[cs] if o["x_end"] + STEP >= furthest_x(float(a["distance"]))]
+        ahead = [o for o in obs[cs] if o["x_end"] + STEP >= float(a["end_x"])]   # where A ended up (fixed in Step 7)
         return bool(ahead) and ahead[0]["kind"] == "stump" and \
             furthest_x(float(b["distance"])) > ahead[0]["x_end"] + STEP
 
@@ -589,11 +589,11 @@ def stump_seconds(cs, seed=42):
     sooner, B's panel holds its last frame."""
     a, b = Replay("a_100m", seed, "hardcore", cs), Replay("b_100m", seed, "hardcore", cs)
     a.finish()
-    stump = next(o for o in a.env.obstacles if o["x_end"] + STEP >= a.best_x)
+    stump = next(o for o in a.env.obstacles if o["x_end"] + STEP >= a.game.hull.position.x)   # where A ended up
     while not b.done and b.game.hull.position.x <= stump["x_end"] + STEP:
         b.step()
     t_stuck, t_pass = a.best_t / FPS, b.steps / FPS
-    print(f"  A stops making progress at {t_stuck:.1f} s; B clears the stump at {t_pass:.1f} s")
+    print(f"  A is stuck at the {stump['kind']} at x={stump['x_start']:.2f}; A stops making progress at {t_stuck:.1f} s; B clears the stump at {t_pass:.1f} s")
     return int(np.clip(np.ceil(max(t_stuck + 6, t_pass + 4)), 10, 24))
 
 
