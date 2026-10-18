@@ -1,6 +1,6 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 19:30. Step 4 is done, both fixes applied. Waiting for the director to choose average vs randomized moves for the final test (then the Step 5 test plan)._
+_Last updated 2026-10-17, 19:40. **PARKED.** Step 5's test plan is a DRAFT waiting for the director's OK. Nothing is running. See "Parked" at the end._
 
 | Step | Status |
 |---|---|
@@ -8,7 +8,7 @@ _Last updated 2026-10-17, 19:30. Step 4 is done, both fixes applied. Waiting for
 | 2. First walker: PPO vs SAC (normal course) | ✅ Done (PPO picked for Step 3) |
 | 3. Hardcore: from scratch (A) vs curriculum (B) | ✅ Done |
 | 4. Checkpoint review | ✅ Done (both fixes applied) |
-| 5. Final test (once) | Not started |
+| 5. Final test (once) | 📝 Plan drafted, waiting for OK (not run) |
 | 6. Charts and videos | Not started |
 | 7. Package it | Not started |
 
@@ -529,4 +529,34 @@ Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*
   - Of A's 1,888 average-move timeouts, 1,210 still time out with randomized moves, 657 fall and 21 finish.
   - The overall rates stay stable because they're averages over 3,000 runs.
 - **The RL Zoo's benchmark (their 122) uses the average (deterministic) move** (`rl_zoo3/benchmark.py`: "It uses the deterministic policy except for Atari games").
+
+### Director's decision on fix 2 (2026-10-17)
+- **The final test uses average (deterministic) moves only.**
+
+---
+
+## Step 5: final test (plan drafted, NOT run)
+
+### Parked (2026-10-17 19:40): exactly where we stopped
+- **Nothing is running.** No training, tests or videos; nothing frozen. The hidden test courses (10000–10099) have **not** been touched.
+- **Drafted, not approved:**
+  - `TEST_PLAN.md`, marked DRAFT at the top.
+  - `final_eval.py`, the script that carries the plan out. It was only syntax-checked, never run.
+  - Both are committed only so nothing is lost.
+- **Waiting for the director's OK (or changes) on three points that are new in the plan:**
+  1. **Two video-only agents:**
+     - The untrained PPO (A's and B's exact starting brain).
+     - SAC seed 42 re-created at 229,376 steps for the "early wobbly steps" clip: ~25 min of training on 1 core, checked against Step 2's check-ups.
+  2. Testing Step 2's agents (SAC 524k, PPO 524k, PPO 5M) on the normal test courses too.
+  3. The video-pick rules: seed 42, the first test course in order that matches each rule; drop the clip if nothing matches.
+- **Next steps after the OK** (TEST_PLAN.md, section 5):
+  1. Prepare the two video-only agents:
+     - Add a `sac_early` run (save `sac_229k`) to `config.RUNS`.
+     - Train it with `train.py --run sac_early --seeds 42`.
+     - Check its curve matches `runs/sac/seed42/curve.csv`.
+     - Save `models/untrained/seed42`.
+  2. Dry run: `python final_eval.py --dry-run --out <scratch folder>` (10 analysis courses per seed).
+  3. Remove the DRAFT note and commit everything.
+  4. `python final_eval.py`: once, ~5–10 min.
+  5. Report, update PROGRESS.md, commit.
 
