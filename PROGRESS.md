@@ -1,6 +1,6 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 22:15. Step 5: the test plan is approved and committed; the final test is running once._
+_Last updated 2026-10-17, 22:20. Step 5 is done: the final test ran once. Waiting for the director before Step 6._
 
 | Step | Status |
 |---|---|
@@ -8,7 +8,7 @@ _Last updated 2026-10-17, 22:15. Step 5: the test plan is approved and committed
 | 2. First walker: PPO vs SAC (normal course) | ✅ Done (PPO picked for Step 3) |
 | 3. Hardcore: from scratch (A) vs curriculum (B) | ✅ Done |
 | 4. Checkpoint review | ✅ Done (both fixes applied) |
-| 5. Final test (once) | 🔄 Plan approved and committed; running |
+| 5. Final test (once) | ✅ Done (ran once) |
 | 6. Charts and videos | Not started |
 | 7. Package it | Not started |
 
@@ -567,4 +567,65 @@ Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*
   - Early SAC (`sac_229k`): 15 of 15 check-ups identical to Step 2's run.
   - Dry run on analysis courses: OK.
 - **The DRAFT note was removed and the plan committed.** Then `python final_eval.py` was run once.
+
+### Final test results (ran once: 2026-10-17 22:08 to 22:12, plan commit `012ffcf`, test courses 10000–10099, average moves)
+Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run), `falls.json`. Log: `runs/logs/step5_final.log`.
+
+**Primary question: does the curriculum (B) finish hardcore courses more often than training from scratch (A)? CONFIRMED** (by the rule set in advance).
+
+| Hardcore test courses, 300 runs each | A: from scratch | B: curriculum |
+|---|---|---|
+| Score | 13.1 | 37.4 |
+| Finished | 2.0% | **13.3%** |
+| Fell | 35.3% | 45.7% |
+| Timed out | 62.7% | 41.0% |
+| Backed off | 0% | 0% |
+| Distance | 29.1% | **44.4%** |
+| Solved (300+)? | no | no |
+
+- **Finished:** B finished 39 courses that A didn't; A finished 5 that B didn't (McNemar p < 0.001). That meets the pre-set rule, so the result is **confirmed**.
+- **Honest caveat:** most of the gap comes from one training seed.
+
+  | Finished, per seed | A | B |
+  |---|---|---|
+  | 42 | 4% | 3% (A slightly ahead) |
+  | 142 | 2% | 6% |
+  | 242 | 0% | 31% |
+
+  - On the analysis courses B was ahead in all 3 seeds. On the test, in 2 of 3.
+  - So the curriculum clearly helped these trained agents on these courses. With only 3 training runs each, we can't promise it helps every new training run by the same amount.
+- **Distance:** B gets further, +15.3 points of the course (p < 0.001).
+- **Score:** NOT shown. +24.2 mean but −4.8 median (p = 0.093). Per seed −11.7, −25.6, +110.0: B is lower in 2 of 3 seeds, so it's not robust. This is what we expected from the analysis courses.
+- **Compared with the RL Zoo's PPO (122 after 100M steps):** our A scored 13.1. That's a rough comparison only (their single agent, their courses).
+- **Where they fall** (falls per 100 obstacles reached):
+  - A: pit **20.5**, stump 6.8, stairs up 1.0, stairs down 4.8.
+  - B: stump 9.4, pit 9.5, stairs up 3.6, stairs down 2.0.
+  - When they time out, they're stuck at a stump: A 145 of 188 times, B 120 of 123.
+
+**Normal test courses (secondary):**
+
+| 300 runs each | Score | Finished | Fell | Timed out | Distance | Solved? |
+|---|---|---|---|---|---|---|
+| SAC 524k | 274.9 | 85.3% | 14.7% | 0.0% | 92.6% | seed 142 only (307.8) |
+| PPO 524k | −30.6 | 0.0% | 0.0% | 100.0% | 1.4% | no |
+| PPO 5M | 288.4 | 99.3% | 0.3% | 0.3% | 99.7% | no (best seed 299.6) |
+| A | 260.8 | 89.7% | 9.0% | 1.3% | 95.2% | no |
+| B | 269.1 | 90.7% | 9.3% | 0.0% | 97.2% | no |
+
+- **SAC 524k vs PPO 524k (same practice): SAC proven better** (finished 256 vs 0 courses, p < 0.001, 3 of 3 seeds; score +305.5, robust).
+- **PPO 5M vs SAC 524k: PPO 5M finishes more, proven** (44 vs 2 courses, p < 0.001, 3 of 3 seeds). Score: mixed (+13.5 mean, −19.5 median; SAC higher in 2 of 3 seeds), not robust.
+- **B vs A on normal:** no difference in finishing (26 vs 23 courses, p = 0.78). Score +8.3 (p < 0.001 but not the same in every seed), not robust.
+- No agent averages 300+ across its 3 seeds. One single seed (SAC seed 142) does.
+
+**Video-only agents:**
+- The untrained robot falls on every course (−92.1).
+- The early SAC (229k) gets about 35% of the way, falls on 65% of courses and finishes none.
+
+**Predictions written in TEST_PLAN.md before the test: all six held.**
+1. B finishes hardcore more.
+2. B's score advantage didn't hold up.
+3. SAC 524k beats PPO 524k.
+4. PPO 5M finishes normal more often than SAC 524k but scores lower on a typical course.
+5. A and B are about equal on normal.
+6. Nobody solves hardcore.
 

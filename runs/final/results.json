@@ -1,0 +1,823 @@
+{
+  "run": {
+    "git_commit": "012ffcf1a3c10b53f6b61751daaad2d1f75fac3d",
+    "started": "2026-10-17 22:08:19",
+    "dry_run": false,
+    "course_seeds": [
+      10000,
+      10099
+    ],
+    "moves": "average (deterministic)",
+    "finished": "2026-10-17 22:11:57",
+    "python": "3.11.17",
+    "machine": "Darwin arm64"
+  },
+  "agents": {
+    "a_100m / hardcore": {
+      "video_only": false,
+      "pooled": {
+        "episodes": 300,
+        "mean_score": 13.137896218761307,
+        "std_score": 79.48422989933441,
+        "solved": false,
+        "finished_rate": 0.02,
+        "fell_rate": 0.35333333333333333,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.6266666666666667,
+        "mean_distance": 29.07138581124563,
+        "mean_steps": 1493.42
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": 29.53590673309707,
+          "std_score": 83.90757010330131,
+          "solved": false,
+          "finished_rate": 0.04,
+          "fell_rate": 0.3,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.66,
+          "mean_distance": 35.3880311307453,
+          "mean_steps": 1616.29
+        },
+        "142": {
+          "episodes": 100,
+          "mean_score": 26.727541917637573,
+          "std_score": 84.09736654345015,
+          "solved": false,
+          "finished_rate": 0.02,
+          "fell_rate": 0.29,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.69,
+          "mean_distance": 30.101330787416497,
+          "mean_steps": 1566.24
+        },
+        "242": {
+          "episodes": 100,
+          "mean_score": -16.849759994450725,
+          "std_score": 59.055467855871385,
+          "solved": false,
+          "finished_rate": 0.0,
+          "fell_rate": 0.47,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.53,
+          "mean_distance": 21.724795515575106,
+          "mean_steps": 1297.73
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": 13.137896218761307,
+          "std": 21.23544791310861
+        },
+        "finished_rate": {
+          "mean": 0.02,
+          "std": 0.016329931618554522
+        },
+        "mean_distance": {
+          "mean": 29.071385811245634,
+          "std": 5.6253350631684444
+        }
+      },
+      "training": {
+        "steps": [
+          100007936,
+          100007936,
+          100007936
+        ],
+        "train_minutes": [
+          379.49,
+          380.1,
+          379.35
+        ]
+      }
+    },
+    "b_100m / hardcore": {
+      "video_only": false,
+      "pooled": {
+        "episodes": 300,
+        "mean_score": 37.38060309803322,
+        "std_score": 116.20504114285386,
+        "solved": false,
+        "finished_rate": 0.13333333333333333,
+        "fell_rate": 0.45666666666666667,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.41,
+        "mean_distance": 44.381186661896876,
+        "mean_steps": 1240.0766666666666
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": 17.860621961370924,
+          "std_score": 82.75918821891577,
+          "solved": false,
+          "finished_rate": 0.03,
+          "fell_rate": 0.5,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.47,
+          "mean_distance": 38.24452818386139,
+          "mean_steps": 1300.73
+        },
+        "142": {
+          "episodes": 100,
+          "mean_score": 1.176881903688627,
+          "std_score": 96.03475450810625,
+          "solved": false,
+          "finished_rate": 0.06,
+          "fell_rate": 0.48,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.46,
+          "mean_distance": 35.89211644823588,
+          "mean_steps": 1243.39
+        },
+        "242": {
+          "episodes": 100,
+          "mean_score": 93.10430542904011,
+          "std_score": 140.15065950463008,
+          "solved": false,
+          "finished_rate": 0.31,
+          "fell_rate": 0.39,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.3,
+          "mean_distance": 59.00691535359337,
+          "mean_steps": 1176.11
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": 37.38060309803322,
+          "std": 39.98695659573736
+        },
+        "finished_rate": {
+          "mean": 0.13333333333333333,
+          "std": 0.12552113589175154
+        },
+        "mean_distance": {
+          "mean": 44.38118666189688,
+          "std": 10.386446779844478
+        }
+      },
+      "training": {
+        "steps": [
+          100007936,
+          100007936,
+          100007936
+        ],
+        "train_minutes": [
+          475.03,
+          475.72,
+          472.65
+        ]
+      }
+    },
+    "sac_524k / normal": {
+      "video_only": false,
+      "pooled": {
+        "episodes": 300,
+        "mean_score": 274.92861312148625,
+        "std_score": 102.2281824562633,
+        "solved": false,
+        "finished_rate": 0.8533333333333334,
+        "fell_rate": 0.14666666666666667,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.0,
+        "mean_distance": 92.62340485355843,
+        "mean_steps": 707.3466666666667
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": 227.37851593423866,
+          "std_score": 136.63557352464096,
+          "solved": false,
+          "finished_rate": 0.7,
+          "fell_rate": 0.3,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 84.1766878650302,
+          "mean_steps": 675.71
+        },
+        "142": {
+          "episodes": 100,
+          "mean_score": 307.79959656378486,
+          "std_score": 39.9919876279476,
+          "solved": true,
+          "finished_rate": 0.97,
+          "fell_rate": 0.03,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 99.01574044000535,
+          "mean_steps": 747.93
+        },
+        "242": {
+          "episodes": 100,
+          "mean_score": 289.60772686643526,
+          "std_score": 86.75353112567801,
+          "solved": false,
+          "finished_rate": 0.89,
+          "fell_rate": 0.11,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 94.67778625563969,
+          "mean_steps": 698.4
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": 274.92861312148625,
+          "std": 34.43346083544179
+        },
+        "finished_rate": {
+          "mean": 0.8533333333333334,
+          "std": 0.1132352516764202
+        },
+        "mean_distance": {
+          "mean": 92.6234048535584,
+          "std": 6.229752939971866
+        }
+      },
+      "training": {
+        "steps": [
+          524288,
+          524288,
+          524288
+        ],
+        "train_minutes": [
+          58.82,
+          60.61,
+          61.59
+        ]
+      }
+    },
+    "ppo_524k / normal": {
+      "video_only": false,
+      "pooled": {
+        "episodes": 300,
+        "mean_score": -30.56162015634545,
+        "std_score": 8.592279099792565,
+        "solved": false,
+        "finished_rate": 0.0,
+        "fell_rate": 0.0,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 1.0,
+        "mean_distance": 1.40835712447999,
+        "mean_steps": 1600.0
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": -28.08177792555718,
+          "std_score": 5.706158716599551,
+          "solved": false,
+          "finished_rate": 0.0,
+          "fell_rate": 0.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 1.0,
+          "mean_distance": 1.56179266127329,
+          "mean_steps": 1600.0
+        },
+        "142": {
+          "episodes": 100,
+          "mean_score": -39.52345523709664,
+          "std_score": 6.1690482528580635,
+          "solved": false,
+          "finished_rate": 0.0,
+          "fell_rate": 0.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 1.0,
+          "mean_distance": 2.0689630319201755,
+          "mean_steps": 1600.0
+        },
+        "242": {
+          "episodes": 100,
+          "mean_score": -24.079627306382534,
+          "std_score": 4.731177435895446,
+          "solved": false,
+          "finished_rate": 0.0,
+          "fell_rate": 0.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 1.0,
+          "mean_distance": 0.594315680246504,
+          "mean_steps": 1600.0
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": -30.56162015634545,
+          "std": 6.544217213468035
+        },
+        "finished_rate": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "mean_distance": {
+          "mean": 1.4083571244799897,
+          "std": 0.6117205521656814
+        }
+      },
+      "training": {
+        "steps": [
+          524288,
+          524288,
+          524288
+        ],
+        "train_minutes": [
+          2.2,
+          2.23,
+          2.17
+        ]
+      }
+    },
+    "ppo_5m / normal": {
+      "video_only": false,
+      "pooled": {
+        "episodes": 300,
+        "mean_score": 288.39458782724046,
+        "std_score": 21.360617207262262,
+        "solved": false,
+        "finished_rate": 0.9933333333333333,
+        "fell_rate": 0.0033333333333333335,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.0033333333333333335,
+        "mean_distance": 99.67173605368882,
+        "mean_steps": 1265.3533333333332
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": 288.68021494596115,
+          "std_score": 2.1106959034381165,
+          "solved": false,
+          "finished_rate": 1.0,
+          "fell_rate": 0.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 100.0,
+          "mean_steps": 1423.02
+        },
+        "142": {
+          "episodes": 100,
+          "mean_score": 299.5807139701722,
+          "std_score": 1.407871448867117,
+          "solved": false,
+          "finished_rate": 1.0,
+          "fell_rate": 0.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 100.0,
+          "mean_steps": 1026.16
+        },
+        "242": {
+          "episodes": 100,
+          "mean_score": 276.922834565588,
+          "std_score": 33.25024269654999,
+          "solved": false,
+          "finished_rate": 0.98,
+          "fell_rate": 0.01,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.01,
+          "mean_distance": 99.01520816106644,
+          "mean_steps": 1346.88
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": 288.39458782724046,
+          "std": 9.252245201981403
+        },
+        "finished_rate": {
+          "mean": 0.9933333333333333,
+          "std": 0.009428090415820642
+        },
+        "mean_distance": {
+          "mean": 99.6717360536888,
+          "std": 0.46423532491139385
+        }
+      },
+      "training": {
+        "steps": [
+          5046272,
+          5046272,
+          5046272
+        ],
+        "train_minutes": [
+          21.05,
+          21.5,
+          21.08
+        ]
+      }
+    },
+    "a_100m / normal": {
+      "video_only": false,
+      "pooled": {
+        "episodes": 300,
+        "mean_score": 260.78827268894275,
+        "std_score": 74.34124623298163,
+        "solved": false,
+        "finished_rate": 0.8966666666666666,
+        "fell_rate": 0.09,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.013333333333333334,
+        "mean_distance": 95.16062391498102,
+        "mean_steps": 1364.94
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": 280.6398267514708,
+          "std_score": 3.051497971291585,
+          "solved": false,
+          "finished_rate": 1.0,
+          "fell_rate": 0.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 100.0,
+          "mean_steps": 1372.74
+        },
+        "142": {
+          "episodes": 100,
+          "mean_score": 284.64885291779416,
+          "std_score": 2.7545129690038217,
+          "solved": false,
+          "finished_rate": 1.0,
+          "fell_rate": 0.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 100.0,
+          "mean_steps": 1480.25
+        },
+        "242": {
+          "episodes": 100,
+          "mean_score": 217.07613839756334,
+          "std_score": 116.99915179603096,
+          "solved": false,
+          "finished_rate": 0.69,
+          "fell_rate": 0.27,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.04,
+          "mean_distance": 85.48187174494305,
+          "mean_steps": 1241.83
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": 260.78827268894275,
+          "std": 30.95244832460763
+        },
+        "finished_rate": {
+          "mean": 0.8966666666666666,
+          "std": 0.14613540144521983
+        },
+        "mean_distance": {
+          "mean": 95.16062391498103,
+          "std": 6.843911292857859
+        }
+      },
+      "training": {
+        "steps": [
+          100007936,
+          100007936,
+          100007936
+        ],
+        "train_minutes": [
+          379.49,
+          380.1,
+          379.35
+        ]
+      }
+    },
+    "b_100m / normal": {
+      "video_only": false,
+      "pooled": {
+        "episodes": 300,
+        "mean_score": 269.05507140771834,
+        "std_score": 58.659951242346665,
+        "solved": false,
+        "finished_rate": 0.9066666666666666,
+        "fell_rate": 0.09333333333333334,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.0,
+        "mean_distance": 97.20938320513126,
+        "mean_steps": 954.7266666666667
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": 271.0537607898214,
+          "std_score": 45.675803934837155,
+          "solved": false,
+          "finished_rate": 0.94,
+          "fell_rate": 0.06,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 98.57584210804531,
+          "mean_steps": 1034.13
+        },
+        "142": {
+          "episodes": 100,
+          "mean_score": 288.89341898549696,
+          "std_score": 1.3738732582351751,
+          "solved": false,
+          "finished_rate": 1.0,
+          "fell_rate": 0.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 100.0,
+          "mean_steps": 946.49
+        },
+        "242": {
+          "episodes": 100,
+          "mean_score": 247.2180344478367,
+          "std_score": 85.79272736887411,
+          "solved": false,
+          "finished_rate": 0.78,
+          "fell_rate": 0.22,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 93.05230750734843,
+          "mean_steps": 883.56
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": 269.05507140771834,
+          "std": 17.072502033485737
+        },
+        "finished_rate": {
+          "mean": 0.9066666666666666,
+          "std": 0.09285592184789411
+        },
+        "mean_distance": {
+          "mean": 97.20938320513125,
+          "std": 2.9964440250766766
+        }
+      },
+      "training": {
+        "steps": [
+          100007936,
+          100007936,
+          100007936
+        ],
+        "train_minutes": [
+          475.03,
+          475.72,
+          472.65
+        ]
+      }
+    },
+    "untrained / normal": {
+      "video_only": true,
+      "pooled": {
+        "episodes": 100,
+        "mean_score": -92.07054521842248,
+        "std_score": 0.088986121826411,
+        "solved": false,
+        "finished_rate": 0.0,
+        "fell_rate": 1.0,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.0,
+        "mean_distance": 2.831156433574736,
+        "mean_steps": 113.06
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": -92.07054521842248,
+          "std_score": 0.088986121826411,
+          "solved": false,
+          "finished_rate": 0.0,
+          "fell_rate": 1.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 2.831156433574736,
+          "mean_steps": 113.06
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": -92.07054521842248,
+          "std": 0.0
+        },
+        "finished_rate": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "mean_distance": {
+          "mean": 2.831156433574736,
+          "std": 0.0
+        }
+      },
+      "training": {
+        "steps": [
+          0
+        ],
+        "train_minutes": [
+          0.0
+        ]
+      }
+    },
+    "untrained / hardcore": {
+      "video_only": true,
+      "pooled": {
+        "episodes": 100,
+        "mean_score": -92.0599971015603,
+        "std_score": 0.08956169416805561,
+        "solved": false,
+        "finished_rate": 0.0,
+        "fell_rate": 1.0,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.0,
+        "mean_distance": 2.831982894549294,
+        "mean_steps": 113.25
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": -92.0599971015603,
+          "std_score": 0.08956169416805561,
+          "solved": false,
+          "finished_rate": 0.0,
+          "fell_rate": 1.0,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.0,
+          "mean_distance": 2.831982894549294,
+          "mean_steps": 113.25
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": -92.0599971015603,
+          "std": 0.0
+        },
+        "finished_rate": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "mean_distance": {
+          "mean": 2.831982894549294,
+          "std": 0.0
+        }
+      },
+      "training": {
+        "steps": [
+          0
+        ],
+        "train_minutes": [
+          0.0
+        ]
+      }
+    },
+    "sac_229k / normal": {
+      "video_only": true,
+      "pooled": {
+        "episodes": 100,
+        "mean_score": 2.570319510102854,
+        "std_score": 79.72734168440168,
+        "solved": false,
+        "finished_rate": 0.0,
+        "fell_rate": 0.65,
+        "backed_off_rate": 0.0,
+        "timed_out_rate": 0.35,
+        "mean_distance": 35.2225686860463,
+        "mean_steps": 1043.99
+      },
+      "per_seed": {
+        "42": {
+          "episodes": 100,
+          "mean_score": 2.570319510102854,
+          "std_score": 79.72734168440168,
+          "solved": false,
+          "finished_rate": 0.0,
+          "fell_rate": 0.65,
+          "backed_off_rate": 0.0,
+          "timed_out_rate": 0.35,
+          "mean_distance": 35.2225686860463,
+          "mean_steps": 1043.99
+        }
+      },
+      "across_seeds": {
+        "mean_score": {
+          "mean": 2.570319510102854,
+          "std": 0.0
+        },
+        "finished_rate": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "mean_distance": {
+          "mean": 35.2225686860463,
+          "std": 0.0
+        }
+      },
+      "training": {
+        "steps": [
+          229376
+        ],
+        "train_minutes": [
+          15.4
+        ]
+      }
+    }
+  },
+  "paired": {
+    "b_100m vs a_100m / hardcore": {
+      "finished_only_by_reference": 5,
+      "finished_only_by_other": 39,
+      "finished_by_both": 1,
+      "finished_by_neither": 255,
+      "finished_mcnemar_p": 1.4051624930289108e-07,
+      "mean_score_difference": 24.24270687927191,
+      "median_score_difference": -4.774895316222683,
+      "score_wilcoxon_p": 0.09286666790411179,
+      "mean_distance_difference": 15.309800850651252,
+      "distance_wilcoxon_p": 9.343138354919996e-13,
+      "seeds_where_other_scores_higher": 1,
+      "n_seeds": 3,
+      "n_pairs": 300,
+      "seeds_where_other_finishes_more": 2,
+      "score_difference_per_seed": {
+        "42": -11.675284771726147,
+        "142": -25.550660013948946,
+        "242": 109.95406542349083
+      },
+      "score_result_robust": false,
+      "primary": true,
+      "verdict": "CONFIRMED"
+    },
+    "sac_524k vs ppo_524k / normal": {
+      "finished_only_by_reference": 0,
+      "finished_only_by_other": 256,
+      "finished_by_both": 0,
+      "finished_by_neither": 44,
+      "finished_mcnemar_p": 1.727233711018889e-77,
+      "mean_score_difference": 305.49023327783175,
+      "median_score_difference": 344.30870641284855,
+      "score_wilcoxon_p": 2.6971103815627553e-50,
+      "mean_distance_difference": 91.21504772907842,
+      "distance_wilcoxon_p": 6.083559849691439e-51,
+      "seeds_where_other_scores_higher": 3,
+      "n_seeds": 3,
+      "n_pairs": 300,
+      "seeds_where_other_finishes_more": 3,
+      "score_difference_per_seed": {
+        "42": 255.46029385979585,
+        "142": 347.3230518008815,
+        "242": 313.6873541728178
+      },
+      "score_result_robust": true,
+      "primary": false
+    },
+    "ppo_5m vs sac_524k / normal": {
+      "finished_only_by_reference": 2,
+      "finished_only_by_other": 44,
+      "finished_by_both": 254,
+      "finished_by_neither": 0,
+      "finished_mcnemar_p": 3.0752289603697136e-11,
+      "mean_score_difference": 13.465974705754185,
+      "median_score_difference": -19.487792042433284,
+      "score_wilcoxon_p": 5.523024088550388e-12,
+      "mean_distance_difference": 7.048331200130403,
+      "distance_wilcoxon_p": 6.181721801112872e-10,
+      "seeds_where_other_scores_higher": 1,
+      "n_seeds": 3,
+      "n_pairs": 300,
+      "seeds_where_other_finishes_more": 3,
+      "score_difference_per_seed": {
+        "42": 61.30169901172249,
+        "142": -8.218882593612648,
+        "242": -12.684892300847252
+      },
+      "score_result_robust": false,
+      "primary": false
+    },
+    "b_100m vs a_100m / normal": {
+      "finished_only_by_reference": 23,
+      "finished_only_by_other": 26,
+      "finished_by_both": 246,
+      "finished_by_neither": 5,
+      "finished_mcnemar_p": 0.7754496546815659,
+      "mean_score_difference": 8.266798718775584,
+      "median_score_difference": 2.5720029941294342,
+      "score_wilcoxon_p": 8.968708892084791e-13,
+      "mean_distance_difference": 2.0487592901502336,
+      "distance_wilcoxon_p": 0.06859756863791937,
+      "seeds_where_other_scores_higher": 2,
+      "n_seeds": 3,
+      "n_pairs": 300,
+      "seeds_where_other_finishes_more": 1,
+      "score_difference_per_seed": {
+        "42": -9.58606596164941,
+        "142": 4.244566067702806,
+        "242": 30.141896050273346
+      },
+      "score_result_robust": false,
+      "primary": false
+    }
+  },
+  "zoo_reference": {
+    "zoo_ppo_100m": 122.374,
+    "our_a_100m": 13.137896218761307,
+    "note": "rough comparison only: their single agent, their courses; no test"
+  }
+}

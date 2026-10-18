@@ -1,0 +1,10 @@
+{
+  "git_commit": "012ffcf1a3c10b53f6b61751daaad2d1f75fac3d",
+  "started": "2026-10-17 22:08:19",
+  "dry_run": false,
+  "course_seeds": [
+    10000,
+    10099
+  ],
+  "moves": "average (deterministic)"
+}
