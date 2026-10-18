@@ -1,6 +1,6 @@
 # Robot Walker: Progress Notes
 
-_Last updated 2026-10-17, 23:30. Step 7 (packaging) is done. Waiting for the director to create the GitHub repo and send the link._
+_Last updated 2026-10-17, 23:50. **All 7 steps are done.** Published at https://github.com/saadhilalai/walk-before-you-climb. Parked for the night; nothing is running._
 
 | Step | Status |
 |---|---|
@@ -10,7 +10,7 @@ _Last updated 2026-10-17, 23:30. Step 7 (packaging) is done. Waiting for the dir
 | 4. Checkpoint review | ✅ Done (both fixes applied) |
 | 5. Final test (once) | ✅ Done (ran once) |
 | 6. Charts and videos | ✅ Done |
-| 7. Package it | ✅ Done (waiting for the GitHub link) |
+| 7. Package it | ✅ Done (published on GitHub) |
 
 ---
 
@@ -726,8 +726,24 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
 2. `walk-before-you-climb`: catchier, good for a portfolio link.
 3. `bipedal-curriculum-rl`: the most technical.
 
-### To resume
-- Waiting for the director to create the GitHub repo and send the link.
-- After that: add it as `origin`, push `main`, and check that the README, charts and GIF display on GitHub.
-- Nothing has been pushed anywhere yet.
+### Published (2026-10-17)
+- **Repo:** https://github.com/saadhilalai/walk-before-you-climb (the director's choice of name). `origin` is set and `main` is pushed.
+- **Checked on GitHub:**
+  - GitHub's `main` equals the local commit.
+  - All commits are credited to the `saadhilalai` account: the no-reply address's number, 259462928, is that account's ID.
+  - The README renders all 12 sections and 6 tables, and all images load at full size (the GIF animates).
+  - GitHub recognizes the MIT license.
+- **About:**
+  - The description, set by the director, was checked to match exactly: "Robots that taught themselves to walk, then cross obstacles. Learning to walk first made them finish 6x more courses. Built by Saad Hilal · S4D".
+  - Topics added: reinforcement-learning, curriculum-learning, pytorch, robotics, stable-baselines3.
+- **Correction:** the commit count reported in Step 7 was wrong. There were 17 commits at publishing, not 18.
+
+### Parked for the night (2026-10-17 23:50)
+- Nothing is running and nothing is frozen. Every file is committed and pushed.
+- **Nothing is pending.** The project is complete.
+- **Possible next steps, only if the director wants them** (see INTERVIEW.md, question 10):
+  - more training seeds
+  - a fix for the freezing habit
+  - a gradual curriculum (Agent C)
+  - TQC on a GPU
 
