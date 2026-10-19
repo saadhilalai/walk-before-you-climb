@@ -68,6 +68,21 @@ export function poseAt(run, t, xy, ang) {
 
 export const duration = run => (run.count - 1) / FPS;
 
+/* Average ground height over a few tiles around x (a smooth camera height). */
+function groundNear(course, x) {
+  const xs = course.terrain_x, ys = course.terrain_y;
+  let sum = 0, n = 0;
+  for (let k = -6; k <= 6; k++) {
+    const xx = x + k * TERRAIN_STEP * 0.75;
+    let i = Math.floor(xx / TERRAIN_STEP);
+    i = Math.max(0, Math.min(xs.length - 2, i));
+    const f = Math.max(0, Math.min(1, (xx - xs[i]) / (xs[i + 1] - xs[i])));
+    sum += ys[i] + (ys[i + 1] - ys[i]) * f;
+    n++;
+  }
+  return sum / n;
+}
+
 // ---- Drawing ----------------------------------------------------------------------------------
 export class Stage {
   /* One canvas showing one course. maxDpr caps the pixel density (lighter on phones). */
@@ -93,17 +108,19 @@ export class Stage {
     this.H = h;
   }
 
-  draw(course, run, t) {
+  /* cam: { viewH: world units shown top to bottom (default: the game's 13.3), minW: at least this
+     many units across, followY: keep the ground under the robot at yFrac of the height (for
+     close-ups; the ground is averaged over a few tiles so the camera glides over pits and stairs). */
+  draw(course, run, t, cam = {}) {
     if (!course) return;
     const { ctx, W, H } = this;
     const pose = poseAt(run, t, course.xy_scale, course.angle_scale);
-    // Camera: the game's own (13.3 units tall, robot 4 units from the left edge); narrower
-    // windows keep at least 12 units across and the robot a bit nearer the left.
-    const s = Math.min(H / VIEW_H, W / 12);
+    const s = Math.min(H / (cam.viewH || VIEW_H), W / (cam.minW || 12));
     const viewW = W / s;
-    const scroll = pose[0] - Math.min(4, viewW * 0.28);
+    const scroll = pose[0] - Math.min(4, viewW * (cam.lead ?? 0.28));
     const sx = Math.max(0, scroll);
-    const X = x => (x - sx) * s, Y = y => H - y * s;
+    const sy = cam.followY ? groundNear(course, pose[0]) - (H / s) * (cam.yFrac ?? 0.22) : 0;
+    const X = x => (x - sx) * s, Y = y => H - (y - sy) * s;
     const k = s / SCALE, lw = Math.max(1, k);
 
     ctx.fillStyle = "rgb(215,215,255)";

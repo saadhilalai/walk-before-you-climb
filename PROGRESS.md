@@ -803,3 +803,34 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
 - **What didn't change:** every commit kept exactly the same files, author, committer and dates. A backup bundle of the old history was kept.
 - **Commit IDs changed.** The README and this notebook use the new IDs. The test plan was committed as `012ffcf`, which is now **`4eb5f96`** (same files, same date, still before the final test).
 - **Recorded files keep the old ID:** `runs/final/results.json`, `results.md`, `started.json` and `runs/logs/step5_final.log` still say `012ffcf`, because they are the one-time test's recorded output and are left exactly as written.
+
+## Website v2 (done 2026-10-19)
+- **Director's feedback on v1:** "one long scroll animation", "looks AI-made and too plain". They asked for a product page with variety and drama: Apple product pages as a style reference only, with no Apple branding.
+- **The new page (same link, same honest numbers and footnotes).** Thirteen scenes, with dark and light sections alternating:
+  1. A giant split headline, with the walker as a dark glass silhouette behind it.
+  2. The film, growing to full width as you scroll.
+  3. A product reveal: the real robot geometry in a recorded pose, lit, with its 10 lidar rays at the game's own angles.
+  4. Falls → wobbles → walks, scrubbed frame by frame as you scroll, on a full-bleed light game world.
+  5. An A | B split screen with the practice timelines.
+  6. Freeze vs climb on full-bleed lanes, also scrubbed.
+  7. A horizontal gallery of obstacles. Each card is a real clip, picked by a fixed rule (`export_web_data.py gallery`): "the first test course, training run 1, that shows it".
+  8. The 6× moment, then the honest details.
+  9. A bento grid of the verdicts and numbers.
+  10. The course explorer as a product demo, with a race rail and a picker.
+  11. The charts as a sticky split.
+  12. The method.
+  13. The close.
+- **Motion:** GSAP 3.14.2 with ScrollTrigger and SplitText, following the director's animation plugin (hyperframes-animation): `power3.out` as the default, `expo` for reveals, `sine` for crossfades, nothing bouncy.
+- **Mouse only:** a custom cursor, 3D tilt and glare on cards, and a magnetic button.
+- **Phones:** no blur filters, no tilt, no cursor, and lower canvas resolution.
+- **Reduce motion:** every scene shows a still state.
+- **Checks:**
+  - Scroll recordings at desktop (1440×900) and phone (390×844) sizes. Frame pacing averaged 16.8 ms and 16.7 ms (about 60 fps), with at most 0.2% of frames over 33 ms. This was measured in headless Chrome while recording, so a real Mac and phone should do at least as well.
+  - A reduce-motion pass, and a click test of every control.
+- **Fixed after watching the recordings:**
+  - The product shot covered its headline, and its joint dots rendered as heavy blobs.
+  - The 6× overlapped its details as they rose in.
+  - "617M" and "p = 0.09" didn't fit their tiles.
+  - The demo's segmented buttons stretched on phones (a CSS class name shared with the split-screen bars).
+  - "Read the code." broke mid-word on phones.
+  - The hidden caption words peeked out of their mask.

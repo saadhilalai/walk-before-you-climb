@@ -220,12 +220,12 @@ function fallsChart(box) {
 // ---- Entry points -----------------------------------------------------------------------------------------------------
 function drawAll() {
   if (!site) return;
-  const box = name => document.querySelector(`[data-chart="${name}"]`);
-  seedsChart(box("seeds"));
-  verdicts(box("verdicts"));
-  curvesChart(box("curves"));
-  fallsChart(box("falls"));
-  ppoChart(box("ppo"));
+  const draw = (name, fn) => { const el = document.querySelector(`[data-chart="${name}"]`); if (el) fn(el); };
+  draw("seeds", seedsChart);
+  draw("verdicts", verdicts);
+  draw("curves", curvesChart);
+  draw("falls", fallsChart);
+  draw("ppo", ppoChart);
 }
 
 export function drawCharts(data) {

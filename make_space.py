@@ -8,7 +8,7 @@ recorded test runs it replays (web/data/, from export_web_data.py), the film (we
 browser-simulator experiment (browser_sim/) stay out.
 
 Usage:
-    python export_web_data.py replays && python export_web_data.py site   # the data the page shows
+    python export_web_data.py replays && python export_web_data.py site && python export_web_data.py gallery
     python make_space.py                                                   # build build/hf_space/ only
     python make_space.py --push USERNAME/walk-before-you-climb             # build, then upload
                                                                            # (pip install huggingface_hub; hf auth login)
@@ -45,6 +45,7 @@ https://github.com/saadhilalai/walk-before-you-climb
 
 Simulator: Gymnasium BipedalWalker (Box2D). Learning: Stable-Baselines3 (PPO, SAC), with RL Baselines3
 Zoo settings. Typeface: Geist and Geist Mono by Vercel (SIL Open Font License, see fonts/OFL.txt).
+Motion: GSAP 3.14.2 with ScrollTrigger and SplitText (GreenSock standard "no charge" license).
 Film music: "Meanwhile" by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
 """
 
@@ -52,10 +53,11 @@ Film music: "Meanwhile" by Scott Buckley - released under CC-BY 4.0. www.scottbu
 def check_inputs():
     courses = sorted((Path("web") / "data" / "courses").glob("*.bin"))
     stories = sorted((Path("web") / "data" / "stories").glob("*.bin"))
-    missing = [p for p in (Path("web") / "data" / "runs.json", Path("web") / "data" / "site.json", FILM_4K) if not p.exists()]
+    missing = [p for p in (Path("web") / "data" / "runs.json", Path("web") / "data" / "site.json", Path("web") / "data" / "gallery.json", FILM_4K)
+               if not p.exists()]
     if len(courses) != 100 or len(stories) != 3 or missing:
         raise SystemExit(f"Missing site data ({len(courses)}/100 courses, {len(stories)}/3 stories, missing {missing}). "
-                         "Run: python export_web_data.py replays && python export_web_data.py site")
+                         "Run: python export_web_data.py replays && python export_web_data.py site && python export_web_data.py gallery")
 
 
 def build():

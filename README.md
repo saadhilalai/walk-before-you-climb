@@ -231,7 +231,7 @@ Re-running everything (times on an M2 MacBook Air, 3 seeds side by side):
 | Comparisons on analysis courses | `compare.py --models a_100m b_100m --course hardcore --name step3` | ~10 min |
 | Final test (once only) | `final_eval.py` (refuses to run twice) | ~4 min |
 | Charts / videos | `make_charts.py`, `make_videos.py final` | seconds / ~20 min |
-| Website data (replays every test run, checked against the record) | `export_web_data.py replays`, `export_web_data.py site` | ~1 min |
+| Website data (replays every test run, checked against the record) | `export_web_data.py replays`, then `site` and `gallery` | ~1 min |
 | Website: build, and upload to a Hugging Face Space | `make_space.py` (`--push USER/SPACE` to upload) | seconds |
 
 The trained models are included in `models/`, so tests, charts and videos can be re-made without training.

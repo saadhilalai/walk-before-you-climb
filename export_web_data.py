@@ -3,6 +3,7 @@ export_web_data.py — exports what the website needs from the trained agents an
 
     python export_web_data.py replays                 # web/data/courses/*.bin + stories/*.bin + runs.json
     python export_web_data.py site                    # web/data/site.json: the numbers and charts on the page
+    python export_web_data.py gallery                 # web/data/gallery.json: the obstacle gallery's clips (after replays)
     python export_web_data.py brains                  # browser_sim/brains.json: A and B's networks (3 seeds each)
     python export_web_data.py trace MODEL SEED COURSE OUT.json [--steps N]
                                                      # one run step by step, to check the browser simulator
@@ -291,11 +292,74 @@ def site():
     print(f"wrote {path} ({path.stat().st_size / 1e3:.0f} kB)")
 
 
+def read_course_bin(course_seed):
+    """A course file written by pack(): the header, and each run's hull x per frame (world units)."""
+    raw = (WEB_DATA / "courses" / f"{course_seed}.bin").read_bytes()
+    n = struct.unpack("<I", raw[:4])[0]
+    header = json.loads(raw[4:4 + n])
+    base = 4 + n
+    for run in header["runs"]:
+        a = np.frombuffer(raw, "<i2", count=run["frames"] * 15, offset=base + run["offset"]).reshape(-1, 15)
+        run["hull_x"] = a[:, 0] / header["xy_scale"]
+    return header
+
+
+def gallery():
+    """web/data/gallery.json: the obstacle gallery's clips, each a time window of one recorded test
+    run, picked by a fixed rule: the first test course (in order, training run 1 = seed 42) that
+    shows the thing. Run after `replays` (it reads web/data/courses/)."""
+    index = json.loads((WEB_DATA / "runs.json").read_text())
+    seed = config.TRAIN_SEEDS[0]
+    run_of = lambda c, model: next(r for r in c["runs"] if r["model"] == model and r["seed"] == seed)
+
+    def first_fall(model, kind):
+        for c in index["courses"]:
+            r = run_of(c, model)
+            if r["outcome"] == "fell" and r["fell_at"] == kind:
+                end = r["steps"] / 50
+                return dict(course_seed=c["course_seed"], model=model, t0=max(0.0, end - 4.0), t1=end)
+
+    def first_pass(model, kind):
+        for c in index["courses"]:
+            for ob in c["obstacles"]:
+                if ob["kind"] != kind:
+                    continue
+                x = next(r for r in read_course_bin(c["course_seed"])["runs"]
+                         if r["model"] == model and r["seed"] == seed)["hull_x"]
+                past = np.flatnonzero(x > ob["x_end"] + STEP)
+                if len(past):
+                    near = np.flatnonzero(x > ob["x_start"] - 3 * STEP)
+                    return dict(course_seed=c["course_seed"], model=model,
+                                t0=max(0.0, near[0] / 50 - 0.6), t1=min(len(x) - 1, past[0] + 40) / 50)
+
+    def first_finish(model):
+        for c in index["courses"]:
+            r = run_of(c, model)
+            if r["outcome"] == "finished":
+                end = r["steps"] / 50
+                return dict(course_seed=c["course_seed"], model=model, t0=max(0.0, end - 6.0), t1=end)
+
+    clips = {
+        "stump_fall": dict(first_fall("b_100m", "stump"), rule="the first test course where B fell at a stump"),
+        "freeze": dict(course_seed=10016, model="a_100m", t0=2.0, t1=12.0,
+                       rule="course 10016, the film's example: A stops making progress at 4.8 s and never moves on"),
+        "pit_fall": dict(first_fall("a_100m", "pit"), rule="the first test course where A fell at a pit"),
+        "stairs_up": dict(first_pass("b_100m", "stairs_up"), rule="the first test course where B climbed a staircase"),
+        "finish": dict(first_finish("b_100m"), rule="the first test course B finished"),
+    }
+    for c in clips.values():
+        c.update(seed=seed, t0=round(c["t0"], 2), t1=round(c["t1"], 2))
+    (WEB_DATA / "gallery.json").write_text(json.dumps(clips, indent=1))
+    for k, c in clips.items():
+        print(f"{k:11s} course {c['course_seed']} {c['model']} seed {seed}: {c['t0']:.2f}-{c['t1']:.2f} s  ({c['rule']})")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="cmd", required=True)
     sub.add_parser("replays")
     sub.add_parser("site")
+    sub.add_parser("gallery")
     sub.add_parser("brains")
     t = sub.add_parser("trace")
     t.add_argument("model")
@@ -308,6 +372,8 @@ def main():
         replays()
     elif args.cmd == "site":
         site()
+    elif args.cmd == "gallery":
+        gallery()
     elif args.cmd == "brains":
         brains()
     else:

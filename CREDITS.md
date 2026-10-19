@@ -14,7 +14,8 @@
 'Meanwhile' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
 
 ## Website (`web/`, live at https://s4dai-walk-before-you-climb.static.hf.space)
-- **Made by:** Saad Hilal · S4D. Plain HTML, CSS and JavaScript, no frameworks.
+- **Made by:** Saad Hilal · S4D. HTML, CSS and JavaScript, with no build step.
+- **Motion:** [GSAP](https://gsap.com) 3.14.2 with ScrollTrigger and SplitText, free under GreenSock's [standard "no charge" license](https://gsap.com/standard-license) (note in `web/vendor/gsap/`).
 - **Robots:** replays of this project's recorded test runs, drawn in the game's own style (see `render.py`).
 - **Fonts:** Geist and Geist Mono, © 2023 Vercel, in collaboration with basement.studio, [SIL Open Font License 1.1](https://github.com/vercel/geist-font/blob/main/OFL.txt) (copy in `web/fonts/OFL.txt`).
 - **Film on the page:** the project video above, with the same music credit.

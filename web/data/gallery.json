@@ -1,0 +1,42 @@
+{
+ "stump_fall": {
+  "course_seed": 10000,
+  "model": "b_100m",
+  "t0": 0.52,
+  "t1": 4.52,
+  "rule": "the first test course where B fell at a stump",
+  "seed": 42
+ },
+ "freeze": {
+  "course_seed": 10016,
+  "model": "a_100m",
+  "t0": 2.0,
+  "t1": 12.0,
+  "rule": "course 10016, the film's example: A stops making progress at 4.8 s and never moves on",
+  "seed": 42
+ },
+ "pit_fall": {
+  "course_seed": 10002,
+  "model": "a_100m",
+  "t0": 0.34,
+  "t1": 4.34,
+  "rule": "the first test course where A fell at a pit",
+  "seed": 42
+ },
+ "stairs_up": {
+  "course_seed": 10002,
+  "model": "b_100m",
+  "t0": 7.82,
+  "t1": 12.28,
+  "rule": "the first test course where B climbed a staircase",
+  "seed": 42
+ },
+ "finish": {
+  "course_seed": 10024,
+  "model": "b_100m",
+  "t0": 21.42,
+  "t1": 27.42,
+  "rule": "the first test course B finished",
+  "seed": 42
+ }
+}
