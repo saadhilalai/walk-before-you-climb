@@ -1,5 +1,7 @@
 # Robot Walker: does learning to walk first help a robot learn an obstacle course?
 
+**Live demo: [s4dai-walk-before-you-climb.static.hf.space](https://s4dai-walk-before-you-climb.static.hf.space)**. Pick any of the 100 hidden test courses and watch A and B side by side: replays of the recorded test runs, in your browser.
+
 [![Walk Before You Climb: the 39-second project video. Click to watch.](brag-output/brag.jpg)](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@8b134a4a8d5ebfb9b854a13dcd3ee02b19e7c497/brag-output/brag.mp4)
 
 **▶ [Watch the 39-second video](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@8b134a4a8d5ebfb9b854a13dcd3ee02b19e7c497/brag-output/brag.mp4)** (4K, with sound). All robot footage replays real, recorded test runs.
@@ -229,6 +231,8 @@ Re-running everything (times on an M2 MacBook Air, 3 seeds side by side):
 | Comparisons on analysis courses | `compare.py --models a_100m b_100m --course hardcore --name step3` | ~10 min |
 | Final test (once only) | `final_eval.py` (refuses to run twice) | ~4 min |
 | Charts / videos | `make_charts.py`, `make_videos.py final` | seconds / ~20 min |
+| Website data (replays every test run, checked against the record) | `export_web_data.py replays`, `export_web_data.py site` | ~1 min |
+| Website: build, and upload to a Hugging Face Space | `make_space.py` (`--push USER/SPACE` to upload) | seconds |
 
 The trained models are included in `models/`, so tests, charts and videos can be re-made without training.
 
@@ -247,6 +251,8 @@ The trained models are included in `models/`, so tests, charts and videos can be
 | `check_setup.py`, `benchmark_speed.py`, `gate.py`, `make_untrained.py` | Sanity checks, speed tests, B's safety check, the untrained robot |
 | `models/`, `runs/`, `charts/`, `videos/` | Trained models, every log and result, charts, videos |
 | `brag-output/` | The 39-second project video, its poster and post caption, and the Hyperframes source it was rendered from |
+| `web/`, `export_web_data.py`, `make_space.py` | The live demo website (static HTML, CSS and JavaScript); the export of its replays and numbers; packing and uploading the Space |
+| `browser_sim/`, `check_browser_sim.mjs` | An experiment that ran the game live in the browser. It failed its accuracy check (same ending on 51% of test runs), so the site replays recorded runs ([details](browser_sim/README.md)) |
 | `PROGRESS.md` | The full lab notebook: every step, decision and number |
 | `INTERVIEW.md` | Ten questions about the project, answered plainly |
 
@@ -255,7 +261,7 @@ The trained models are included in `models/`, so tests, charts and videos can be
 - **Learning algorithms:** [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3).
 - **Hyperparameters and the 122 benchmark:** [RL Baselines3 Zoo](https://github.com/DLR-RM/rl-baselines3-zoo).
 - **Project video music:** 'Meanwhile' by Scott Buckley - released under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). [www.scottbuckley.com.au](https://www.scottbuckley.com.au)
-- **Project video fonts:** Geist and Geist Mono by Vercel, [SIL Open Font License 1.1](https://github.com/vercel/geist-font/blob/main/OFL.txt). Full video credits are in [CREDITS.md](CREDITS.md).
+- **Project video and website fonts:** Geist and Geist Mono by Vercel, [SIL Open Font License 1.1](https://github.com/vercel/geist-font/blob/main/OFL.txt). Full video credits are in [CREDITS.md](CREDITS.md).
 
 ## License
 [MIT](LICENSE) © 2026 Saad Hilal

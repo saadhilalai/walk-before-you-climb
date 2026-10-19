@@ -13,6 +13,13 @@
 **When you post the video, put this credit in the post or description:**
 'Meanwhile' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
 
+## Website (`web/`, live at https://s4dai-walk-before-you-climb.static.hf.space)
+- **Made by:** Saad Hilal · S4D. Plain HTML, CSS and JavaScript, no frameworks.
+- **Robots:** replays of this project's recorded test runs, drawn in the game's own style (see `render.py`).
+- **Fonts:** Geist and Geist Mono, © 2023 Vercel, in collaboration with basement.studio, [SIL Open Font License 1.1](https://github.com/vercel/geist-font/blob/main/OFL.txt) (copy in `web/fonts/OFL.txt`).
+- **Film on the page:** the project video above, with the same music credit.
+- **Browser-simulator experiment** (`browser_sim/`, not used by the site): [planck.js](https://github.com/piqnt/planck.js) 1.5.0, MIT license (copy in `browser_sim/vendor/`). The random-number generator is adapted from LANDFALL's (same author).
+
 ## The project
 - **The simulator:** [Gymnasium](https://gymnasium.farama.org/)'s BipedalWalker by the Farama Foundation, running on the Box2D physics engine.
 - **Learning algorithms:** [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3).

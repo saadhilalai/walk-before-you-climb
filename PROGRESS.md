@@ -760,3 +760,40 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
   - Asked for a calm, premium redo with a new CC0/CC BY track, then approved it as is ("This is perfect").
 - **Music:** "Meanwhile" by Scott Buckley, CC BY 4.0, credited in the README and CREDITS.md. The track is mixed into the video; the separate file isn't committed.
 - **Post caption:** `brag-output/share-copy.txt`.
+
+## Live demo website (done 2026-10-19)
+- **Live:** https://s4dai-walk-before-you-climb.static.hf.space. It's a free static Hugging Face Space, `s4dAi/walk-before-you-climb`, on the same account as LANDFALL. The link is at the top of the README and in the repo's About box.
+- **The director's brief:**
+  - The film, brought to life: calm, premium and cinematic, with AI-lab launch films as a style reference only (no third-party branding).
+  - Scroll-driven storytelling, with the big moments going full screen.
+  - Subtle grain and count-up numbers.
+  - Lighter effects on phones, and the reduce-motion setting respected.
+  - S4D branding and footer.
+- **What's on it (`web/`):**
+  - The film: 1080p on the page, plus a 4K link.
+  - "It couldn't stand." → falls / wobbles / walks as you scroll, with the window growing to full screen.
+  - "Then we gave it obstacles."
+  - Freeze vs climb on course 10016, labelled as one example. It links to the whole run, where B gets stuck at the next stump.
+  - The course explorer: all 600 hardcore test runs, plus a map of which robot finished each course in each training run.
+  - The 6× result with the per-run breakdown.
+  - Four charts redrawn from the saved results.
+  - How it was kept fair, and the GitHub link.
+- **Live simulation or replays (decided by a rule set before measuring):**
+  - **The port:** a JavaScript port (`browser_sim/`, see its README) matched every course exactly and the brains to within 0.000001. But its physics drifted:
+    - only 305 of the 600 test runs ended the same way (50.8%; the rule was at least 95%)
+    - B finished 18.3% vs the recorded 13.3% (the rule was within 1 point)
+  - **So the site replays the recorded runs.** `export_web_data.py replays` plays all 600 hardcore test runs and the 3 story runs again in Python. Every one matched its recorded score to the last digit, plus its outcome, steps and distance, before anything was written. The site draws the robot from those poses.
+- **Checks:**
+  - Headless-Chrome screenshots and scroll-through recordings at 1440×900 and 390×844.
+  - A reduce-motion pass.
+  - A click test of every control (the film, the map, the quick picks, the scrubber, the speed buttons, the "whole run" link, the PPO/SAC toggle), run locally and on the live site.
+  - No console errors anywhere.
+- **Fixed along the way:**
+  - **A wrong "fix" in the port:** I had set the joints' reference angle to 0, but Python measures joint angles from the legs' starting tilt. The step-by-step check caught it.
+  - **Chart bands:** they drew solid instead of translucent.
+  - **The film's play button:** it was hard to read on the bright poster.
+  - **The learning story:** the title appeared late, the full-screen walk was too brief, and a fading caption showed over the growing window.
+  - **Phones:** A and B didn't fit on one screen in the explorer.
+- **Chart colours:** A is quiet stone and B the lavender accent.
+  - The dataviz validator's lightness and chroma checks fail for this muted pair, because it expects bright multi-hue palettes, which clash with the director's one-accent rule.
+  - The colour-blind separation (ΔE 16.8), normal-vision separation (17.7) and contrast checks pass, and every mark is labelled A or B.
