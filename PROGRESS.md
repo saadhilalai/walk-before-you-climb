@@ -571,7 +571,7 @@ Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*
   - Dry run on analysis courses: OK.
 - **The DRAFT note was removed and the plan committed.** Then `python final_eval.py` was run once.
 
-### Final test results (ran once: 2026-10-17 22:08 to 22:12, plan commit `012ffcf`, test courses 10000–10099, average moves)
+### Final test results (ran once: 2026-10-17 22:08 to 22:12, plan commit `4eb5f96`, test courses 10000–10099, average moves)
 Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run), `falls.json`. Log: `runs/logs/step5_final.log`.
 
 **Primary question: does the curriculum (B) finish hardcore courses more often than training from scratch (A)? CONFIRMED** (by the rule set in advance).
@@ -797,3 +797,9 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
 - **Chart colours:** A is quiet stone and B the lavender accent.
   - The dataviz validator's lightness and chroma checks fail for this muted pair, because it expects bright multi-hue palettes, which clash with the director's one-accent rule.
   - The colour-blind separation (ΔE 16.8), normal-vision separation (17.7) and contrast checks pass, and every mark is labelled A or B.
+
+## Git history rewritten (2026-10-19)
+- **What:** at the director's request, every commit message had its co-author line removed, so GitHub's contributors list shows only saadhilalai. Done with `git filter-repo`, then force-pushed.
+- **What didn't change:** every commit kept exactly the same files, author, committer and dates. A backup bundle of the old history was kept.
+- **Commit IDs changed.** The README and this notebook use the new IDs. The test plan was committed as `012ffcf`, which is now **`4eb5f96`** (same files, same date, still before the final test).
+- **Recorded files keep the old ID:** `runs/final/results.json`, `results.md`, `started.json` and `runs/logs/step5_final.log` still say `012ffcf`, because they are the one-time test's recorded output and are left exactly as written.

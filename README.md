@@ -2,9 +2,9 @@
 
 **Live demo: [s4dai-walk-before-you-climb.static.hf.space](https://s4dai-walk-before-you-climb.static.hf.space)**. Pick any of the 100 hidden test courses and watch A and B side by side: replays of the recorded test runs, in your browser.
 
-[![Walk Before You Climb: the 39-second project video. Click to watch.](brag-output/brag.jpg)](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@8b134a4a8d5ebfb9b854a13dcd3ee02b19e7c497/brag-output/brag.mp4)
+[![Walk Before You Climb: the 39-second project video. Click to watch.](brag-output/brag.jpg)](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@eab079cc0053b8cf2db5feddbcba55dcb256b001/brag-output/brag.mp4)
 
-**▶ [Watch the 39-second video](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@8b134a4a8d5ebfb9b854a13dcd3ee02b19e7c497/brag-output/brag.mp4)** (4K, with sound). All robot footage replays real, recorded test runs.
+**▶ [Watch the 39-second video](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@eab079cc0053b8cf2db5feddbcba55dcb256b001/brag-output/brag.mp4)** (4K, with sound). All robot footage replays real, recorded test runs.
 
 Music: 'Meanwhile' by Scott Buckley - released under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). [www.scottbuckley.com.au](https://www.scottbuckley.com.au)
 
