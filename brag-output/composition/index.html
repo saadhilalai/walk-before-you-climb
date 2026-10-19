@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Walk Before You Climb</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      /* Geist + Geist Mono, SIL OFL 1.1 (Vercel). Variable weight axis. */
+      @font-face { font-family: "Geist"; src: url("assets/fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+      @font-face { font-family: "Geist Mono"; src: url("assets/fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+
+      :root {
+        --bg: #0b0b0c;
+        --ink: #f3f2ee;     /* primary text */
+        --ink-2: #9b9a95;   /* secondary text */
+        --ink-3: #7f7e7a;   /* footnotes */
+        --accent: #c6c0ff;  /* the one accent: "learned to walk first" (the footage's sky, softened) */
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: var(--bg);   /* flat on purpose: a soft radial lift banded visibly under H.264 at near-black */
+        color: var(--ink); font-family: "Geist", "Helvetica Neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .clip { position: absolute; inset: 0; }
+      .w { display: inline-block; }   /* one word, for the soft word-by-word build */
+
+      /* Centred type screens */
+      .screen { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+      .display { font-size: 112px; line-height: 1.04; font-weight: 500; letter-spacing: -0.035em; white-space: nowrap; }
+
+      /* The product window: one frame that carries collapse -> wobble -> walk, then grows to full screen */
+      #frame { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden;
+        transform-origin: 50% 50%; opacity: 0; border-radius: 36.7px; background: #d7d6fe; }
+      .layer { position: absolute; inset: 0; }
+      #L2, #L3 { opacity: 0; }
+      .media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+      /* Captions under the small frame */
+      .cap { display: flex; flex-direction: column; align-items: center; text-align: center; }
+      .cap-label { position: absolute; left: 0; right: 0; top: 830px; font-family: "Geist Mono", monospace;
+        font-size: 28px; letter-spacing: 0.02em; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .cap-text { position: absolute; left: 0; right: 0; top: 874px; font-size: 60px; line-height: 1.1;
+        font-weight: 500; letter-spacing: -0.03em; white-space: nowrap; }
+
+      /* A vs B: two crops of the same 4K test-run clip, side by side */
+      #pair { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 50% 50%; opacity: 0; }
+      .pane { position: absolute; top: 208px; width: 936px; height: 624px; overflow: hidden; border-radius: 18px; background: #d7d6fe; }
+      #pA { left: 16px; }
+      #pB { left: 968px; }
+      /* panel crop: source px (34..1901 / 1938..3805, 422..1667) scaled by k = 936/1868 */
+      #vA, #iA { inset: auto; left: -17.036px; top: -211.452px; width: 1924.11px; height: 1082.31px; }
+      #vB, #iB { inset: auto; left: -971.075px; top: -211.452px; width: 1924.11px; height: 1082.31px; }
+      .pane-label { position: absolute; top: 142px; font-size: 36px; font-weight: 500; letter-spacing: -0.01em; white-space: nowrap; opacity: 0; }
+      #labA { left: 20px; }
+      #labB { left: 972px; }
+      .who { font-family: "Geist Mono", monospace; font-weight: 400; color: var(--ink-2); margin-right: 14px; }
+      .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); margin-right: 14px; vertical-align: 4px; }
+      .status { position: absolute; top: 856px; font-size: 40px; font-weight: 500; letter-spacing: -0.02em; white-space: nowrap; opacity: 0; }
+      #stA { left: 20px; color: var(--ink-2); }
+      #stB { left: 972px; color: var(--ink); }
+      #s6note { }
+      #s6note .t { position: absolute; left: 0; right: 0; top: 972px; text-align: center; font-size: 28px; color: var(--ink-2); white-space: nowrap; }
+
+      /* The result */
+      #s7 .kicker { font-size: 32px; font-weight: 500; color: var(--accent); letter-spacing: -0.01em; white-space: nowrap; }
+      #s7 .big { margin-top: 6px; font-size: 280px; line-height: 1; font-weight: 500; letter-spacing: -0.05em; white-space: nowrap; }
+      #s7 .what { margin-top: 2px; font-size: 68px; line-height: 1.1; font-weight: 500; letter-spacing: -0.03em; white-space: nowrap; }
+      #s7 .rule { margin-top: 46px; width: 120px; height: 2px; background: rgba(243, 242, 238, 0.22); transform-origin: 50% 50%; }
+      #s7 .line { margin-top: 38px; font-size: 36px; color: var(--ink-2); letter-spacing: -0.01em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+      #s7 .foot { margin-top: 70px; font-size: 28px; color: var(--ink-3); white-space: nowrap; }
+
+      /* End card */
+      #s8 .title { font-size: 120px; line-height: 1.04; font-weight: 500; letter-spacing: -0.04em; white-space: nowrap; }
+      #s8 .credit { margin-top: 34px; font-size: 38px; color: var(--ink-2); letter-spacing: -0.01em; white-space: nowrap; }
+      #s8 .link { margin-top: 20px; font-family: "Geist Mono", monospace; font-size: 30px; color: var(--ink-2); white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-bhvb" id="root" data-composition-id="main" data-start="0" data-duration="39.3" data-width="1920" data-height="1080">
+
+      <!-- 1. Black. One line. -->
+      <div data-hf-id="hf-5nca" id="s1" class="clip screen" data-start="0" data-duration="3" data-track-index="1">
+        <div data-hf-id="hf-m6y2" class="display"><span data-hf-id="hf-ehbp" class="w">It</span> <span data-hf-id="hf-oies" class="w">couldn’t</span> <span data-hf-id="hf-3xhu" class="w">stand.</span></div>
+      </div>
+
+      <!-- 2-4. The product window. Real footage only: clean 4K replays of recorded runs (videos/final). -->
+      <div data-hf-id="hf-xfzw" id="frame">
+        <div data-hf-id="hf-frng" id="L1" class="layer">
+          <video data-hf-id="hf-b4ux" id="v1" class="clip media" src="assets/video/untrained_normal_clean.mp4" data-start="3" data-duration="3.28" data-media-start="0" data-track-index="2" muted playsinline></video>
+          <!-- hold on the clip's own last frame (source frame 163) -->
+          <img data-hf-id="hf-enma" id="i1" class="clip media" src="assets/stills/untrained_last.png" alt="" data-start="6.28" data-duration="1.67" data-track-index="3" />
+        </div>
+        <div data-hf-id="hf-ofjb" id="L2" class="layer">
+          <video data-hf-id="hf-gqhd" id="v2" class="clip media" src="assets/video/sac_229k_normal_clean.mp4" data-start="7.2" data-duration="4.95" data-media-start="0.4" data-track-index="4" muted playsinline></video>
+        </div>
+        <div data-hf-id="hf-khfa" id="L3" class="layer">
+          <video data-hf-id="hf-065w" id="v3" class="clip media" src="assets/video/sac_524k_normal_clean.mp4" data-start="11.4" data-duration="6.4" data-media-start="4" data-track-index="5" muted playsinline></video>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-di1f" id="c2" class="clip cap" data-start="3.4" data-duration="3.8" data-track-index="6">
+        <div data-hf-id="hf-ofzv" class="cap-label">0 practice steps</div>
+        <div data-hf-id="hf-0q48" class="cap-text"><span data-hf-id="hf-os4p" class="w">It</span> <span data-hf-id="hf-xj1k" class="w">falls.</span></div>
+      </div>
+      <div data-hf-id="hf-t99w" id="c3" class="clip cap" data-start="7.7" data-duration="3.7" data-track-index="6">
+        <div data-hf-id="hf-r6nm" class="cap-label">229,376 practice steps</div>
+        <div data-hf-id="hf-kxe8" class="cap-text"><span data-hf-id="hf-pz1s" class="w">It</span> <span data-hf-id="hf-h41w" class="w">wobbles.</span></div>
+      </div>
+      <div data-hf-id="hf-smgm" id="c4" class="clip cap" data-start="11.8" data-duration="2.65" data-track-index="6">
+        <div data-hf-id="hf-b60a" class="cap-label">524,288 practice steps</div>
+        <div data-hf-id="hf-jqh5" class="cap-text"><span data-hf-id="hf-pkqr" class="w">It</span> <span data-hf-id="hf-fhsg" class="w">walks.</span></div>
+      </div>
+
+      <!-- 5. The turn -->
+      <div data-hf-id="hf-rg1f" id="s5" class="clip screen" data-start="17.8" data-duration="2.8" data-track-index="1">
+        <div data-hf-id="hf-11yw" class="display" style="font-size: 100px"><span data-hf-id="hf-bnfr" class="w">Then</span> <span data-hf-id="hf-pg2w" class="w">we</span> <span data-hf-id="hf-95gp" class="w">gave</span> <span data-hf-id="hf-cqxh" class="w">it</span> <span data-hf-id="hf-h674" class="w">obstacles.</span></div>
+      </div>
+
+      <!-- 6. A vs B on the same hidden test course (one example) -->
+      <div data-hf-id="hf-qo99" id="pair">
+        <div data-hf-id="hf-w6gu" id="labA" class="pane-label"><span data-hf-id="hf-9smq" class="who">A</span>Obstacles from the start</div>
+        <div data-hf-id="hf-zlpj" id="labB" class="pane-label"><span data-hf-id="hf-9gry" class="dot"></span><span data-hf-id="hf-a6xr" class="who">B</span>Learned to walk first</div>
+        <div data-hf-id="hf-rukw" id="pA" class="pane" data-layout-allow-overflow>
+          <video data-hf-id="hf-khtl" id="vA" class="clip" src="assets/video/a_freezes_b_gets_past_clean.mp4" data-start="20.6" data-duration="5.7" data-media-start="1.2" data-track-index="7" muted playsinline></video>
+          <img data-hf-id="hf-dgvt" id="iA" class="clip" src="assets/stills/pair_6p90.png" alt="" data-start="26.3" data-duration="1.9" data-track-index="8" />
+        </div>
+        <div data-hf-id="hf-yo3f" id="pB" class="pane" data-layout-allow-overflow>
+          <video data-hf-id="hf-vif2" id="vB" class="clip" src="assets/video/a_freezes_b_gets_past_clean.mp4" data-start="20.6" data-duration="5.7" data-media-start="1.2" data-track-index="9" muted playsinline></video>
+          <img data-hf-id="hf-28qi" id="iB" class="clip" src="assets/stills/pair_6p90.png" alt="" data-start="26.3" data-duration="1.9" data-track-index="11" />
+        </div>
+        <div data-hf-id="hf-vm3q" id="stA" class="status">Stopped at the stump.</div>
+        <div data-hf-id="hf-n4jm" id="stB" class="status">Climbed over it.</div>
+      </div>
+      <div data-hf-id="hf-fwv7" id="s6note" class="clip" data-start="20.6" data-duration="7.6" data-track-index="12">
+        <div data-hf-id="hf-q7uk" class="t">One example test run (course 10016), not the typical result.</div>
+      </div>
+
+      <!-- 7. The result -->
+      <div data-hf-id="hf-sfo5" id="s7" class="clip screen" data-start="28.2" data-duration="7.1" data-track-index="1">
+        <div data-hf-id="hf-1j5i" class="kicker"><span data-hf-id="hf-zcc2" class="dot"></span>Learned to walk first</div>
+        <div data-hf-id="hf-zupt" class="big">6×</div>
+        <div data-hf-id="hf-m0km" class="what"><span data-hf-id="hf-7o09" class="w">more</span> <span data-hf-id="hf-enbu" class="w">courses</span> <span data-hf-id="hf-0rnq" class="w">finished</span></div>
+        <div data-hf-id="hf-a46i" class="rule"></div>
+        <div data-hf-id="hf-vms5" class="line">13.3% vs 2.0% · tested once on courses it had never seen</div>
+        <div data-hf-id="hf-83mb" class="foot">Same practice for both. Most of the gap came from 1 of 3 training runs.</div>
+      </div>
+
+      <!-- 8. End card -->
+      <div data-hf-id="hf-o1gj" id="s8" class="clip screen" data-start="35.3" data-duration="4" data-track-index="1">
+        <div data-hf-id="hf-j8jm" class="title"><span data-hf-id="hf-zvuh" class="w">Walk</span> <span data-hf-id="hf-cg4j" class="w">Before</span> <span data-hf-id="hf-lrhv" class="w">You</span> <span data-hf-id="hf-ux6d" class="w">Climb</span></div>
+        <div data-hf-id="hf-0yl2" class="credit">Saad Hilal · S4D</div>
+        <div data-hf-id="hf-vt4o" class="link">github.com/saadhilalai/walk-before-you-climb</div>
+      </div>
+
+      <!-- Music: "Meanwhile" by Scott Buckley, CC BY 4.0. Excerpt from 2:07.05; its strings swell (2:21.85) lands on the walk growing full screen (14.8 s). -->
+      <audio data-hf-id="hf-czgg" id="bgm" src="assets/music/meanwhile-scott-buckley.mp3" data-start="0" data-duration="39.3" data-media-start="127.05" data-track-index="10" data-volume="0.9"></audio>
+    </div>
+
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var tl = gsap.timeline({ paused: true });
+
+        // A soft word-by-word build: rise, unblur, fade in. Calm, never snappy.
+        function build(sel, at, opts) {
+          opts = opts || {};
+          tl.fromTo(sel,
+            { opacity: 0, y: opts.y || 34, filter: "blur(" + (opts.blur || 10) + "px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: opts.dur || 1.3, ease: opts.ease || "power3.out", stagger: opts.stagger || 0.1 },
+            at);
+        }
+        function fadeIn(sel, at, dur, y, ease) {
+          tl.fromTo(sel, { opacity: 0, y: y || 0 }, { opacity: 1, y: 0, duration: dur || 0.9, ease: ease || "sine.out" }, at);
+        }
+        // Exits are explicit fromTo with immediateRender off, so a later tween never writes its
+        // start state at build time over an element that hasn't entered yet (seek-safe).
+        function fadeOut(sel, at, dur) {
+          tl.fromTo(sel, { opacity: 1, y: 0 }, { opacity: 0, y: -8, duration: dur || 0.45, ease: "power1.in", immediateRender: false }, at);
+        }
+        function later(sel, from, to, at) {
+          to.immediateRender = false;
+          tl.fromTo(sel, from, to, at);
+        }
+
+        // 1. "It couldn't stand."
+        build("#s1 .w", 0.35);
+        fadeOut("#s1 .display", 2.45);
+
+        // 2-4. The window appears, small and centred
+        tl.fromTo("#frame", { opacity: 0, scale: 0.57, y: -70 }, { opacity: 1, scale: 0.6, y: -70, duration: 1.4, ease: "power2.out" }, 3.0);
+        later("#frame", { scale: 0.6 }, { scale: 0.612, duration: 10.2, ease: "none" }, 4.4);   // slow push while it learns
+
+        build("#c2 .cap-label", 3.9, { y: 12, blur: 6, dur: 1.0 });
+        build("#c2 .w", 4.25, { y: 20, blur: 8, dur: 1.1, stagger: 0.08 });
+        fadeOut("#c2 .cap-label, #c2 .cap-text", 6.75, 0.4);
+
+        tl.fromTo("#L2", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "sine.inOut" }, 7.2);   // collapse dissolves to wobble
+        build("#c3 .cap-label", 8.0, { y: 12, blur: 6, dur: 1.0 });
+        build("#c3 .w", 8.2, { y: 20, blur: 8, dur: 1.1, stagger: 0.08 });
+        fadeOut("#c3 .cap-label, #c3 .cap-text", 10.95, 0.4);
+
+        tl.fromTo("#L3", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "sine.inOut" }, 11.4);  // wobble dissolves to walk
+        build("#c4 .cap-label", 12.05, { y: 12, blur: 6, dur: 1.0 });
+        build("#c4 .w", 12.25, { y: 20, blur: 8, dur: 1.1, stagger: 0.08 });
+        fadeOut("#c4 .cap-label, #c4 .cap-text", 14.05, 0.4);
+
+        // Key moment 1: it walks, and the window grows to full screen with the music's swell (14.8 s)
+        later("#frame", { scale: 0.612, y: -70, borderRadius: 36.7 }, { scale: 1, y: 0, borderRadius: 0, duration: 1.8, ease: "power2.inOut" }, 14.6);
+        later("#frame", { opacity: 1 }, { opacity: 0, duration: 0.5, ease: "power1.in" }, 17.3);
+
+        // 5. "Then we gave it obstacles."
+        build("#s5 .w", 18.1, { stagger: 0.09 });
+        fadeOut("#s5 .display", 20.0);
+
+        // 6. A vs B: same course, side by side
+        tl.fromTo("#pair", { opacity: 0, scale: 0.78 }, { opacity: 1, scale: 0.8, duration: 1.0, ease: "power2.out" }, 20.6);
+        fadeIn("#labA", 21.0, 0.9, 10, "power3.out");
+        fadeIn("#labB", 21.15, 0.9, 10, "power3.out");
+        fadeIn("#s6note .t", 21.6, 1.0);
+        // Key moment 2: as A stops at the stump (24.6 s) and B climbs it (25.2-25.6 s), the pair grows to full width
+        later("#pair", { scale: 0.8 }, { scale: 1, duration: 1.6, ease: "power2.inOut" }, 24.4);
+        build("#stA", 24.85, { y: 14, blur: 6, dur: 1.0 });
+        build("#stB", 25.55, { y: 14, blur: 6, dur: 1.0 });
+        later("#pair", { opacity: 1 }, { opacity: 0, duration: 0.6, ease: "power1.in" }, 27.6);
+        fadeOut("#s6note .t", 27.6, 0.6);
+
+        // 7. The result, one idea at a time
+        fadeIn("#s7 .kicker", 28.55, 1.0, 12, "power3.out");
+        tl.fromTo("#s7 .big", { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.6, ease: "expo.out" }, 28.75);
+        build("#s7 .what .w", 29.15, { y: 24, blur: 8, dur: 1.2, stagger: 0.08 });
+        tl.fromTo("#s7 .rule", { scaleX: 0 }, { scaleX: 1, duration: 1.0, ease: "power2.inOut" }, 29.6);
+        fadeIn("#s7 .line", 29.9, 1.0, 12, "power3.out");
+        fadeIn("#s7 .foot", 30.5, 1.0, 8);
+        fadeOut("#s7 .kicker, #s7 .big, #s7 .what, #s7 .rule, #s7 .line, #s7 .foot", 34.7, 0.5);
+
+        // 8. End card
+        build("#s8 .title .w", 35.6, { stagger: 0.09, dur: 1.4 });
+        fadeIn("#s8 .credit", 36.25, 1.0, 10, "power3.out");
+        fadeIn("#s8 .link", 36.55, 1.0, 8);
+
+        // Music: gentle fade in from silence, long fade out under the end card
+        tl.fromTo("#bgm", { volume: 0 }, { volume: 0.9, duration: 2.2, ease: "sine.out" }, 0);
+        tl.fromTo("#bgm", { volume: 0.9 }, { volume: 0, duration: 3.0, ease: "sine.in", immediateRender: false }, 36.3);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

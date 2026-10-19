@@ -1,5 +1,13 @@
 # Robot Walker: does learning to walk first help a robot learn an obstacle course?
 
+[![Walk Before You Climb: the 39-second project video. Click to watch.](brag-output/brag.jpg)](brag-output/brag.mp4)
+
+**▶ [Watch the 39-second video](brag-output/brag.mp4)** (4K, with sound). All robot footage replays real, recorded test runs.
+
+Music: 'Meanwhile' by Scott Buckley - released under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). [www.scottbuckley.com.au](https://www.scottbuckley.com.au)
+
+---
+
 A two-legged robot (Gymnasium's **BipedalWalker**) teaches itself to walk with reinforcement learning, then takes on the **hardcore** course full of stumps, pits and stairs.
 
 The main experiment asks one question: **with exactly the same amount of practice, does a curriculum (flat ground first, then obstacles) beat training on obstacles from scratch?**
@@ -238,6 +246,7 @@ The trained models are included in `models/`, so tests, charts and videos can be
 | `make_charts.py`, `make_videos.py`, `render.py` | Charts; videos that replay recorded runs; the sharp re-renderer |
 | `check_setup.py`, `benchmark_speed.py`, `gate.py`, `make_untrained.py` | Sanity checks, speed tests, B's safety check, the untrained robot |
 | `models/`, `runs/`, `charts/`, `videos/` | Trained models, every log and result, charts, videos |
+| `brag-output/` | The 39-second project video, its poster and post caption, and the Hyperframes source it was rendered from |
 | `PROGRESS.md` | The full lab notebook: every step, decision and number |
 | `INTERVIEW.md` | Ten questions about the project, answered plainly |
 
@@ -245,6 +254,8 @@ The trained models are included in `models/`, so tests, charts and videos can be
 - **The simulator:** [Gymnasium](https://gymnasium.farama.org/)'s BipedalWalker by the Farama Foundation, running on the Box2D physics engine.
 - **Learning algorithms:** [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3).
 - **Hyperparameters and the 122 benchmark:** [RL Baselines3 Zoo](https://github.com/DLR-RM/rl-baselines3-zoo).
+- **Project video music:** 'Meanwhile' by Scott Buckley - released under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). [www.scottbuckley.com.au](https://www.scottbuckley.com.au)
+- **Project video fonts:** Geist and Geist Mono by Vercel, [SIL Open Font License 1.1](https://github.com/vercel/geist-font/blob/main/OFL.txt). Full video credits are in [CREDITS.md](CREDITS.md).
 
 ## License
 [MIT](LICENSE) © 2026 Saad Hilal

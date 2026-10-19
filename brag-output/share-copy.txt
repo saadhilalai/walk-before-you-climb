@@ -1,0 +1,5 @@
+It couldn't stand. After learning to walk first, it finished 6× more obstacle courses than robots that started on obstacles (13.3% vs 2.0%, tested once on courses it had never seen). Same practice for both; most of the gap came from 1 of 3 training runs.
+
+Walk Before You Climb, an S4D project: github.com/saadhilalai/walk-before-you-climb
+
+Music: 'Meanwhile' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au

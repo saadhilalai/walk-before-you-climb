@@ -747,3 +747,16 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
   - a gradual curriculum (Agent C)
   - TQC on a GPU
 
+
+## Project video (done 2026-10-19)
+- **What:** a 39-second, 4K project video, `brag-output/brag.mp4`, made with Hyperframes via /brag. It now sits at the top of the README as a poster image that links to it.
+  - **Story:** "It couldn't stand." → it falls, wobbles, then walks (0 / 229,376 / 524,288 practice steps) → "Then we gave it obstacles." → A stops at the stump while B climbs over it → **6× more courses finished** (13.3% vs 2.0%) → end card.
+  - **Footage:** only replays from `videos/final` (clean versions), which were already checked against the recorded test runs.
+- **Honesty:**
+  - The A-vs-B scene is labelled "One example test run (course 10016), not the typical result." It ends before B gets stuck at the next stump, and nothing on screen says B finished that course (it didn't).
+  - "6×" rounds 6.7 down. The footnote says most of the gap came from 1 of 3 training runs.
+- **Director's decisions:**
+  - Rejected the first draft as "generic and AI-made". It had also reused the rocket-lander video's music, because /brag only bundles one set of tracks. That draft is kept on the Mac only, in `brag-output-v1/`, and is not in git.
+  - Asked for a calm, premium redo with a new CC0/CC BY track, then approved it as is ("This is perfect").
+- **Music:** "Meanwhile" by Scott Buckley, CC BY 4.0, credited in the README and CREDITS.md. The track is mixed into the video; the separate file isn't committed.
+- **Post caption:** `brag-output/share-copy.txt`.
