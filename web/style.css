@@ -406,8 +406,8 @@ html:not(.motion) .lane-word { opacity: 1; }
 .ev-grid { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 5fr 7fr; gap: clamp(30px, 5vw, 90px); }
 .ev-sticky { position: sticky; top: 22vh; }
 .ev-texts { position: relative; min-height: 200px; }
-.ev-text { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease), transform 0.9s var(--ease); }
-.ev-text.on { opacity: 1; transform: none; }
+.ev-text { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(18px); transition: opacity 0.22s var(--ease), transform 0.3s var(--ease); }
+.ev-text.on { opacity: 1; transform: none; transition: opacity 0.7s var(--ease) 0.2s, transform 0.9s var(--ease) 0.2s; }
 .ev-text h3 { font-weight: 600; font-size: clamp(40px, 4.8vw, 80px); letter-spacing: -0.05em; line-height: 0.95; margin-bottom: 22px; }
 .ev-charts { display: grid; gap: 26vh; padding: 12vh 0; }
 .ev-fig { display: grid; gap: 16px; }
