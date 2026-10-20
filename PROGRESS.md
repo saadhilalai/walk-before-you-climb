@@ -860,3 +860,35 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
   | Project video | `8b134a4` | `eab079c` | **`08c40fd`** |
 
   The recorded test files still say `012ffcf`, exactly as written.
+
+## Website v3 (2026-10-20)
+- **Director's brief:**
+  - The robot looked cheap; make it a premium product render.
+  - Use far fewer words, with a visual for every number.
+  - Put the details in a "Nerd mode".
+  - Make A vs B a race.
+  - No captions under everything, only one footer, and no AI-tool mentions anywhere.
+- **New look (`web/js/look.js`), drawing only:**
+  - A humanoid robot: a matte graphite body, metal joints and a visor light, with rim, bounce and contact shadows.
+  - A designed course: lit edges, soft shadows, a faint grid, and the finish line where the game ends a run.
+  - Every part sits at its recorded position and angle. The data files are byte-for-byte unchanged.
+- **The humanoid is drawn around the real body:**
+  - The simulated body is the game's long, low box. The power pack, hips, forearms and fists cover its underside and both ends, so the drawn robot touches down exactly where the real body does.
+  - The torso, shoulders and head rise above it, fixed to it. The arms never move on their own.
+- **Measured over all 823,159 recorded frames:**
+  - The humanoid is shown in 99.88% of frames.
+  - In 63 of 603 runs, all falls where the robot flips onto its back, any head drawn above the box would go into the ground. In the last 0.26 s at most before landing, the humanoid fades to the real body instead.
+  - Nothing passes into the course in any frame.
+  - Nerd mode says so: "Upper body is a visual redesign; the simulated body is the standard BipedalWalker hull."
+- **Re-check:** all 600 replays and all 600 race-index entries match `runs/final/episodes.csv`: outcome, steps, distance, where it fell, and the last frame's position. 0 mismatches.
+- **Page:**
+  - Headlines of 12 words or fewer, and a visual for every number (spec visuals, bars, dots, a course track, run stacks).
+  - Nerd mode (top right, off by default, remembered in the browser) holds the details and footnotes.
+  - "Who makes it?": pick A or B, a 3-2-1 countdown, the race, then the winner (whoever finishes, else whoever got further) with Rematch and Next race.
+  - One footer.
+- **Removed:**
+  - the old game-style drawing and `robot.js`
+  - the unused v1 script `app.js`
+  - the README sentence and notebook lines naming the AI coding tool
+  - the video tool's generated setup notes
+

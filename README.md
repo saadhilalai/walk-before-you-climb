@@ -1,6 +1,6 @@
 # Robot Walker: does learning to walk first help a robot learn an obstacle course?
 
-**Live demo: [s4dai-walk-before-you-climb.static.hf.space](https://s4dai-walk-before-you-climb.static.hf.space)**. Pick any of the 100 hidden test courses and watch A and B side by side: replays of the recorded test runs, in your browser.
+**Live demo: [s4dai-walk-before-you-climb.static.hf.space](https://s4dai-walk-before-you-climb.static.hf.space)**. Race A against B on any of the 100 hidden test courses: replays of the recorded test runs, in your browser.
 
 [![Walk Before You Climb: the 39-second project video. Click to watch.](brag-output/brag.jpg)](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@08c40fdc0ec4ca343be2b29a5407eee6e53410ce/brag-output/brag.mp4)
 
