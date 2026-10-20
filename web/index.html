@@ -23,6 +23,7 @@
       d.classList.add("js");
       if (!matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("motion");
       if (matchMedia("(hover: hover) and (pointer: fine)").matches) d.classList.add("fine");
+      try { if (localStorage.getItem("nerd") === "1") d.classList.add("nerd"); } catch (e) {}
     })();
   </script>
   <script src="vendor/gsap/gsap.min.js" defer></script>
@@ -31,7 +32,7 @@
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
-  <a class="skip" href="#explore">Skip to the course explorer</a>
+  <a class="skip" href="#race">Skip to the race</a>
   <div class="cursor" aria-hidden="true"><div class="cursor-ring"></div><div class="cursor-dot"></div></div>
 
   <header class="nav" data-nav>
@@ -42,69 +43,70 @@
     <nav class="nav-links" aria-label="Sections">
       <a href="#walker">Walker</a>
       <a href="#result">Result</a>
-      <a href="#explore">Try it</a>
+      <a href="#race">Race</a>
       <a class="nav-cta" href="https://github.com/saadhilalai/walk-before-you-climb" target="_blank" rel="noopener">GitHub</a>
+      <button class="nerd-toggle" type="button" role="switch" aria-checked="false" data-nerd>
+        <span class="nt-track" aria-hidden="true"><span class="nt-knob"></span></span><span class="nt-label">Nerd<span class="nt-long"> mode</span></span>
+      </button>
     </nav>
   </header>
 
   <main>
-    <!-- 01 · Hero: giant kinetic type ------------------------------------------------------------------>
-    <section class="s-hero" id="top" data-theme="dark" data-scene="hero">
+    <!-- 01 · Hero ------------------------------------------------------------------------------------------>
+    <section class="s-hero" id="top" data-theme="dark">
       <div class="hero-glow" aria-hidden="true"></div>
-      <div class="hero-robot" data-hero-robot aria-hidden="true"></div>
+      <canvas class="hero-robot" data-hero-robot aria-hidden="true"></canvas>
       <div class="hero-inner">
-        <p class="hero-kicker mono"><span class="bdot"></span>S4D · A reinforcement-learning experiment</p>
+        <p class="hero-kicker mono"><span class="bdot"></span>S4D · Robot learning</p>
         <h1 class="hero-title" aria-label="Walk before you climb.">
           <span class="ht l1" aria-hidden="true"><span>Walk</span></span>
           <span class="ht l2" aria-hidden="true"><span>before you</span></span>
           <span class="ht l3" aria-hidden="true"><span>climb.</span></span>
         </h1>
         <div class="hero-foot">
-          <p class="hero-lede">Two robots taught themselves to cross obstacle courses with exactly the same practice. The one that learned to walk first finished <b>6×&nbsp;more</b> of the courses it had never seen.</p>
-          <p class="scroll-cue mono" aria-hidden="true"><span></span>Scroll</p>
+          <p class="hero-lede">Two robots. Same practice.<br><b>One learned to walk first.</b></p>
+          <p class="scroll-cue" aria-hidden="true"><span></span></p>
         </div>
+        <p class="nerd nerd-float">Gymnasium BipedalWalker (Box2D physics) · PPO via Stable-Baselines3 · RL Baselines3 Zoo settings · 100M practice steps per robot</p>
       </div>
     </section>
 
-    <!-- 02 · The film: grows to full bleed -------------------------------------------------------------->
-    <section class="s-film" id="film" data-theme="dark" data-scene="film">
+    <!-- 02 · The film ---------------------------------------------------------------------------------------->
+    <section class="s-film" id="film" data-theme="dark">
       <div class="film-sticky">
-        <p class="film-label mono" data-film-label>The film · 39 s</p>
         <div class="film-frame" data-film-frame>
           <video data-video preload="none" playsinline poster="media/film-poster.jpg" aria-label="Walk Before You Climb, a 39-second film">
             <source src="media/film-1080p.mp4" type="video/mp4">
           </video>
           <button class="film-play" type="button" data-video-play aria-label="Play the film, 39 seconds, with sound" data-cursor="Play">
             <span class="play-disc" aria-hidden="true"><span class="play-tri"></span></span>
-            <span class="film-play-text"><span>Watch the film</span><span class="mono">39 s · sound on</span></span>
+            <span class="film-play-text">Watch the film</span>
           </button>
         </div>
-        <p class="film-note mono">Every robot in it is a replay of a recorded test run · <a href="media/film-4k.mp4">4K</a> · Music: “Meanwhile” by Scott Buckley, CC BY 4.0</p>
+        <p class="nerd nerd-float">39 s, sound on · every robot in it is a replay of a recorded test run · <a href="media/film-4k.mp4">4K version</a></p>
       </div>
     </section>
 
-    <!-- 03 · Product reveal: the walker, lit ------------------------------------------------------------->
-    <section class="s-reveal" id="walker" data-theme="dark" data-scene="reveal">
+    <!-- 03 · The walker, lit ------------------------------------------------------------------------------------->
+    <section class="s-reveal" id="walker" data-theme="dark">
       <div class="reveal-sticky">
-        <div class="reveal-head">
-          <p class="mono tiny" data-rv="kicker">Meet the walker</p>
-          <h2 class="reveal-title" data-rv="title">No instructions.<br><span class="soft">Just a score.</span></h2>
-        </div>
-        <div class="reveal-stage" data-reveal-stage>
+        <h2 class="reveal-title" data-rv="title">No instructions.<br><span class="soft">Just a score.</span></h2>
+        <div class="reveal-stage">
           <div class="spot" aria-hidden="true"></div>
-          <div class="reveal-robot" data-reveal-robot role="img" aria-label="The walker robot: a body on two legs, each with a hip and a knee motor, with ten lidar rays reading the ground ahead"></div>
+          <canvas class="reveal-robot" data-reveal-robot role="img" aria-label="The walker: a humanoid robot on two legs, with motors at both hips and knees, and ten lidar rays reading the ground ahead"></canvas>
         </div>
-        <ul class="specs" data-specs>
-          <li class="spec" data-spec="motors"><span class="spec-n">4</span><span class="spec-t">motors<br><span class="soft">2 hips, 2 knees</span></span></li>
-          <li class="spec" data-spec="eyes"><span class="spec-n">10</span><span class="spec-t">lidar rays<br><span class="soft">read the ground ahead</span></span></li>
-          <li class="spec" data-spec="senses"><span class="spec-n">24</span><span class="spec-t">numbers in<br><span class="soft">50 times a second</span></span></li>
-          <li class="spec" data-spec="score"><span class="spec-n">≈300</span><span class="spec-t">points for reaching the end<br><span class="soft">−100 for falling</span></span></li>
+        <ul class="specs">
+          <li class="spec" data-spec="motors"><span class="spec-n">4</span><span class="spec-t">motors</span><span class="sv sv-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span></li>
+          <li class="spec" data-spec="eyes"><span class="spec-n">10</span><span class="spec-t">lidar rays</span><svg class="sv sv-fan" data-fan viewBox="0 0 64 40" aria-hidden="true"></svg></li>
+          <li class="spec" data-spec="senses"><span class="spec-n">24</span><span class="spec-t">numbers in</span><span class="sv sv-bars" data-bars24 aria-hidden="true"></span></li>
+          <li class="spec" data-spec="score"><span class="spec-n">300</span><span class="spec-t">points to finish</span><span class="sv sv-score" aria-hidden="true"><i class="neg"></i><i class="pos"></i></span></li>
         </ul>
+        <p class="nerd nerd-float">Motors: 2 hips, 2 knees · lidar reads the ground ahead · 24 numbers in, 50 times a second · about 300 points for reaching the end, −100 for falling · Upper body is a visual redesign; the simulated body is the standard BipedalWalker hull.</p>
       </div>
     </section>
 
-    <!-- 04 · Learning to walk: scroll-scrubbed replays -------------------------------------------------------->
-    <section class="s-learn" id="learn" data-theme="light" data-scene="learn" aria-label="Learning to walk">
+    <!-- 04 · Learning to walk: scroll-scrubbed replays ---------------------------------------------------------->
+    <section class="s-learn" id="learn" data-theme="light" aria-label="Learning to walk">
       <div class="learn-sticky">
         <div class="learn-canvases">
           <canvas data-learn-canvas="falls" role="img" aria-label="Replay: the untrained robot collapses"></canvas>
@@ -112,44 +114,40 @@
           <canvas data-learn-canvas="walks" role="img" aria-label="Replay: after 524,288 practice steps the robot walks to the finish"></canvas>
         </div>
         <h2 class="learn-title" data-learn-title><span>It</span> <span>couldn’t</span> <span>stand.</span></h2>
-        <div class="learn-counter">
-          <p class="counter-n mono" data-learn-steps>0</p>
-          <p class="counter-l mono">practice steps</p>
-        </div>
+        <p class="counter-n" data-learn-counter><span data-learn-steps>0</span><span class="counter-u"> steps</span></p>
         <div class="learn-words" aria-live="polite">
           <p class="lw" data-lw="falls">It falls.</p>
           <p class="lw" data-lw="wobbles">It wobbles.</p>
           <p class="lw" data-lw="walks">It walks.</p>
         </div>
-        <p class="learn-stamp mono" data-learn-stamp>Finished the course · 15.9 s</p>
+        <p class="learn-stamp" data-learn-stamp>Finished.</p>
         <div class="learn-rail" aria-hidden="true"><span data-learn-fill></span><i style="left:0%"></i><i style="left:33.3%"></i><i style="left:66.6%"></i></div>
-        <p class="learn-note mono">Replays of recorded test runs · flat course · learning method: SAC · scroll moves them frame by frame</p>
+        <p class="nerd nerd-float nerd-onlight">Replays of recorded test runs on the flat course · learning method: SAC · after 0, 229,376 and 524,288 practice steps · the last one finishes in 15.9 s · scrolling moves them frame by frame</p>
       </div>
     </section>
 
-    <!-- 05 · A | B split screen ---------------------------------------------------------------------------------->
-    <section class="s-split" id="ab" data-theme="split" data-scene="split">
+    <!-- 05 · A | B ------------------------------------------------------------------------------------------------>
+    <section class="s-split" id="ab" data-theme="split">
       <div class="split-sticky">
         <div class="half half-a" data-tilt-soft>
-          <p class="half-tag mono">Robot A</p>
           <p class="half-letter" aria-hidden="true">A</p>
           <h3 class="half-title">Obstacles<br>from the start.</h3>
-          <div class="half-bar" aria-label="All 100,007,936 practice steps on obstacle courses"><span class="bar-seg seg-obst" data-bar-a style="--w:100%"></span></div>
-          <p class="half-note mono"><span data-steps-a>100,007,936</span> steps on obstacles</p>
+          <div class="half-bar" aria-label="All 100 million practice steps on obstacle courses"><span class="bar-seg seg-obst" data-bar-a style="--w:100%"></span></div>
+          <p class="half-key mono"><span class="k obst"></span>100M on obstacles</p>
         </div>
         <div class="half half-b" data-tilt-soft>
-          <p class="half-tag mono">Robot B</p>
           <p class="half-letter" aria-hidden="true">B</p>
           <h3 class="half-title">Learned to<br>walk first.</h3>
-          <div class="half-bar" aria-label="5,013,504 steps on flat ground, then 94,994,432 on obstacle courses"><span class="bar-seg seg-flat" data-bar-b1 style="--w:5.013%"></span><span class="bar-seg seg-obst" data-bar-b2 style="--w:94.987%"></span></div>
-          <p class="half-note mono"><span data-steps-b>5,013,504</span> on flat ground, then 94,994,432 on obstacles</p>
+          <div class="half-bar" aria-label="5 million steps on flat ground, then 95 million on obstacle courses"><span class="bar-seg seg-flat" data-bar-b1 style="--w:5.013%"></span><span class="bar-seg seg-obst" data-bar-b2 style="--w:94.987%"></span></div>
+          <p class="half-key mono"><span class="k flat"></span>5M flat <span class="k obst"></span>95M on obstacles</p>
         </div>
-        <p class="split-mid" data-split-mid><span>Same body. Same settings. Same 100,007,936 steps.</span><span class="soft">Only the order changed.</span></p>
+        <p class="split-mid" data-split-mid><span>Same body. Same practice.</span><span class="soft">Only the order changed.</span></p>
+        <p class="nerd nerd-float">Exactly 100,007,936 steps each · B: 5,013,504 on flat ground, then 94,994,432 on obstacles · same settings and the same starting brain, checked weight by weight</p>
       </div>
     </section>
 
-    <!-- 06 · Freeze vs climb: full-bleed lanes, scrubbed -------------------------------------------------------->
-    <section class="s-freeze" id="freeze" data-theme="dark" data-scene="freeze" aria-label="One example: A stops at a stump, B climbs over it">
+    <!-- 06 · Freeze vs climb ---------------------------------------------------------------------------------------->
+    <section class="s-freeze" id="freeze" data-theme="dark" aria-label="One example: A stops at a stump, B climbs over it">
       <div class="freeze-sticky">
         <div class="lane">
           <canvas data-freeze-canvas="a" role="img" aria-label="Replay: A walks up to a stump and stops"></canvas>
@@ -160,49 +158,53 @@
           <canvas data-freeze-canvas="b" role="img" aria-label="Replay: B climbs over the same stump"></canvas>
           <p class="lane-tag"><span class="tag tag-b">B</span>Learned to walk first</p>
           <p class="lane-word word-b" data-freeze-word="b">Climbed.</p>
+          <a class="lane-pill mono" href="#race" data-load-course="10016" data-load-seed="42">One example · race it <span aria-hidden="true">→</span></a>
         </div>
-        <p class="freeze-time mono" data-freeze-time>0.0 s</p>
-        <p class="freeze-note mono" data-freeze-note>One example test run (course 10016), not the typical result. A second later, B gets stuck at the next, taller stump. <a href="#explore" data-load-course="10016" data-load-seed="42">Watch the whole run</a></p>
+        <p class="nerd nerd-float">Course 10016, training run 1, not the typical result · A stops making progress at 4.8 s · B clears this stump at 6.6 s, then gets stuck at the next, taller one</p>
       </div>
     </section>
 
-    <!-- 07 · Horizontal gallery of obstacles --------------------------------------------------------------------------->
-    <section class="s-gallery" id="obstacles" data-theme="light" data-scene="gallery">
+    <!-- 07 · Every obstacle ------------------------------------------------------------------------------------------>
+    <section class="s-gallery" id="obstacles" data-theme="light">
       <div class="gallery-sticky">
         <div class="gallery-track" data-gallery-track>
           <div class="g-intro">
-            <p class="mono tiny">The course</p>
             <h2 class="g-title">Every obstacle,<br>tested.</h2>
-            <p class="g-lede">10 to 19 per course: stumps, pits and stairs. Here is how each one went in the final test, with a real recorded run of each.</p>
-            <p class="g-hint mono" aria-hidden="true">Keep scrolling →</p>
+            <p class="g-arrow" aria-hidden="true">→</p>
+            <p class="nerd">10 to 19 obstacles per course · each clip is the first test course (training run 1) that shows it · falls are per 100 obstacles of that kind reached, in the final test</p>
           </div>
           <article class="g-card" data-clip="stump_fall" data-tilt>
             <div class="g-media"><canvas role="img" aria-label="Replay: B falls at a stump"></canvas></div>
-            <div class="g-body"><p class="g-kind mono">Stumps</p><p class="g-stat"><span class="sa">A 6.8</span> <span class="sb">B 9.4</span></p><p class="g-unit mono">falls per 100 stumps reached</p><p class="g-text">B’s weak spot. It reaches more stumps, and falls at them more often.</p></div>
+            <div class="g-body"><h3 class="g-kind">Stumps</h3><p class="g-line">B’s weak spot.</p>
+              <div class="g-viz" data-viz="bars" data-q="Falls per 100" data-max="22" data-rows="A:6.8,B:9.4"></div></div>
           </article>
           <article class="g-card" data-clip="freeze" data-tilt>
             <div class="g-media"><canvas role="img" aria-label="Replay: A stands frozen in front of a stump"></canvas></div>
-            <div class="g-body"><p class="g-kind mono">The freeze</p><p class="g-stat"><span class="sa">A 139/188</span> <span class="sb">B 120/123</span></p><p class="g-unit mono">runs that ran out of time ended at a stump</p><p class="g-text">Both learned to stand still. Standing still costs a little; falling costs 100 points.</p></div>
+            <div class="g-body"><h3 class="g-kind">The freeze</h3><p class="g-line">Both learned to stand still.</p>
+              <div class="g-viz" data-viz="bars" data-q="Time-outs frozen at a stump" data-max="100" data-unit="%" data-rows="A:73.9,B:97.6"></div>
+              <p class="nerd">Runs that ran out of time and ended at a stump: A 139 of 188, B 120 of 123 · standing still costs a little, falling costs 100 points</p></div>
           </article>
           <article class="g-card" data-clip="pit_fall" data-tilt>
             <div class="g-media"><canvas role="img" aria-label="Replay: A falls into a pit"></canvas></div>
-            <div class="g-body"><p class="g-kind mono">Pits</p><p class="g-stat"><span class="sa">A 20.5</span> <span class="sb">B 9.5</span></p><p class="g-unit mono">falls per 100 pits reached</p><p class="g-text">A’s main killer. B falls at them less than half as often.</p></div>
+            <div class="g-body"><h3 class="g-kind">Pits</h3><p class="g-line">A’s main killer.</p>
+              <div class="g-viz" data-viz="bars" data-q="Falls per 100" data-max="22" data-rows="A:20.5,B:9.5"></div></div>
           </article>
           <article class="g-card" data-clip="stairs_up" data-tilt>
             <div class="g-media"><canvas role="img" aria-label="Replay: B climbs a staircase"></canvas></div>
-            <div class="g-body"><p class="g-kind mono">Stairs</p><p class="g-stat"><span class="sa">A 1.0</span> <span class="sb">B 3.6</span></p><p class="g-unit mono">falls per 100 staircases up · down: A 4.8, B 2.0</p><p class="g-text">Rarely the problem for either. Up is harder for B, down is harder for A.</p></div>
+            <div class="g-body"><h3 class="g-kind">Stairs</h3><p class="g-line">Rarely the problem.</p>
+              <div class="g-viz" data-viz="bars" data-q="Falls per 100" data-max="22" data-rows="A ↑:1.0,B ↑:3.6,A ↓:4.8,B ↓:2.0"></div></div>
           </article>
           <article class="g-card" data-clip="finish" data-tilt>
-            <div class="g-media"><canvas role="img" aria-label="Replay: B reaches the finish"></canvas></div>
-            <div class="g-body"><p class="g-kind mono">The finish</p><p class="g-stat"><span class="sa">A 6</span> <span class="sb">B 40</span></p><p class="g-unit mono">of 300 test runs finished</p><p class="g-text">All the way to the finish line, with 40 seconds allowed.</p></div>
+            <div class="g-media"><canvas role="img" aria-label="Replay: B reaches the finish line"></canvas></div>
+            <div class="g-body"><h3 class="g-kind">The finish</h3><p class="g-line">All the way.</p>
+              <div class="g-viz" data-viz="dots" data-q="Finished, of 300" data-rows="A:6,B:40" data-of="300"></div></div>
           </article>
-          <div class="g-outro"><p class="mono tiny">Clips: the first test course (training run 1) that shows each one.</p></div>
         </div>
       </div>
     </section>
 
     <!-- 08 · 6× ------------------------------------------------------------------------------------------------------>
-    <section class="s-six" id="result" data-theme="dark" data-scene="six">
+    <section class="s-six" id="result" data-theme="dark">
       <div class="six-sticky">
         <div class="six-glow" aria-hidden="true"></div>
         <div class="six-hero" data-six-hero>
@@ -211,68 +213,72 @@
           <p class="six-what" data-six-what>more courses finished</p>
         </div>
         <div class="six-details" data-six-details>
-          <p class="six-line"><b><span data-six-b>13.3</span>% vs <span data-six-a>2.0</span>%</b> · tested once on courses it had never seen</p>
-          <p class="six-foot">Same practice for both. Most of the gap came from 1 of 3 training runs.</p>
-          <div class="six-runs chart" data-chart="seeds" aria-label="Courses finished per training run"></div>
+          <p class="six-line">Tested once, on courses it had never seen.</p>
+          <div class="six-runs chart" data-chart="seeds" aria-label="Courses finished: all runs, and each training run"></div>
+          <p class="nerd">B 40 of 300 test runs (13.3%) vs A 6 of 300 (2.0%) · most of the gap came from 1 of 3 training runs · the test plan was committed to git before the test, which ran exactly once</p>
         </div>
       </div>
     </section>
 
-    <!-- 09 · Bento -------------------------------------------------------------------------------------------------->
-    <section class="s-bento" id="numbers" data-theme="light" data-scene="bento">
+    <!-- 09 · Bento ------------------------------------------------------------------------------------------------------>
+    <section class="s-bento" id="numbers" data-theme="light">
       <header class="sec-head">
-        <p class="mono tiny" data-up>By the numbers</p>
-        <h2 class="sec-title" data-up>Three verdicts.<br><span class="soft">Written down before the test.</span></h2>
+        <h2 class="sec-title" data-up>Three verdicts.<br><span class="soft">Written before the test.</span></h2>
       </header>
       <div class="bento">
         <div class="tile t-wide t-ink" data-tilt data-up>
-          <p class="tile-k mono">Finished the course · paired McNemar test</p>
-          <p class="tile-n"><span data-count="39">39</span><span class="tile-vs"> vs </span><span data-count="5">5</span></p>
-          <p class="tile-t">courses only B finished, vs only A. <b>Confirmed</b>, p&nbsp;&lt;&nbsp;0.001.</p>
+          <div class="tile-top"><p class="tile-n"><span data-count="39">39</span><span class="tile-vs"> vs </span><span data-count="5">5</span></p><p class="verdict yes">Confirmed</p></div>
+          <div class="viz viz-dots2" data-viz="pair-dots" data-a="5" data-b="39" aria-label="39 courses only B finished, 5 only A finished"></div>
+          <p class="tile-t">Courses only one robot finished.</p>
+          <p class="nerd">Paired McNemar test, p &lt; 0.001 · B finished 39 courses A didn’t; A finished 5 that B didn’t</p>
         </div>
         <div class="tile" data-tilt data-up>
-          <p class="tile-k mono">Distance reached · Wilcoxon</p>
-          <p class="tile-n">+<span data-count="15.3" data-dec="1">15.3</span></p>
-          <p class="tile-t">points further along the course (44.4% vs 29.1%). <b>Proven</b>, p&nbsp;&lt;&nbsp;0.001.</p>
+          <div class="tile-top"><p class="tile-n">+<span data-count="15.3" data-dec="1">15.3</span></p><p class="verdict yes">Proven</p></div>
+          <div class="viz viz-track" data-viz="track" data-a="29.1" data-b="44.4" aria-label="Average distance: A 29.1%, B 44.4% of the course"></div>
+          <p class="tile-t">Further along the course.</p>
+          <p class="nerd">Average distance 44.4% vs 29.1% of the course · paired Wilcoxon test, p &lt; 0.001</p>
         </div>
         <div class="tile t-muted" data-tilt data-up>
-          <p class="tile-k mono">Official score · Wilcoxon</p>
-          <p class="tile-n sm">p&nbsp;=&nbsp;0.09</p>
-          <p class="tile-t">37.4 vs 13.1, but <b>not proven</b>: B scored lower in 2 of the 3 training runs.</p>
+          <div class="tile-top"><p class="tile-n"><span data-count="37">37</span><span class="tile-vs"> vs </span><span data-count="13">13</span></p><p class="verdict no">Not proven</p></div>
+          <div class="viz viz-bars2" data-viz="bars2" data-a="13.1" data-b="37.4" data-max="45" aria-label="Official score: A 13.1, B 37.4"></div>
+          <p class="tile-t">Official score.</p>
+          <p class="nerd">37.4 vs 13.1 · paired Wilcoxon test, p = 0.09 · B scored lower in 2 of the 3 training runs</p>
         </div>
         <div class="tile t-tall t-accent" data-tilt data-up>
-          <p class="tile-k mono">Practice, across 13 training runs</p>
           <p class="tile-n big"><span data-count="617">617</span>M</p>
-          <p class="tile-t">simulation steps, on a MacBook Air: 4 CPU cores, no GPU.</p>
+          <div class="viz viz-stack" data-viz="stack" data-runs="100.0,100.0,100.0,100.0,100.0,100.0,5.05,5.05,5.05,0.52,0.52,0.52,0.23" aria-label="13 training runs: six of 100 million steps, seven much shorter"></div>
+          <p class="tile-t">Practice steps, on a laptop.</p>
+          <p class="nerd">13 training runs: 6 of 100M steps (A and B), 3 of 5M (PPO), 3 of 0.5M and 1 of 0.2M (SAC) · MacBook Air (Apple M2), 4 CPU cores, no GPU</p>
         </div>
         <div class="tile" data-tilt data-up>
-          <p class="tile-k mono">Evaluation episodes</p>
           <p class="tile-n"><span data-count="61000">61,000</span></p>
-          <p class="tile-t">including a 2,400-run final test that took 3.5 minutes, run exactly once.</p>
+          <div class="viz viz-field" data-viz="field" aria-label="61,000 test runs"></div>
+          <p class="tile-t">Test runs, every one recorded.</p>
+          <p class="nerd">Evaluation episodes · each dot is 100 runs; lit: the 2,400-run final test, run exactly once, in 3.5 minutes</p>
         </div>
         <div class="tile" data-tilt data-up>
-          <p class="tile-k mono">The first experiment</p>
           <p class="tile-n">1/10</p>
-          <p class="tile-t">SAC learned to walk with a tenth of PPO’s practice. PPO practised 27× faster per second.</p>
+          <div class="viz viz-bars2" data-viz="bars2" data-la="PPO" data-lb="SAC" data-a="10" data-b="1" data-max="11" aria-label="Practice needed to walk: SAC a tenth of PPO's"></div>
+          <p class="tile-t">The practice SAC needed to walk.</p>
+          <p class="nerd">The first experiment, on the flat course · PPO practised 27× faster per second on this laptop, so it was still the one scaled up</p>
         </div>
         <div class="tile t-wide" data-tilt data-up>
-          <p class="tile-k mono">Honest limit</p>
-          <p class="tile-n"><span data-count="122">122</span><span class="tile-vs"> vs </span><span data-count="13">13</span></p>
-          <p class="tile-t">A published PPO agent’s score after the same practice, vs A’s. Neither of ours comes close to solving the course. A rough comparison: theirs is one agent, on its own courses.</p>
+          <div class="tile-top"><p class="tile-n"><span data-count="122">122</span><span class="tile-vs"> vs </span><span data-count="13">13</span></p><p class="verdict no">Honest limit</p></div>
+          <div class="viz viz-bars2" data-viz="bars2" data-la="A" data-lb="Published" data-a="13" data-b="122" data-max="300" data-goal="300" aria-label="Score after the same practice: a published PPO agent 122, A 13, solved is 300"></div>
+          <p class="tile-t">A published agent, same practice.</p>
+          <p class="nerd">RL Baselines3 Zoo’s PPO agent after 100M steps vs A · a rough comparison: theirs is one agent, on its own courses · neither of ours comes close to solving the course (300)</p>
         </div>
       </div>
     </section>
 
-    <!-- 10 · The demo ---------------------------------------------------------------------------------------------------->
-    <section class="s-demo" id="explore" data-theme="dark" data-scene="demo">
+    <!-- 10 · The race ---------------------------------------------------------------------------------------------------->
+    <section class="s-race" id="race" data-theme="dark">
       <header class="sec-head center">
-        <p class="mono tiny" data-up>Try it</p>
-        <h2 class="sec-title" data-up>Pick any test course.</h2>
-        <p class="sec-lede" data-up>100 courses neither robot saw while practising, each run once by three separately trained copies of A and of B. Every one is here.</p>
+        <h2 class="sec-title" data-up>Who makes it?</h2>
       </header>
       <div class="device" data-viewer data-up>
         <div class="device-bar">
-          <p class="device-title"><span class="pill mono">Replay</span><span class="mono" data-viewer-title>Course 10024 · training run 1</span></p>
+          <span class="pill mono">Recorded run</span>
           <div class="rail" aria-hidden="true">
             <span class="rail-line"></span><span class="rail-flag"></span>
             <span class="rail-dot dot-a" data-rail="a"><i>A</i></span><span class="rail-dot dot-b" data-rail="b"><i>B</i></span>
@@ -281,29 +287,44 @@
         <div class="lanes">
           <figure class="d-lane">
             <canvas data-viewer-canvas="a" role="img" aria-label="Replay of A's recorded test run"></canvas>
-            <figcaption class="d-tag"><span class="tag tag-a">A</span>Obstacles from the start</figcaption>
+            <figcaption class="d-tag"><span class="tag tag-a">A</span>Obstacles first</figcaption>
             <p class="d-live mono" data-viewer-live="a">0%</p>
             <p class="d-result" data-viewer-status="a"></p>
           </figure>
           <figure class="d-lane">
             <canvas data-viewer-canvas="b" role="img" aria-label="Replay of B's recorded test run"></canvas>
-            <figcaption class="d-tag"><span class="tag tag-b">B</span>Learned to walk first</figcaption>
+            <figcaption class="d-tag"><span class="tag tag-b">B</span>Walked first</figcaption>
             <p class="d-live mono" data-viewer-live="b">0%</p>
             <p class="d-result" data-viewer-status="b"></p>
           </figure>
+        </div>
+        <div class="race-over" data-race-over data-state="pick" aria-live="polite">
+          <div class="ro ro-pick">
+            <p class="ro-q">Who gets further?</p>
+            <div class="ro-btns"><button type="button" class="ro-btn ro-a" data-guess="a">A</button><button type="button" class="ro-btn ro-b" data-guess="b">B</button></div>
+            <button type="button" class="ro-skip mono" data-guess="none">Just watch</button>
+          </div>
+          <p class="ro ro-count" data-count-n aria-hidden="true">3</p>
+          <div class="ro ro-result">
+            <p class="ro-win" data-ro-win>B wins.</p>
+            <p class="ro-sub" data-ro-sub></p>
+            <p class="ro-you mono" data-ro-you></p>
+            <div class="ro-btns"><button type="button" class="ro-act" data-rematch>Rematch</button><button type="button" class="ro-act primary" data-next>Next race <span aria-hidden="true">→</span></button></div>
+          </div>
         </div>
       </div>
       <div class="dock" data-up>
         <div class="dock-play">
           <button type="button" class="d-btn big" data-t-play aria-label="Play"><span class="i-play" aria-hidden="true"></span></button>
-          <button type="button" class="d-btn" data-t-restart aria-label="Restart"><span class="i-restart" aria-hidden="true"></span></button>
-          <input type="range" class="scrub" data-t-scrub min="0" max="40" step="0.02" value="0" aria-label="Time in the run">
-          <span class="mono d-time" data-t-time>0.0 s</span>
+          <button type="button" class="d-btn" data-t-restart aria-label="Rematch"><span class="i-restart" aria-hidden="true"></span></button>
+          <input type="range" class="scrub" data-t-scrub min="0" max="40" step="0.02" value="0" aria-label="Time in the race">
           <div class="seg mono" role="group" aria-label="Playback speed">
-            <button type="button" data-speed="1" aria-pressed="true">1×</button><button type="button" data-speed="2" aria-pressed="false">2×</button><button type="button" data-speed="4" aria-pressed="false">4×</button>
+            <button type="button" data-speed="1" aria-pressed="false">1×</button><button type="button" data-speed="2" aria-pressed="true">2×</button><button type="button" data-speed="4" aria-pressed="false">4×</button>
           </div>
+          <button type="button" class="d-next mono" data-next>Next race <span aria-hidden="true">→</span></button>
         </div>
-        <div class="dock-pick">
+        <div class="dock-pick nerd">
+          <span class="mono course-label" data-viewer-title>Course 10024 · run 1</span>
           <div class="seg mono" role="group" aria-label="Training run" data-run-seg>
             <button type="button" data-run="42" aria-pressed="true">Run 1</button><button type="button" data-run="142" aria-pressed="false">Run 2</button><button type="button" data-run="242" aria-pressed="false">Run 3</button>
           </div>
@@ -313,67 +334,72 @@
             <button type="button" class="d-btn" data-course-step="1" aria-label="Next course">›</button>
           </div>
           <div class="chips mono" role="group" aria-label="Jump to a course">
-            <button type="button" data-pick="b-only">B finishes, A doesn’t</button>
-            <button type="button" data-pick="a-only">A finishes, B doesn’t</button>
+            <button type="button" data-pick="b-only">Only B finishes</button>
+            <button type="button" data-pick="a-only">Only A finishes</button>
             <button type="button" data-pick="both">Both finish</button>
-            <button type="button" data-pick="random">Surprise me</button>
           </div>
         </div>
       </div>
       <div class="map" data-map>
-        <p class="map-legend mono"><span class="dot dot-a"></span>A finished <span class="dot dot-b"></span>B finished <span class="dot dot-none"></span>neither</p>
+        <h3 class="map-title">All 300 races.</h3>
+        <p class="map-legend mono"><span class="dot dot-a"></span>A finished <span class="dot dot-b"></span>B finished</p>
         <div class="map-grids" data-map-grids></div>
       </div>
-      <p class="demo-note mono">Replays of the recorded test runs, frame by frame. Why not a live simulation? A JavaScript port matched the courses and the trained brains exactly, but its physics drifted from Python’s: only 51% of the 600 runs ended the same way.</p>
+      <p class="nerd nerd-block">Replays of the recorded test runs, frame by frame: 100 hidden test courses, each run once by three separately trained copies of A and of B · “further” means distance along the course; if both finish, the faster one wins · why not a live simulation? A JavaScript port matched the courses and the trained brains exactly, but its physics drifted from Python’s: only 51% of the 600 runs ended the same way</p>
     </section>
 
-    <!-- 11 · Evidence: sticky split ----------------------------------------------------------------------------------------->
-    <section class="s-evidence" id="evidence" data-theme="light" data-scene="evidence">
+    <!-- 11 · Evidence -------------------------------------------------------------------------------------------------------->
+    <section class="s-evidence" id="evidence" data-theme="light">
       <div class="ev-grid">
         <div class="ev-side">
           <div class="ev-sticky">
-            <p class="mono tiny">The evidence</p>
             <div class="ev-texts">
-              <div class="ev-text on" data-ev="curves"><h3>How they learned.</h3><p>Score on 20 check-up obstacle courses during practice. Line: the average of 3 training runs; band: best to worst run. B starts obstacles after 5M steps on flat ground.</p></div>
-              <div class="ev-text" data-ev="falls"><h3>Where they fall.</h3><p>Falls per 100 obstacles of each kind reached, in the final test. Fair to B, which reaches more of them.</p></div>
-              <div class="ev-text" data-ev="ppo"><h3>Learning to walk.</h3><p>The first experiment: PPO vs SAC on the flat course, 3 training runs each. 300 is “solved”.</p></div>
+              <div class="ev-text on" data-ev="curves"><h3>How they learned.</h3></div>
+              <div class="ev-text" data-ev="falls"><h3>Where they fall.</h3></div>
+              <div class="ev-text" data-ev="ppo"><h3>Learning to walk.</h3></div>
             </div>
           </div>
         </div>
         <div class="ev-charts">
-          <figure class="ev-fig" data-ev-fig="curves"><h3 class="ev-mobile-h">How they learned.</h3><div class="chart" data-chart="curves"></div></figure>
-          <figure class="ev-fig" data-ev-fig="falls"><h3 class="ev-mobile-h">Where they fall.</h3><div class="chart" data-chart="falls"></div><figcaption class="ev-cap" data-falls-note></figcaption></figure>
+          <figure class="ev-fig" data-ev-fig="curves"><h3 class="ev-mobile-h">How they learned.</h3><div class="chart" data-chart="curves"></div>
+            <p class="nerd">Score on 20 check-up obstacle courses during practice · line: the average of 3 training runs; band: best to worst run · B starts obstacles after 5M steps on flat ground</p></figure>
+          <figure class="ev-fig" data-ev-fig="falls"><h3 class="ev-mobile-h">Where they fall.</h3><div class="chart" data-chart="falls"></div>
+            <p class="nerd" data-falls-note></p></figure>
           <figure class="ev-fig" data-ev-fig="ppo"><h3 class="ev-mobile-h">Learning to walk.</h3>
             <div class="seg mono" role="group" aria-label="Compare by"><button type="button" data-ppo-mode="steps" aria-pressed="true">Same practice</button><button type="button" data-ppo-mode="minutes" aria-pressed="false">Same clock</button></div>
-            <div class="chart" data-chart="ppo"></div><figcaption class="ev-cap" data-ppo-note></figcaption>
+            <div class="chart" data-chart="ppo"></div><p class="nerd" data-ppo-note></p>
           </figure>
         </div>
       </div>
     </section>
 
-    <!-- 12 · Method ---------------------------------------------------------------------------------------------------------->
-    <section class="s-method" id="method" data-theme="dark" data-scene="method">
+    <!-- 12 · Method ------------------------------------------------------------------------------------------------------------>
+    <section class="s-method" id="method" data-theme="dark">
       <header class="sec-head">
-        <p class="mono tiny" data-up>Method</p>
         <h2 class="sec-title" data-up>How it was<br>kept fair.</h2>
       </header>
       <ol class="rules">
-        <li data-up><span class="rn">01</span><h3>Same practice</h3><p>100,007,936 steps for both, the same settings, and the same starting brain, checked weight by weight.</p></li>
-        <li data-up><span class="rn">02</span><h3>Three runs each</h3><p>Seeds 42, 142 and 242, so one lucky run can’t decide the result.</p></li>
-        <li data-up><span class="rn">03</span><h3>Hidden courses, used once</h3><p>The test plan was committed to git before the test ran, and the test script refuses to run twice.</p></li>
-        <li data-up><span class="rn">04</span><h3>Paired statistics</h3><p>Both robots on the same courses; McNemar and Wilcoxon tests. Nothing is called proven without one.</p></li>
-        <li data-up><span class="rn">05</span><h3>Bad results too</h3><p>B’s safety check failed for 2 of its 3 runs. Both robots learned to freeze at stumps. Neither comes close to solving the course.</p></li>
+        <li data-up><span class="ri ri-equal" aria-hidden="true"><i></i><i></i></span><h3>Same practice.</h3><p>Equal steps, same settings, same starting brain.</p>
+          <p class="nerd">100,007,936 steps for both · the same Zoo hardcore settings · the same starting weights, checked weight by weight</p></li>
+        <li data-up><span class="ri ri-three" aria-hidden="true"><i></i><i></i><i></i></span><h3>Three runs each.</h3><p>One lucky run can’t decide it.</p>
+          <p class="nerd">Training seeds 42, 142 and 242 for every robot</p></li>
+        <li data-up><span class="ri ri-lock" aria-hidden="true"><i></i></span><h3>Hidden courses, used once.</h3><p>The test plan was locked before the test.</p>
+          <p class="nerd">Committed to git before the final test; the test script refuses to run twice or with uncommitted files</p></li>
+        <li data-up><span class="ri ri-pair" aria-hidden="true"><i></i><i></i></span><h3>Paired statistics.</h3><p>Same courses for both. Nothing “proven” without a test.</p>
+          <p class="nerd">McNemar’s exact test and the Wilcoxon signed-rank test on paired runs</p></li>
+        <li data-up><span class="ri ri-flag" aria-hidden="true"><i></i></span><h3>Bad results too.</h3><p>Failures, freezes and limits, shown like the wins.</p>
+          <p class="nerd">B’s safety check failed for 2 of its 3 runs · both robots learned to freeze at stumps · neither comes close to solving the course</p></li>
       </ol>
     </section>
 
-    <!-- 13 · Close ------------------------------------------------------------------------------------------------------------>
-    <section class="s-close" id="code" data-theme="dark" data-scene="close">
+    <!-- 13 · Close ---------------------------------------------------------------------------------------------------------------->
+    <section class="s-close" id="code" data-theme="dark">
       <div class="close-glow" aria-hidden="true"></div>
       <h2 class="close-title" data-close-title>Read the code.</h2>
-      <p class="close-lede">The training scripts, the test plan, every result and the full lab notebook.</p>
       <a class="magnet" data-magnet href="https://github.com/saadhilalai/walk-before-you-climb" target="_blank" rel="noopener">
         <span class="mono">github.com/saadhilalai/walk-before-you-climb</span><span class="arrow" aria-hidden="true">↗</span>
       </a>
+      <p class="nerd nerd-block">Training scripts, the test plan, every result and the full lab notebook · simulator: Gymnasium BipedalWalker (Box2D) · learning: Stable-Baselines3 · settings: RL Baselines3 Zoo · type: Geist (SIL OFL 1.1) · motion: GSAP</p>
     </section>
   </main>
 
@@ -386,7 +412,7 @@
         <a href="https://www.linkedin.com/in/saad-hilal-24b989444/" target="_blank" rel="noopener">LinkedIn</a>
       </nav>
     </div>
-    <p class="credits mono">Simulator: Gymnasium BipedalWalker (Box2D) · Learning: Stable-Baselines3 · Settings: RL Baselines3 Zoo · Type: Geist (SIL OFL 1.1) · Motion: GSAP · Film music: “Meanwhile” by Scott Buckley, CC BY 4.0, scottbuckley.com.au</p>
+    <p class="credits mono">Film music: “Meanwhile” by Scott Buckley, CC BY 4.0</p>
   </footer>
 </body>
 </html>
