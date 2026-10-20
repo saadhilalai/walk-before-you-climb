@@ -892,3 +892,28 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
   - the README sentence and notebook lines naming the AI coding tool
   - the video tool's generated setup notes
 
+## Project video remade with the humanoid look (2026-10-20)
+- **The director's ask:** keep everything about the film (style, pacing, music, honest numbers) and change only the robot visuals.
+- **What changed:** the four clips and two holds were redrawn with the website's look by `film_clips/`, from the same recorded poses and with the original clips' camera.
+  - Every clip has exactly the original's frame count, length and resolution.
+  - The storyboard, words, numbers, music excerpt and render settings are unchanged.
+  - The poster is the same A-vs-B hold, baked in as frame 0.
+- **Checks:** Hyperframes check passed with 0 errors, 0 warnings and 17/17 contrast checks. The humanoid is shown in every frame used, with no fallback to the real body needed.
+- **Where it is:** the README and the website now carry the new film. The README links to commit `3641903`.
+
+## History cleaned again (2026-10-20)
+- **What was removed from the whole history, at the director's request:**
+  - two commit messages that named the coding tool
+  - the video tool's two generated setup notes
+  - four lines in old versions of the README and this notebook that named it
+- **Checks:**
+  - Across all 36 commits, only those files differ.
+  - Every author, committer and date is unchanged, and the newest files are byte-for-byte identical.
+  - No commit message, file name or file version mentions the tool any more.
+- **GitHub:** the repo was deleted and recreated under the same name, and the clean history was pushed. A local backup was kept and not published.
+- **Commit IDs:**
+  - The test plan keeps `59fbc96`, since everything up to it was untouched.
+  - The original video commit `08c40fd` is now `558b61e`.
+  - The README video link points at the remade film.
+- **Kept out of git from now on, at any depth:** AI-tool notes and settings files. They are listed in `.gitignore` by pattern.
+

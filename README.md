@@ -2,9 +2,9 @@
 
 **Live demo: [s4dai-walk-before-you-climb.static.hf.space](https://s4dai-walk-before-you-climb.static.hf.space)**. Race A against B on any of the 100 hidden test courses: replays of the recorded test runs, in your browser.
 
-[![Walk Before You Climb: the 39-second project video. Click to watch.](brag-output/brag.jpg)](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@08c40fdc0ec4ca343be2b29a5407eee6e53410ce/brag-output/brag.mp4)
+[![Walk Before You Climb: the 39-second project video. Click to watch.](brag-output/brag.jpg)](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@36419036ab2f40a570d733ce8f41a34cc0d94558/brag-output/brag.mp4)
 
-**▶ [Watch the 39-second video](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@08c40fdc0ec4ca343be2b29a5407eee6e53410ce/brag-output/brag.mp4)** (4K, with sound). All robot footage replays real, recorded test runs.
+**▶ [Watch the 39-second video](https://cdn.jsdelivr.net/gh/saadhilalai/walk-before-you-climb@36419036ab2f40a570d733ce8f41a34cc0d94558/brag-output/brag.mp4)** (4K, with sound). All robot footage replays real, recorded test runs.
 
 Music: 'Meanwhile' by Scott Buckley - released under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). [www.scottbuckley.com.au](https://www.scottbuckley.com.au)
 
