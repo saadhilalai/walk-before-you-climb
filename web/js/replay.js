@@ -1,27 +1,15 @@
-/* replay.js — recorded test runs, drawn the way the game (and the film) draws them.
+/* replay.js — recorded test runs, and the stage that draws them.
 
-   Every robot on this page is a replay: the robot's pose at every 1/50 s of a real recorded
-   test run, exported by export_web_data.py, which replayed each run in Python and checked it
-   against the recorded result. Nothing is simulated here. The drawing copies render.py: same
-   shapes, colours and camera, at whatever size the window is. */
+   Every robot on this page is a replay: the robot's pose at every 1/50 s of a real recorded test
+   run, exported by export_web_data.py, which replayed each run in Python and checked it against the
+   recorded result. Nothing is simulated here. How it looks (the designed robot and course) is in
+   look.js; that file only paints, it never moves anything. */
+
+import { THEMES, makeView, drawScene, shellVisibility } from "./look.js";
 
 const SCALE = 30;
 const VIEW_H = 400 / SCALE;                         // the game shows 13.3 world units of height
 const TERRAIN_STEP = 14 / SCALE;
-const TERRAIN_HEIGHT = 400 / SCALE / 4;
-const HULL = [[-30, 9], [6, 9], [34, 1], [34, -8], [-30, -8]].map(([x, y]) => [x / SCALE, y / SCALE]);
-const LEG_W = 8 / SCALE, LEG_H = 34 / SCALE;
-const box = (hx, hy) => [[-hx, -hy], [hx, -hy], [hx, hy], [-hx, hy]];
-const PARTS = [                                     // drawing order: legs (-1 side first), then the body
-  { shape: HULL, fill: "rgb(127,51,229)", edge: "rgb(76,76,127)", index: 0 },
-];
-const LEGS = [
-  { shape: box(LEG_W / 2, LEG_H / 2), fill: "rgb(178,101,152)", edge: "rgb(127,76,101)", index: 1 },
-  { shape: box(0.8 * LEG_W / 2, LEG_H / 2), fill: "rgb(178,101,152)", edge: "rgb(127,76,101)", index: 2 },
-  { shape: box(LEG_W / 2, LEG_H / 2), fill: "rgb(128,51,102)", edge: "rgb(77,26,51)", index: 3 },
-  { shape: box(0.8 * LEG_W / 2, LEG_H / 2), fill: "rgb(128,51,102)", edge: "rgb(77,26,51)", index: 4 },
-];
-const DRAW_ORDER = [...LEGS, ...PARTS];
 export const FPS = 50;
 
 // ---- Loading --------------------------------------------------------------------------------
@@ -85,12 +73,14 @@ function groundNear(course, x) {
 
 // ---- Drawing ----------------------------------------------------------------------------------
 export class Stage {
-  /* One canvas showing one course. maxDpr caps the pixel density (lighter on phones). */
-  constructor(canvas, { maxDpr = 2 } = {}) {
+  /* One canvas showing one course. maxDpr caps the pixel density; lite (phones) drops fine details;
+     theme is "dark" or "light", to match the section the stage sits in. */
+  constructor(canvas, { maxDpr = 2, theme = "dark", lite = false } = {}) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d", { alpha: false });
     this.maxDpr = maxDpr;
-    this.course = null;
+    this.theme = THEMES[theme] || THEMES.dark;
+    this.lite = lite;
     this.resize();
   }
 
@@ -113,74 +103,14 @@ export class Stage {
      close-ups; the ground is averaged over a few tiles so the camera glides over pits and stairs). */
   draw(course, run, t, cam = {}) {
     if (!course) return;
-    const { ctx, W, H } = this;
+    const { W, H } = this;
     const pose = poseAt(run, t, course.xy_scale, course.angle_scale);
     const s = Math.min(H / (cam.viewH || VIEW_H), W / (cam.minW || 12));
     const viewW = W / s;
-    const scroll = pose[0] - Math.min(4, viewW * (cam.lead ?? 0.28));
-    const sx = Math.max(0, scroll);
+    const sx = Math.max(0, pose[0] - Math.min(4, viewW * (cam.lead ?? 0.28)));
     const sy = cam.followY ? groundNear(course, pose[0]) - (H / s) * (cam.yFrac ?? 0.22) : 0;
-    const X = x => (x - sx) * s, Y = y => H - (y - sy) * s;
-    const k = s / SCALE, lw = Math.max(1, k);
-
-    ctx.fillStyle = "rgb(215,215,255)";
-    ctx.fillRect(0, 0, W, H);
-
-    ctx.fillStyle = "#fff";                         // clouds move at half speed
-    for (const poly of course.clouds) {
-      ctx.beginPath();
-      poly.forEach(([x, y], n) => (n ? ctx.lineTo : ctx.moveTo).call(ctx, (x + scroll / 2 - sx) * s, Y(y)));
-      ctx.closePath();
-      ctx.fill();
-    }
-
-    ctx.fillStyle = "rgb(102,153,76)";              // the ground
-    ctx.beginPath();
-    for (const [x1, y1, x2, y2] of course.groundPolys) {
-      if (x2 < sx - 1 || x1 > sx + viewW + 1) continue;
-      ctx.moveTo(X(x1), Y(y1)); ctx.lineTo(X(x2), Y(y2)); ctx.lineTo(X(x2), H + 2); ctx.lineTo(X(x1), H + 2); ctx.closePath();
-    }
-    ctx.fill();
-
-    ctx.lineWidth = lw;
-    ctx.lineCap = "round";                          // the grass edge, alternating greens
-    course.groundPolys.forEach(([x1, y1, x2, y2], i) => {
-      if (x2 < sx - 1 || x1 > sx + viewW + 1) return;
-      ctx.strokeStyle = i % 2 ? "rgb(76,204,76)" : "rgb(76,255,76)";
-      ctx.beginPath(); ctx.moveTo(X(x1), Y(y1)); ctx.lineTo(X(x2), Y(y2)); ctx.stroke();
-    });
-
-    for (const poly of course.blocks) {             // obstacles, drawn over the grass as in the game
-      const xs = poly.map(v => v[0]);
-      if (Math.max(...xs) < sx - 1 || Math.min(...xs) > sx + viewW + 1) continue;
-      ctx.beginPath();
-      poly.forEach(([x, y], n) => (n ? ctx.lineTo : ctx.moveTo).call(ctx, X(x), Y(y)));
-      ctx.closePath();
-      ctx.fillStyle = "#fff"; ctx.fill();
-      ctx.strokeStyle = "rgb(153,153,153)"; ctx.stroke();
-    }
-
-    ctx.lineJoin = "round";                         // the robot
-    for (const part of DRAW_ORDER) {
-      const px = pose[part.index * 3], py = pose[part.index * 3 + 1], a = pose[part.index * 3 + 2];
-      const c = Math.cos(a), sn = Math.sin(a);
-      ctx.beginPath();
-      part.shape.forEach(([vx, vy], n) => {
-        const wx = px + c * vx - sn * vy, wy = py + sn * vx + c * vy;
-        (n ? ctx.lineTo : ctx.moveTo).call(ctx, X(wx), Y(wy));
-      });
-      ctx.closePath();
-      ctx.fillStyle = part.fill; ctx.fill();
-      ctx.strokeStyle = part.edge; ctx.stroke();
-    }
-
-    const fx = X(TERRAIN_STEP * 3), fy1 = Y(TERRAIN_HEIGHT), fy2 = fy1 - 50 * k;   // the start flag
-    if (fx > -30 * k) {
-      ctx.strokeStyle = "#000";
-      ctx.beginPath(); ctx.moveTo(fx, fy1); ctx.lineTo(fx, fy2); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(fx, fy2); ctx.lineTo(fx, fy2 + 10 * k); ctx.lineTo(fx + 25 * k, fy2 + 5 * k); ctx.closePath();
-      ctx.fillStyle = "rgb(230,51,0)"; ctx.fill(); ctx.stroke();
-    }
+    const shell = shellVisibility(course, run)[Math.max(0, Math.min(run.count - 1, Math.round(t * FPS)))];
+    drawScene(this.ctx, makeView(W, H, s, sx, sy), course, pose, this.theme, { lite: this.lite, shell });
     return pose;
   }
 }

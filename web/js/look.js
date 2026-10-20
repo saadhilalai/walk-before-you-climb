@@ -475,7 +475,8 @@ export function shellVisibility(course, run) {
 function toWorld([x, y, a], [lx, ly]) { const c = Math.cos(a), s = Math.sin(a); return [x + lx * c - ly * s, y + lx * s + ly * c]; }
 
 /* One shell panel: graphite, lit from above in the world, with a chamfer, a rim light and a bounce light. */
-function panel(ctx, a, C, T, px, extent) {
+function panel(ctx, a, C, T, px, extent, lite = false) {
+  if (lite) { ctx.fillStyle = C[1]; ctx.fill(); ctx.strokeStyle = rgba(T.rim, 0.35); ctx.lineWidth = 1.4 * px; ctx.stroke(); return; }
   const ux = Math.sin(a), uy = Math.cos(a);
   let lo = Infinity, hi = -Infinity;
   for (const [x, y] of extent) { const d = x * ux + y * uy; lo = Math.min(lo, d); hi = Math.max(hi, d); }
@@ -530,12 +531,12 @@ function arm(ctx, v, H, T, px, C, off, lite, far) {
   place(ctx, v, hx, hy, a);                                        // the fist covers the box's front end
   const F = [SHELL.fist[0] + off[0], SHELL.fist[1] + off[1], SHELL.fist[2], SHELL.fist[3]];
   ctx.beginPath(); roundRectPath(ctx, F[0], F[1], F[2], F[3], SHELL.fist[4]);
-  panel(ctx, a, far ? T.legFar : T.fist, T, px, rectPts(F));
+  panel(ctx, a, far ? T.legFar : T.fist, T, px, rectPts(F), lite);
   if (!lite) seams(ctx, [[F[0] + F[2] * 0.62, F[1] + 0.05, F[0] + F[2] * 0.62, F[1] + F[3] - 0.05], [F[0] + 0.03, F[1] + F[3] * 0.55, F[0] + F[2] * 0.55, F[1] + F[3] * 0.55]], T, px);
   joint(ctx, v, toWorld(H, el), 0.125, T, far, px);
   place(ctx, v, hx, hy, a);                                        // shoulder cap, then the shoulder joint
   ctx.beginPath(); ctx.ellipse(sh[0], sh[1] + 0.02, 0.2, 0.16, 0, 0, Math.PI * 2);
-  panel(ctx, a, far ? T.legFar : T.body, T, px, [[sh[0] - 0.2, sh[1] - 0.14], [sh[0] + 0.2, sh[1] + 0.18]]);
+  panel(ctx, a, far ? T.legFar : T.body, T, px, [[sh[0] - 0.2, sh[1] - 0.14], [sh[0] + 0.2, sh[1] + 0.18]], lite);
   joint(ctx, v, toWorld(H, sh), 0.11, T, far, px);
 }
 
@@ -545,19 +546,19 @@ function shellFront(ctx, v, H, T, px, lite) { arm(ctx, v, H, T, px, T.legNear, [
 function shellBody(ctx, v, H, T, px, lite) {
   const [hx, hy, a] = H;
   place(ctx, v, hx, hy, a);
-  ctx.beginPath(); roundPoly(ctx, SHELL.pack, 0.05); panel(ctx, a, T.pack, T, px, SHELL.pack);
+  ctx.beginPath(); roundPoly(ctx, SHELL.pack, 0.05); panel(ctx, a, T.pack, T, px, SHELL.pack, lite);
   if (!lite) {
     seams(ctx, [[-0.97, 0.12, -0.45, 0.12], [-0.97, 0.46, -0.45, 0.46]], T, px);
     ctx.beginPath(); for (let k = 0; k < 3; k++) { const y = 0.58 + k * 0.06; ctx.moveTo(-0.9, y); ctx.lineTo(-0.6, y); }
     ctx.strokeStyle = T.seam; ctx.lineWidth = 1.4 * px; ctx.stroke();
   }
-  ctx.beginPath(); roundPoly(ctx, SHELL.pelvis, 0.05); panel(ctx, a, T.pelvis, T, px, SHELL.pelvis);
+  ctx.beginPath(); roundPoly(ctx, SHELL.pelvis, 0.05); panel(ctx, a, T.pelvis, T, px, SHELL.pelvis, lite);
   if (!lite) seams(ctx, [[-0.46, 0.15, 0.43, 0.15]], T, px);
-  ctx.beginPath(); roundPoly(ctx, SHELL.neck, 0.03); panel(ctx, a, T.pelvis, T, px, SHELL.neck);
-  ctx.beginPath(); roundPoly(ctx, SHELL.torso, 0.09); panel(ctx, a, T.torso, T, px, SHELL.torso);
+  ctx.beginPath(); roundPoly(ctx, SHELL.neck, 0.03); panel(ctx, a, T.pelvis, T, px, SHELL.neck, lite);
+  ctx.beginPath(); roundPoly(ctx, SHELL.torso, 0.09); panel(ctx, a, T.torso, T, px, SHELL.torso, lite);
   if (!lite) seams(ctx, [[-0.42, 0.5, 0.34, 0.5], [-0.5, 0.66, 0.38, 0.66], [-0.12, 0.68, -0.14, 1.15]], T, px);
   const [x, y, w, h, r] = SHELL.head;                              // the head: a helmet with a glass visor
-  ctx.beginPath(); roundRectPath(ctx, x, y, w, h, r); panel(ctx, a, T.torso, T, px, rectPts([x, y, w, h]));
+  ctx.beginPath(); roundRectPath(ctx, x, y, w, h, r); panel(ctx, a, T.torso, T, px, rectPts([x, y, w, h]), lite);
   const [vx, vy, vw, vh, vr] = SHELL.visor;
   ctx.beginPath(); roundRectPath(ctx, vx, vy, vw, vh, vr);
   const vg = ctx.createLinearGradient(0, vy + vh, 0, vy);
@@ -595,45 +596,77 @@ export function levelPose(pose) {
   return out;
 }
 
-export function drawStudio(ctx, W, H, pose, T, { lidar = 0, scale = 1 } = {}) {
+/* The robot alone on a transparent canvas, standing on a floor line at `floor` (fraction of the height):
+   a soft contact shadow, an optional reflection, the 10 lidar rays drawn on as `lidar` goes 0 -> 1, and
+   the 4 motors (both hips, both knees) lit as `motors` goes 0 -> 1. One recorded pose, levelled. */
+export function drawFigure(ctx, W, H, pose, T, { scale = 1, cx = 0.46, floor = 0.8, lidar = 0, motors = 0, reflect = true, lite = false } = {}) {
   const P = levelPose(pose);
-  const s = Math.min(W / 7.2, H / 5.6) * scale, floorY = H * 0.8;
-  const v = { W, H, s, X: x => W * 0.42 + x * s, Y: y => floorY - y * s };
+  const s = Math.min(W / 7.2, H / 5.6) * scale, floorY = H * floor;
+  const v = { W, H, s, X: x => W * cx + x * s, Y: y => floorY - y * s };
   ctx.setTransform(1, 0, 0, 1, 0, 0);
+  if (reflect && !lite) {                                         // the reflection, fading into the floor
+    const L = layerFor(ctx);
+    L.setTransform(1, 0, 0, 1, 0, 0); L.clearRect(0, 0, W, H);
+    drawRobot(L, { ...v, Y: y => floorY + y * s, flip: true }, P, T, { lite: true });
+    L.setTransform(1, 0, 0, 1, 0, 0); L.globalCompositeOperation = "destination-in";
+    const m = L.createLinearGradient(0, floorY, 0, floorY + 1.1 * s);
+    m.addColorStop(0, "rgba(0,0,0,0.22)"); m.addColorStop(1, "rgba(0,0,0,0)");
+    L.fillStyle = m; L.fillRect(0, floorY, W, H - floorY); L.clearRect(0, 0, W, floorY);
+    L.globalCompositeOperation = "source-over";
+    ctx.drawImage(L.canvas, 0, 0);
+  }
+  blob(ctx, T.shadow, v.X(P[0]), floorY, 1.5 * s, 0.11 * s, T.shadowA * 0.9);
+  for (const k of [2, 4]) { const [fx] = along(part(P, k), -LEG_H / 2); blob(ctx, T.shadow, v.X(fx), floorY, 0.32 * s, 0.05 * s, T.shadowA); }
+  if (lidar > 0) {                                                // the 10 lidar rays, at the game's own angles, from the body's centre
+    const cx0 = v.X(P[0]), cy0 = v.Y(P[1]), range = 160 / SCALE * s;
+    ctx.lineCap = "round";
+    for (let i = 0; i < 10; i++) {
+      const k = Math.min(1, Math.max(0, lidar * 12 - i * 1.1));
+      if (k <= 0) continue;
+      const ang = 1.5 * i / 10, dx = Math.sin(ang), dy = -Math.cos(ang);
+      const len = range * Math.min(1, P[1] / -dy / (160 / SCALE)) * k;
+      const lg = ctx.createLinearGradient(cx0, cy0, cx0 + dx * len, cy0 - dy * len);
+      lg.addColorStop(0, rgba(T.accent, 0.85)); lg.addColorStop(1, rgba(T.accent, 0.1));
+      ctx.strokeStyle = lg; ctx.lineWidth = Math.max(1, s / 110);
+      ctx.beginPath(); ctx.moveTo(cx0, cy0); ctx.lineTo(cx0 + dx * len, cy0 - dy * len); ctx.stroke();
+      if (k >= 1 && len < range * 0.999) blob(ctx, T.accent, cx0 + dx * len, cy0 - dy * len, 0.07 * s, 0.035 * s, 0.9);
+    }
+  }
+  drawRobot(ctx, v, P, T, { lite });
+  if (motors > 0) {                                               // the 4 motors: both hips (one spot), both knees
+    const spots = [along(part(P, 1), LEG_H / 2), along(part(P, 1), -LEG_H / 2), along(part(P, 3), -LEG_H / 2)];
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    if (T.additive) ctx.globalCompositeOperation = "lighter";
+    spots.forEach(([x, y], i) => {
+      const k = Math.min(1, Math.max(0, motors * 3.2 - i * 0.9));
+      blob(ctx, T.accent, v.X(x), v.Y(y), 0.42 * s * (0.8 + 0.2 * k), 0.42 * s * (0.8 + 0.2 * k), 0.75 * k);
+    });
+    ctx.globalCompositeOperation = "source-over";
+    spots.forEach(([x, y], i) => {
+      const k = Math.min(1, Math.max(0, motors * 3.2 - i * 0.9));
+      if (k <= 0) return;
+      ctx.beginPath(); ctx.arc(v.X(x), v.Y(y), 0.2 * s, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * k);
+      ctx.strokeStyle = rgba(T.accent, 0.9); ctx.lineWidth = Math.max(1.5, s / 70); ctx.stroke();
+    });
+  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  return v;
+}
+
+/* The same robot in a studio: background, floor and figure (used for stills). */
+export function drawStudio(ctx, W, H, pose, T, { lidar = 0, scale = 1 } = {}) {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  const floorY = H * 0.8;
   const bg = ctx.createRadialGradient(W / 2, H * 0.35, 0, W / 2, H * 0.45, Math.max(W, H) * 0.75);
   bg.addColorStop(0, T.sky[0]); bg.addColorStop(1, T.sky[1]);
   ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+  const s = Math.min(W / 7.2, H / 5.6) * scale;
   if (T.additive) ctx.globalCompositeOperation = "lighter";
   blob(ctx, T.glow, W / 2, floorY - 0.9 * s, 2.6 * s, 1.6 * s, T.glowA * 1.4);
   ctx.globalCompositeOperation = "source-over";
-  const fl = ctx.createLinearGradient(0, floorY, 0, H);            // the studio floor
+  const fl = ctx.createLinearGradient(0, floorY, 0, H);
   fl.addColorStop(0, rgba(hexRgb(T.ground[0]), 0.9)); fl.addColorStop(1, rgba(hexRgb(T.sky[1]), 1));
   ctx.fillStyle = fl; ctx.fillRect(0, floorY, W, H - floorY);
-  ctx.save();                                                     // the reflection, fading into the floor
-  ctx.beginPath(); ctx.rect(0, floorY, W, H - floorY); ctx.clip();
-  ctx.globalAlpha = 0.09;
-  drawRobot(ctx, { ...v, Y: y => floorY + y * s, flip: true }, P, T, {});
-  ctx.restore(); ctx.globalAlpha = 1;
-  const fade = ctx.createLinearGradient(0, floorY, 0, floorY + 1.2 * s);
-  fade.addColorStop(0, rgba(hexRgb(T.sky[1]), 0)); fade.addColorStop(1, rgba(hexRgb(T.sky[1]), 1));
-  ctx.fillStyle = fade; ctx.fillRect(0, floorY, W, H - floorY);
   ctx.fillStyle = rgba(T.rim, 0.22); ctx.fillRect(0, floorY, W, 1);
-  blob(ctx, T.shadow, v.X(P[0]), floorY, 1.5 * s, 0.11 * s, T.shadowA * 0.9);
-  for (const k of [2, 4]) { const [fx] = along(part(P, k), -LEG_H / 2); blob(ctx, T.shadow, v.X(fx), floorY, 0.32 * s, 0.05 * s, T.shadowA); }
-  if (lidar > 0) {                                                // the 10 lidar rays, at the game's own angles
-    const cx = v.X(P[0]), cy = v.Y(P[1]), range = 160 / SCALE * s;
-    ctx.lineCap = "round";
-    for (let i = 0; i < 10; i++) {
-      const ang = 1.5 * i / 10, dx = Math.sin(ang), dy = -Math.cos(ang);
-      const hit = Math.min(1, P[1] / -dy / (160 / SCALE));
-      const len = range * hit * Math.min(1, Math.max(0, lidar * 10 - i));
-      if (len <= 0) continue;
-      const lg = ctx.createLinearGradient(cx, cy, cx + dx * len, cy - dy * len);
-      lg.addColorStop(0, rgba(T.accent, 0.85)); lg.addColorStop(1, rgba(T.accent, 0.08));
-      ctx.strokeStyle = lg; ctx.lineWidth = Math.max(1, s / 90);
-      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + dx * len, cy - dy * len); ctx.stroke();
-    }
-  }
-  drawRobot(ctx, v, P, T, {});
+  drawFigure(ctx, W, H, pose, T, { scale, cx: 0.42, floor: 0.8, lidar });
 }
-
