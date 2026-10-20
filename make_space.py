@@ -37,8 +37,8 @@ short_description: Robots that learned to walk first, 600 recorded test runs
 Two simulated robots (Gymnasium's BipedalWalker) taught themselves to cross obstacle courses with
 exactly the same amount of practice. The one that learned to walk on flat ground first finished 6x
 more courses it had never seen (13.3% vs 2.0%, tested once; most of the gap came from 1 of 3
-training runs). Pick any of the 100 hidden test courses and watch both robots side by side: every
-run on the page is a replay of the recorded test run, checked against the recorded result.
+training runs). Race A against B on any of the 100 hidden test courses: every run on the page is
+a replay of the recorded test run, checked against the recorded result.
 
 Designed & built by Saad Hilal · S4D. Code, test plan and lab notebook:
 https://github.com/saadhilalai/walk-before-you-climb
