@@ -46,14 +46,14 @@ function animateLines(g) {
 // ---- Finishing per training run (the honest breakdown under the 6×) ---------------------------------------
 function seedsChart(box) {
   const h = site.hardcore;
-  const rows = [["All 300 runs", h.a.pooled, h.b.pooled, 300],
-                ...["42", "142", "242"].map((s, i) => [`Training run ${i + 1} · seed ${s}`, h.a.per_seed[s], h.b.per_seed[s], 100])];
+  const rows = [["All runs", h.a.pooled, h.b.pooled, 300],
+                ...["42", "142", "242"].map((s, i) => [`Run ${i + 1}`, h.a.per_seed[s], h.b.per_seed[s], 100])];
   const narrow = box.clientWidth < 560;
   const rowH = 74, top = 8, height = top + rows.length * rowH;
   const { svg, w, tip } = svgFor(box, height);
   svg.setAttribute("aria-label", "Courses finished in the final test, per training run: " +
     rows.map(([n, a, b]) => `${n}: A ${pct(a.finished_rate)}, B ${pct(b.finished_rate)}`).join("; "));
-  const left = narrow ? 0 : 200, right = 60;
+  const left = narrow ? 0 : 110, right = 60;
   const x = scale(0, 0.35, left, w - right);
   const g = el("g", {}, svg);
   rows.forEach(([name, a, b, n], i) => {
