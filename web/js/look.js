@@ -23,6 +23,7 @@ export const THEMES = {
     block: ["#383843", "#202027"], blockSide: "rgba(255,255,255,0.08)",
     pit: ["rgba(6,6,9,0)", "#020203"], shadow: [0, 0, 0], shadowA: 0.62, castA: 0.5,
     body: ["#6a6a75", "#3a3a43", "#17171c"], legNear: ["#70707b", "#3f3f48", "#18181d"], legFar: ["#45454e", "#29292f", "#0e0e11"],
+    pack: ["#3b3b44", "#222228", "#0c0c0f"], pelvis: ["#56565f", "#2e2e36", "#121216"], fist: ["#6a6a75", "#3a3a43", "#18181d"], torso: ["#7e7e8a", "#464651", "#1a1a20"],
     rim: [238, 235, 255], rimA: 1, chamfer: "rgba(255,255,255,0.10)", bounceA: 0.45, seam: "rgba(0,0,0,0.45)", seamHi: "rgba(255,255,255,0.08)", rubber: "#0b0b0e",
     accent: [198, 192, 255], accentCore: "#efedff", marker: [198, 192, 255], additive: true,
   },
@@ -32,6 +33,7 @@ export const THEMES = {
     block: ["#ebe9e4", "#d2cfc8"], blockSide: "rgba(255,255,255,0.6)",
     pit: ["rgba(60,56,70,0)", "rgba(40,37,48,0.55)"], shadow: [30, 27, 45], shadowA: 0.42, castA: 0.26,
     body: ["#62626d", "#33333b", "#18181c"], legNear: ["#686873", "#3a3a42", "#18181c"], legFar: ["#4a4a53", "#2a2a30", "#111114"],
+    pack: ["#3e3e46", "#24242a", "#0e0e11"], pelvis: ["#575761", "#2f2f36", "#131316"], fist: ["#62626d", "#33333b", "#18181c"], torso: ["#74747f", "#41414a", "#19191e"],
     rim: [255, 255, 255], rimA: 0.8, chamfer: "rgba(255,255,255,0.12)", bounceA: 0.2, seam: "rgba(0,0,0,0.45)", seamHi: "rgba(255,255,255,0.1)", rubber: "#0d0d10",
     accent: [124, 112, 245], accentCore: "#f3f1ff", marker: [107, 94, 242], additive: false,
   },
@@ -53,9 +55,10 @@ function softDot([r, g, b]) {
 }
 function blob(ctx, rgb, cx, cy, rx, ry, alpha) {             // screen-space soft ellipse
   if (alpha <= 0.003 || rx <= 0 || ry <= 0) return;
-  ctx.globalAlpha = Math.min(1, alpha);
+  const prev = ctx.globalAlpha;                                  // respects an outer fade
+  ctx.globalAlpha = prev * Math.min(1, alpha);
   ctx.drawImage(softDot(rgb), cx - rx, cy - ry, rx * 2, ry * 2);
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = prev;
 }
 const rgba = ([r, g, b], a) => `rgba(${r},${g},${b},${a})`;
 
@@ -133,7 +136,7 @@ export function drawScene(ctx, v, course, pose, T, opts = {}) {
   if (opts.markers !== false) drawMarkers(ctx, v, course, T);
   if (pose && opts.robot !== false) {
     drawRobotShadows(ctx, v, course, pose, T);
-    drawRobot(ctx, v, pose, T, { lite });
+    drawRobot(ctx, v, pose, T, { lite, shell: opts.shell ?? 1 });
   }
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
@@ -250,19 +253,40 @@ function drawRobotShadows(ctx, v, course, pose, T) {
   blob(ctx, T.shadow, v.X(hx), v.Y(gy), (0.95 + h * 0.3) * v.s, 0.12 * v.s, T.shadowA * 0.55 * Math.max(0, 1 - h / 2.2));
 }
 
-export function drawRobot(ctx, v, pose, T, { lite = false } = {}) {
+/* shell: 1 = the humanoid redesign, 0 = the real simulated body (the game's box), in between = a crossfade.
+   The legs are the same in both. */
+export function drawRobot(ctx, v, pose, T, { lite = false, shell = 1 } = {}) {
   ctx.lineJoin = "round"; ctx.lineCap = "round";
   const px = 1 / v.s;                                              // one device pixel, in world units
+  const H = part(pose, 0), fade = shell > 0.002 && shell < 0.998;
+  if (shell > 0.002 && !fade) shellBack(ctx, v, H, T, px, lite);
   leg(ctx, v, part(pose, 2), 0.8 * LEG_W / 2, T.legFar, T, px, true, lite);
   leg(ctx, v, part(pose, 1), LEG_W / 2, T.legFar, T, px, false, lite);
   joint(ctx, v, along(part(pose, 1), -LEG_H / 2), 0.115, T, true, px);
   joint(ctx, v, along(part(pose, 1), LEG_H / 2), 0.13, T, true, px);
-  hull(ctx, v, part(pose, 0), T, px, lite);
+  if (shell < 0.998) { ctx.globalAlpha = 1 - shell; hull(ctx, v, H, T, px, lite); ctx.globalAlpha = 1; }
+  if (fade) {                                                     // crossfade: the whole shell on its own layer
+    const L = layerFor(ctx);
+    L.setTransform(1, 0, 0, 1, 0, 0); L.clearRect(0, 0, L.canvas.width, L.canvas.height);
+    shellBack(L, v, H, T, px, lite); shellBody(L, v, H, T, px, lite); shellFront(L, v, H, T, px, lite);
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = shell; ctx.drawImage(L.canvas, 0, 0); ctx.globalAlpha = 1;
+  } else if (shell >= 0.998) shellBody(ctx, v, H, T, px, lite);
   leg(ctx, v, part(pose, 4), 0.8 * LEG_W / 2, T.legNear, T, px, true, lite);
   leg(ctx, v, part(pose, 3), LEG_W / 2, T.legNear, T, px, false, lite);
   joint(ctx, v, along(part(pose, 3), -LEG_H / 2), 0.115, T, false, px);
   joint(ctx, v, along(part(pose, 3), LEG_H / 2), 0.13, T, false, px);
+  if (shell >= 0.998) shellFront(ctx, v, H, T, px, lite);
   ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+
+const layers = new WeakMap();
+function layerFor(ctx) {
+  let L = layers.get(ctx.canvas);
+  if (!L || L.canvas.width !== ctx.canvas.width || L.canvas.height !== ctx.canvas.height) {
+    const c = document.createElement("canvas"); c.width = ctx.canvas.width; c.height = ctx.canvas.height;
+    L = c.getContext("2d"); layers.set(ctx.canvas, L);
+  }
+  return L;
 }
 
 function roundPoly(ctx, pts, r) {
@@ -367,6 +391,191 @@ function joint(ctx, v, [x, y], r, T, far, px) {
   ctx.strokeStyle = far ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.3)"; ctx.lineWidth = px; ctx.stroke();
 }
 
+// ---- The humanoid upper body: a visual redesign, drawn around the real body ------------------------
+/* The simulated body is the game's hull: a long, low box (HULL), 2.1 units long, with the hips under its
+   middle. The humanoid is drawn rigidly in the box's own frame, so it leans, wobbles and falls exactly
+   with it. It is built so the box is covered wherever the box can touch the course: the power pack
+   covers its back end, the hips its middle, the forearms its underside and the fists its front end.
+   The torso, shoulders and head rise above it. The arms are fixed to the body: the AI never moved them. */
+const HB = -8 / SCALE, HF = 34 / SCALE, HT = 1 / SCALE;          // the box's underside, front face, front-top corner
+const ARM = { shoulder: [-0.07, 1.02], elbow: [0.25, HB + 0.133], wrist: [0.86, HB + 0.133], upper: 0.12, fore: 0.133 };
+const SHELL = {
+  pack:   [[-1.0, HB], [-0.42, HB], [-0.42, 0.8], [-0.55, 0.92], [-0.88, 0.88], [-1.0, 0.72]],
+  pelvis: [[-0.47, HB], [0.42, HB], [0.45, 0.1], [0.36, 0.36], [-0.41, 0.36], [-0.49, 0.1]],
+  torso:  [[-0.34, 0.3], [0.24, 0.3], [0.31, 0.55], [0.39, 0.9], [0.33, 1.08], [0.1, 1.17], [-0.33, 1.17], [-0.46, 1.05], [-0.47, 0.7], [-0.39, 0.45]],
+  neck:   [[-0.08, 1.12], [0.1, 1.12], [0.1, 1.34], [-0.08, 1.34]],
+  head:   [-0.17, 1.29, 0.45, 0.43, 0.15],                         // x, y, w, h, corner radius
+  visor:  [0.05, 1.44, 0.25, 0.15, 0.07],
+  fist:   [0.83, HB, HF - 0.83, HT - HB, 0.035],
+};
+const FAR = [-0.035, 0.05];                                        // the far arm sits a little behind and above
+
+/* Points around the shell's outline, for the honesty check (where it could touch the course). */
+let shellPts = null;
+export function shellSamples() {
+  if (shellPts) return shellPts;
+  const out = [], poly = (P, n = 12) => P.forEach((p, i) => { const q = P[(i + 1) % P.length]; for (let k = 0; k < n; k++) out.push([p[0] + (q[0] - p[0]) * k / n, p[1] + (q[1] - p[1]) * k / n]); });
+  const box = ([x, y, w, h]) => poly([[x, y], [x + w, y], [x + w, y + h], [x, y + h]]);
+  const capsule = ([x0, y0], [x1, y1], r, [dx, dy] = [0, 0]) => {
+    for (let k = 0; k <= 16; k++) { const t = k / 16, cx = x0 + (x1 - x0) * t + dx, cy = y0 + (y1 - y0) * t + dy; for (let j = 0; j < 8; j++) out.push([cx + r * Math.cos(j * Math.PI / 4), cy + r * Math.sin(j * Math.PI / 4)]); }
+  };
+  ["pack", "pelvis", "torso", "neck"].forEach(k => poly(SHELL[k]));
+  box(SHELL.head); box(SHELL.fist); box([SHELL.fist[0] + FAR[0], SHELL.fist[1] + FAR[1], SHELL.fist[2], SHELL.fist[3]]);
+  for (const off of [[0, 0], FAR]) { capsule(ARM.shoulder, ARM.elbow, ARM.upper, off); capsule(ARM.elbow, ARM.wrist, ARM.fore, off); }
+  for (let j = 0; j < 16; j++) out.push([ARM.shoulder[0] + 0.2 * Math.cos(j * Math.PI / 8), ARM.shoulder[1] + 0.02 + 0.16 * Math.sin(j * Math.PI / 8)]);
+  return (shellPts = out);
+}
+let hullPts = null;
+function hullSamples() {
+  if (hullPts) return hullPts;
+  hullPts = [];
+  HULL.forEach((p, i) => { const q = HULL[(i + 1) % HULL.length]; for (let k = 0; k < 24; k++) hullPts.push([p[0] + (q[0] - p[0]) * k / 24, p[1] + (q[1] - p[1]) * k / 24]); });
+  return hullPts;
+}
+
+/* The course's surface on a fine grid (for fast checks). */
+function surfaceGrid(course) {
+  if (course._grid) return course._grid;
+  const dx = 0.01, n = Math.ceil(course.terrain_x[course.terrain_x.length - 1] / dx) + 2, g = new Float32Array(n);
+  const blocks = courseLook(course).blocks;
+  for (let i = 0; i < n; i++) g[i] = surfaceAt(course, i * dx, blocks);
+  const f = x => { const u = Math.max(0, Math.min(n - 1.001, x / dx)), i = Math.floor(u); return g[i] + (g[i + 1] - g[i]) * (u - i); };
+  return (course._grid = f);
+}
+
+/* For every recorded frame of a run: 1 where the humanoid shell is shown, 0 where it has to give way to the
+   real body, because the shell would go into the course, or the real body touches the course somewhere the
+   shell does not cover. (In the recorded runs this happens only when a robot flips onto its back as it falls.)
+   The shell fades over 0.2 s around those frames. */
+export function shellVisibility(course, run) {
+  if (run._shell) return run._shell;
+  const n = run.count, A = run.frames, xy = course.xy_scale, ang = course.angle_scale, S = surfaceGrid(course);
+  const shellP = shellSamples(), hullP = hullSamples(), bad = new Uint8Array(n);
+  const lowest = (P, x, y, c, s) => { let m = Infinity; for (const [px, py] of P) { const X = x + px * c - py * s, Y = y + px * s + py * c; m = Math.min(m, Y - S(X)); } return m; };
+  let count = 0;
+  for (let f = 0; f < n; f++) {
+    const x = A[f * 15] / xy, y = A[f * 15 + 1] / xy, a = A[f * 15 + 2] / ang, c = Math.cos(a), s = Math.sin(a);
+    const sh = lowest(shellP, x, y, c, s);
+    if (sh > 0.06) continue;                                       // well clear of everything: fine
+    const hu = lowest(hullP, x, y, c, s);
+    if (sh < -0.03 || (hu < 0.03 && sh - hu > 0.045)) { bad[f] = 1; count++; }
+  }
+  const vis = new Float32Array(n).fill(1), FADE = 10;
+  if (count) {
+    let last = -1e9;
+    for (let f = 0; f < n; f++) { if (bad[f]) last = f; vis[f] = Math.min(1, (f - last) / FADE); }
+    last = 1e9;
+    for (let f = n - 1; f >= 0; f--) { if (bad[f]) last = f; vis[f] = Math.min(vis[f], (last - f) / FADE); }
+    for (let f = 0; f < n; f++) { const t = vis[f]; vis[f] = t * t * (3 - 2 * t); }
+  }
+  vis.bad = count;
+  return (run._shell = vis);
+}
+
+function toWorld([x, y, a], [lx, ly]) { const c = Math.cos(a), s = Math.sin(a); return [x + lx * c - ly * s, y + lx * s + ly * c]; }
+
+/* One shell panel: graphite, lit from above in the world, with a chamfer, a rim light and a bounce light. */
+function panel(ctx, a, C, T, px, extent) {
+  const ux = Math.sin(a), uy = Math.cos(a);
+  let lo = Infinity, hi = -Infinity;
+  for (const [x, y] of extent) { const d = x * ux + y * uy; lo = Math.min(lo, d); hi = Math.max(hi, d); }
+  const g = ctx.createLinearGradient(ux * hi, uy * hi, ux * lo, uy * lo);
+  g.addColorStop(0, C[0]); g.addColorStop(0.5, C[1]); g.addColorStop(1, C[2]);
+  ctx.fillStyle = g; ctx.fill();
+  ctx.save(); ctx.clip();
+  const cg = ctx.createLinearGradient(ux * hi, uy * hi, ux * (hi - 0.35), uy * (hi - 0.35));
+  cg.addColorStop(0, T.chamfer); cg.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.strokeStyle = cg; ctx.lineWidth = 0.07; ctx.stroke();
+  ctx.restore();
+  ctx.strokeStyle = "rgba(0,0,0,0.55)"; ctx.lineWidth = 1.6 * px; ctx.stroke();   // a thin contact line between parts
+  const rx = RIM[0] * Math.cos(-a) - RIM[1] * Math.sin(-a), ry = RIM[0] * Math.sin(-a) + RIM[1] * Math.cos(-a);
+  let rlo = Infinity, rhi = -Infinity;
+  for (const [x, y] of extent) { const d = x * rx + y * ry; rlo = Math.min(rlo, d); rhi = Math.max(rhi, d); }
+  const rg = ctx.createLinearGradient(rx * rhi, ry * rhi, rx * (rhi - 0.3), ry * (rhi - 0.3));
+  rg.addColorStop(0, rgba(T.rim, T.rimA)); rg.addColorStop(1, rgba(T.rim, 0));
+  ctx.strokeStyle = rg; ctx.lineWidth = 2 * px; ctx.stroke();
+  const bl = ctx.createLinearGradient(ux * lo, uy * lo, ux * (lo + 0.3), uy * (lo + 0.3));
+  bl.addColorStop(0, rgba(T.accent, T.bounceA)); bl.addColorStop(1, rgba(T.accent, 0));
+  ctx.strokeStyle = bl; ctx.lineWidth = 1.5 * px; ctx.stroke();
+}
+const rectPts = ([x, y, w, h]) => [[x, y], [x + w, y], [x + w, y + h], [x, y + h]];
+
+function seams(ctx, lines, T, px) {
+  ctx.beginPath(); for (const [x0, y0, x1, y1] of lines) { ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); }
+  ctx.strokeStyle = T.seam; ctx.lineWidth = 1.2 * px; ctx.stroke();
+  ctx.beginPath(); for (const [x0, y0, x1, y1] of lines) { ctx.moveTo(x0, y0 - 1.2 * px); ctx.lineTo(x1, y1 - 1.2 * px); }
+  ctx.strokeStyle = T.seamHi; ctx.lineWidth = px; ctx.stroke();
+}
+
+function arm(ctx, v, H, T, px, C, off, lite, far) {
+  const [hx, hy, a] = H, sh = [ARM.shoulder[0] + off[0], ARM.shoulder[1] + off[1]];
+  const el = [ARM.elbow[0] + off[0], ARM.elbow[1] + off[1]], wr = [ARM.wrist[0] + off[0], ARM.wrist[1] + off[1]];
+  const limb = (p0, p1, r) => {                                    // a shaded capsule, like the legs
+    place(ctx, v, hx, hy, a);
+    const th = Math.atan2(p1[1] - p0[1], p1[0] - p0[0]), len = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]), phi = a + th;
+    ctx.translate(p0[0], p0[1]); ctx.rotate(th);
+    const ky = -KEY[0] * Math.sin(phi) + KEY[1] * Math.cos(phi), side = ky >= 0 ? 1 : -1;
+    ctx.beginPath(); roundRectPath(ctx, -r * 0.6, -r, len + r * 1.2, 2 * r, r * 0.9);
+    const g = ctx.createLinearGradient(0, r * side, 0, -r * side);
+    g.addColorStop(0, C[0]); g.addColorStop(0.35, C[1]); g.addColorStop(1, C[2]);
+    ctx.fillStyle = g; ctx.fill();
+    const ry = -RIM[0] * Math.sin(phi) + RIM[1] * Math.cos(phi), rs = ry >= 0 ? 1 : -1;
+    const rg = ctx.createLinearGradient(0, r * rs, 0, -r * rs * 0.2);
+    rg.addColorStop(0, rgba(T.rim, T.rimA * (far ? 0.4 : 0.8))); rg.addColorStop(1, rgba(T.rim, 0));
+    ctx.strokeStyle = rg; ctx.lineWidth = 1.8 * px; ctx.stroke();
+    if (!lite) { ctx.beginPath(); ctx.moveTo(r * 0.5, -r * 0.3 * side); ctx.lineTo(len - r * 0.5, -r * 0.3 * side); ctx.strokeStyle = T.seam; ctx.lineWidth = 1.1 * px; ctx.stroke(); }
+  };
+  limb(sh, el, ARM.upper);
+  limb(el, wr, ARM.fore);
+  place(ctx, v, hx, hy, a);                                        // the fist covers the box's front end
+  const F = [SHELL.fist[0] + off[0], SHELL.fist[1] + off[1], SHELL.fist[2], SHELL.fist[3]];
+  ctx.beginPath(); roundRectPath(ctx, F[0], F[1], F[2], F[3], SHELL.fist[4]);
+  panel(ctx, a, far ? T.legFar : T.fist, T, px, rectPts(F));
+  if (!lite) seams(ctx, [[F[0] + F[2] * 0.62, F[1] + 0.05, F[0] + F[2] * 0.62, F[1] + F[3] - 0.05], [F[0] + 0.03, F[1] + F[3] * 0.55, F[0] + F[2] * 0.55, F[1] + F[3] * 0.55]], T, px);
+  joint(ctx, v, toWorld(H, el), 0.125, T, far, px);
+  place(ctx, v, hx, hy, a);                                        // shoulder cap, then the shoulder joint
+  ctx.beginPath(); ctx.ellipse(sh[0], sh[1] + 0.02, 0.2, 0.16, 0, 0, Math.PI * 2);
+  panel(ctx, a, far ? T.legFar : T.body, T, px, [[sh[0] - 0.2, sh[1] - 0.14], [sh[0] + 0.2, sh[1] + 0.18]]);
+  joint(ctx, v, toWorld(H, sh), 0.11, T, far, px);
+}
+
+function shellBack(ctx, v, H, T, px, lite) { arm(ctx, v, H, T, px, T.legFar, FAR, lite, true); }
+function shellFront(ctx, v, H, T, px, lite) { arm(ctx, v, H, T, px, T.legNear, [0, 0], lite, false); }
+
+function shellBody(ctx, v, H, T, px, lite) {
+  const [hx, hy, a] = H;
+  place(ctx, v, hx, hy, a);
+  ctx.beginPath(); roundPoly(ctx, SHELL.pack, 0.05); panel(ctx, a, T.pack, T, px, SHELL.pack);
+  if (!lite) {
+    seams(ctx, [[-0.97, 0.12, -0.45, 0.12], [-0.97, 0.46, -0.45, 0.46]], T, px);
+    ctx.beginPath(); for (let k = 0; k < 3; k++) { const y = 0.58 + k * 0.06; ctx.moveTo(-0.9, y); ctx.lineTo(-0.6, y); }
+    ctx.strokeStyle = T.seam; ctx.lineWidth = 1.4 * px; ctx.stroke();
+  }
+  ctx.beginPath(); roundPoly(ctx, SHELL.pelvis, 0.05); panel(ctx, a, T.pelvis, T, px, SHELL.pelvis);
+  if (!lite) seams(ctx, [[-0.46, 0.15, 0.43, 0.15]], T, px);
+  ctx.beginPath(); roundPoly(ctx, SHELL.neck, 0.03); panel(ctx, a, T.pelvis, T, px, SHELL.neck);
+  ctx.beginPath(); roundPoly(ctx, SHELL.torso, 0.09); panel(ctx, a, T.torso, T, px, SHELL.torso);
+  if (!lite) seams(ctx, [[-0.42, 0.5, 0.34, 0.5], [-0.5, 0.66, 0.38, 0.66], [-0.12, 0.68, -0.14, 1.15]], T, px);
+  const [x, y, w, h, r] = SHELL.head;                              // the head: a helmet with a glass visor
+  ctx.beginPath(); roundRectPath(ctx, x, y, w, h, r); panel(ctx, a, T.torso, T, px, rectPts([x, y, w, h]));
+  const [vx, vy, vw, vh, vr] = SHELL.visor;
+  ctx.beginPath(); roundRectPath(ctx, vx, vy, vw, vh, vr);
+  const vg = ctx.createLinearGradient(0, vy + vh, 0, vy);
+  vg.addColorStop(0, "#05050a"); vg.addColorStop(1, "#24242f");
+  ctx.fillStyle = vg; ctx.fill();
+  ctx.strokeStyle = rgba(T.rim, 0.35); ctx.lineWidth = px; ctx.stroke();
+  const lx = vx + vw * 0.62, ly = vy + vh * 0.48;                  // the accent light behind the glass
+  if (T.additive) ctx.globalCompositeOperation = "lighter";
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  const [wx, wy] = toWorld(H, [lx, ly]);
+  blob(ctx, T.accent, v.X(wx), v.Y(wy), 0.24 * v.s, 0.2 * v.s, T.additive ? 0.6 : 0.35);
+  ctx.restore();
+  ctx.globalCompositeOperation = "source-over";
+  ctx.beginPath(); roundRectPath(ctx, vx + vw * 0.28, ly - 0.014, vw * 0.62, 0.028, 0.014);
+  ctx.fillStyle = T.accentCore; ctx.fill();
+  if (!lite) { ctx.beginPath(); ctx.moveTo(vx + 0.03, vy + vh - 0.03); ctx.lineTo(vx + vw - 0.05, vy + vh - 0.03); ctx.strokeStyle = "rgba(255,255,255,0.10)"; ctx.lineWidth = px; ctx.stroke(); }
+}
+
 // ---- Product shot: one recorded pose, levelled, in a studio ---------------------------------------
 /* Rotates a recorded pose as a whole so the body is level and the feet stand on y = 0 at x = 0
    (the joints' angles relative to each other are untouched). */
@@ -388,7 +597,7 @@ export function levelPose(pose) {
 
 export function drawStudio(ctx, W, H, pose, T, { lidar = 0, scale = 1 } = {}) {
   const P = levelPose(pose);
-  const s = Math.min(W / 6.4, H / 4.1) * scale, floorY = H * 0.76;
+  const s = Math.min(W / 7.2, H / 5.6) * scale, floorY = H * 0.8;
   const v = { W, H, s, X: x => W * 0.42 + x * s, Y: y => floorY - y * s };
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   const bg = ctx.createRadialGradient(W / 2, H * 0.35, 0, W / 2, H * 0.45, Math.max(W, H) * 0.75);
