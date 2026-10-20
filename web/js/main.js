@@ -166,7 +166,7 @@ function figureCanvas(canvas, draw) {
 // ---- 01 Hero ------------------------------------------------------------------------------------------------------
 function hero(pose) {
   const canvas = $("[data-hero-robot]");
-  figureCanvas(canvas, (ctx, w, h) => drawFigure(ctx, w, h, pose, THEMES.dark, { scale: narrow() ? 1.25 : 1.12, cx: narrow() ? 0.4 : 0.42, floor: 0.9, lite: LIGHT }));
+  figureCanvas(canvas, (ctx, w, h) => drawFigure(ctx, w, h, pose, THEMES.dark, { scale: 1, cx: 0.5, floor: 0.92, lite: LIGHT }));
   if (!MOTION) return;
   // Intro (on load) and scroll animations never share a property on the same element.
   gsap.from(".ht > span", { yPercent: 118, duration: 1.7, ease: "expo.out", stagger: 0.12, delay: 0.1 });
@@ -244,7 +244,7 @@ function reveal(pose) {
 function learn(data) {
   const names = ["falls", "wobbles", "walks"];
   const stages = Object.fromEntries(names.map(n => [n, stage($(`[data-learn-canvas="${n}"]`), "light")]));
-  const cam = () => ({ viewH: narrow() ? 7.4 : 6.6, minW: 6, followY: true, yFrac: narrow() ? 0.26 : 0.16, lead: 0.4 });
+  const cam = () => ({ viewH: narrow() ? 9 : 8.4, minW: 6, followY: true, yFrac: narrow() ? 0.24 : 0.16, lead: 0.4 });
   const st = { falls: 0, wobbles: 0, walks: 0, steps: 0 };
   const draw = n => stages[n].draw(data[n], data[n].runs[0], st[n], cam());
   const counter = $("[data-learn-steps]");
@@ -398,7 +398,7 @@ function bento() {
       const runs = d.runs.split(",").map(Number), max = Math.max(...runs);
       v.innerHTML = `<div class="st">${runs.map((r, i) => `<i class="${r < 50 ? "small" : ""}" style="--h:${(100 * r / max).toFixed(2)}%;transition-delay:${i * 60}ms"></i>`).join("")}</div>`;
     } else if (kind === "field") {
-      v.innerHTML = `<div class="fd">${Array.from({ length: 610 }, (_, i) => `<i class="${i >= 586 ? "on" : ""}" style="transition-delay:${Math.floor(i / 61) * 70}ms"></i>`).join("")}</div>`;
+      v.innerHTML = `<div class="fd">${Array.from({ length: 305 }, (_, i) => `<i class="${i >= 293 ? "on" : ""}" style="transition-delay:${Math.floor(i / 25) * 60}ms"></i>`).join("")}</div>`;   // 1 dot = 200 runs
     }
   }
 }
