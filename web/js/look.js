@@ -265,7 +265,7 @@ export function drawRobot(ctx, v, pose, T, { lite = false, shell = 1 } = {}) {
   joint(ctx, v, along(part(pose, 1), -LEG_H / 2), 0.115, T, true, px);
   joint(ctx, v, along(part(pose, 1), LEG_H / 2), 0.13, T, true, px);
   if (shell < 0.998) { ctx.globalAlpha = 1 - shell; hull(ctx, v, H, T, px, lite); ctx.globalAlpha = 1; }
-  if (fade) {                                                     // crossfade: the whole shell on its own layer
+  if (fade && ctx.canvas.width > 0 && ctx.canvas.height > 0) {     // crossfade: the whole shell on its own layer
     const L = layerFor(ctx);
     L.setTransform(1, 0, 0, 1, 0, 0); L.clearRect(0, 0, L.canvas.width, L.canvas.height);
     shellBack(L, v, H, T, px, lite); shellBody(L, v, H, T, px, lite); shellFront(L, v, H, T, px, lite);
@@ -604,7 +604,7 @@ export function drawFigure(ctx, W, H, pose, T, { scale = 1, cx = 0.46, floor = 0
   const s = Math.min(W / 7.2, H / 5.6) * scale, floorY = H * floor;
   const v = { W, H, s, X: x => W * cx + x * s, Y: y => floorY - y * s };
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  if (reflect && !lite) {                                         // the reflection, fading into the floor
+  if (reflect && !lite && W > 0 && H > 0) {                      // the reflection, fading into the floor
     const L = layerFor(ctx);
     L.setTransform(1, 0, 0, 1, 0, 0); L.clearRect(0, 0, W, H);
     drawRobot(L, { ...v, Y: y => floorY + y * s, flip: true }, P, T, { lite: true });

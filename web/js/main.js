@@ -4,7 +4,7 @@
    Motion (pinned scenes, scroll-scrubbing, tilt, cursor) only runs when html.motion is set, i.e.
    reduce motion is off. Without it, every scene shows a clear still state. Phones get lighter
    effects: no blur filters, no tilt, no custom cursor, lower canvas resolution, simpler drawing.
-   Nerd mode (html.nerd) shows the details, measurements and footnotes. */
+   Nerd mode (html.nerd-mode) shows the details, measurements and footnotes. */
 
 import { loadRuns, Stage, Player, duration, poseAt, FPS } from "./replay.js";
 import { THEMES, drawFigure } from "./look.js";
@@ -51,10 +51,10 @@ ScrollTrigger.addEventListener("refresh", () => onRefresh.forEach(f => f()));
 // ---- Nerd mode ---------------------------------------------------------------------------------------------
 (function nerd() {
   const btn = $("[data-nerd]");
-  const sync = () => btn.setAttribute("aria-checked", String(html.classList.contains("nerd")));
+  const sync = () => btn.setAttribute("aria-checked", String(html.classList.contains("nerd-mode")));
   sync();
   btn.addEventListener("click", () => {
-    const on = html.classList.toggle("nerd");
+    const on = html.classList.toggle("nerd-mode");
     try { localStorage.setItem("nerd", on ? "1" : "0"); } catch (e) { /* private mode: just this visit */ }
     sync();
     requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -154,6 +154,7 @@ function figureCanvas(canvas, draw) {
   const ctx = canvas.getContext("2d");
   const paint = () => {
     const dpr = Math.min(DPR, devicePixelRatio || 1), w = Math.round(canvas.offsetWidth * dpr), h = Math.round(canvas.offsetHeight * dpr);
+    if (!w || !h) return;                                       // not laid out yet
     if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, w, h);
     draw(ctx, w, h);

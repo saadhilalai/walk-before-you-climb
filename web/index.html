@@ -23,7 +23,7 @@
       d.classList.add("js");
       if (!matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("motion");
       if (matchMedia("(hover: hover) and (pointer: fine)").matches) d.classList.add("fine");
-      try { if (localStorage.getItem("nerd") === "1") d.classList.add("nerd"); } catch (e) {}
+      try { if (localStorage.getItem("nerd") === "1") d.classList.add("nerd-mode"); } catch (e) {}
     })();
   </script>
   <script src="vendor/gsap/gsap.min.js" defer></script>
