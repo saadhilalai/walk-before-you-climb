@@ -571,7 +571,7 @@ Files: `runs/compare/step3.md/.json/_episodes.csv`, `runs/compare/step3_normal.*
   - Dry run on analysis courses: OK.
 - **The DRAFT note was removed and the plan committed.** Then `python final_eval.py` was run once.
 
-### Final test results (ran once: 2026-10-17 22:08 to 22:12, plan commit `4eb5f96`, test courses 10000–10099, average moves)
+### Final test results (ran once: 2026-10-17 22:08 to 22:12, plan commit `59fbc96`, test courses 10000–10099, average moves)
 Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run), `falls.json`. Log: `runs/logs/step5_final.log`.
 
 **Primary question: does the curriculum (B) finish hardcore courses more often than training from scratch (A)? CONFIRMED** (by the rule set in advance).
@@ -801,7 +801,7 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
 ## Git history rewritten (2026-10-19)
 - **What:** at the director's request, every commit message had its co-author line removed, so GitHub's contributors list shows only saadhilalai. Done with `git filter-repo`, then force-pushed.
 - **What didn't change:** every commit kept exactly the same files, author, committer and dates. A backup bundle of the old history was kept.
-- **Commit IDs changed.** The README and this notebook use the new IDs. The test plan was committed as `012ffcf`, which is now **`4eb5f96`** (same files, same date, still before the final test).
+- **Commit IDs changed.** The README and this notebook use the new IDs. The test plan was committed as `012ffcf`, which became `4eb5f96` here and is now **`59fbc96`** after the clean re-publish below (same files, same date, still before the final test).
 - **Recorded files keep the old ID:** `runs/final/results.json`, `results.md`, `started.json` and `runs/logs/step5_final.log` still say `012ffcf`, because they are the one-time test's recorded output and are left exactly as written.
 
 ## Website v2 (done 2026-10-19)
@@ -834,3 +834,29 @@ Full output: `runs/final/results.md`, `results.json`, `episodes.csv` (every run)
   - The demo's segmented buttons stretched on phones (a CSS class name shared with the split-screen bars).
   - "Read the code." broke mid-word on phones.
   - The hidden caption words peeked out of their mask.
+
+## Privacy check and clean re-publish (2026-10-19)
+- **The check:** before sharing the project more widely, these were scanned:
+  - the current files and all 23 commits
+  - the 21 older commits GitHub still kept from the first rewrite
+  - all 3 versions of the Hugging Face Space
+- **Tools:** gitleaks 8.30.1 looked for keys and tokens, and exiftool 13.59 for hidden image and video data. A custom scan read every file version, including inside the model zips.
+- **Clean:**
+  - no passwords, keys or tokens
+  - no personal email, phone number or address
+  - no Mac paths or username
+  - no GPS, device or creator data in any image or video
+- **One thing changed:** the commit email contained an old GitHub username close to the director's personal email.
+  - Every commit was rewritten with `git filter-repo` to `259462928+saadhilalai@users.noreply.github.com`.
+  - The same pass removed the co-author and session-link lines from the commit messages.
+  - Files, names and dates (timezone included) are unchanged, checked commit by commit.
+- **Left alone on purpose:** the commit timezone, and the system info (macOS and Python versions) inside the saved models, which are recorded results.
+- **GitHub repo deleted and recreated** under the same name, so the older commits can't be opened by their IDs any more. The clean history was pushed, and the About description, website link and topics were re-added.
+- **Commit IDs changed again.** The README and this notebook use the new IDs. A local backup of the old history was kept and not published.
+
+  | Commit | Original | After the first rewrite | Now |
+  |---|---|---|---|
+  | Test plan | `012ffcf` | `4eb5f96` | **`59fbc96`** |
+  | Project video | `8b134a4` | `eab079c` | **`08c40fd`** |
+
+  The recorded test files still say `012ffcf`, exactly as written.
