@@ -251,6 +251,7 @@ The trained models are included in `models/`, so tests, charts and videos can be
 | `check_setup.py`, `benchmark_speed.py`, `gate.py`, `make_untrained.py` | Sanity checks, speed tests, B's safety check, the untrained robot |
 | `models/`, `runs/`, `charts/`, `videos/` | Trained models, every log and result, charts, videos |
 | `brag-output/` | The 39-second project video, its poster and post caption, and the Hyperframes source it was rendered from |
+| `film_clips/` | Redraws the video's footage with the website's look, from the recorded test runs |
 | `web/`, `export_web_data.py`, `make_space.py` | The live demo website (static HTML, CSS and JavaScript); the export of its replays and numbers; packing and uploading the Space |
 | `browser_sim/`, `check_browser_sim.mjs` | An experiment that ran the game live in the browser. It failed its accuracy check (same ending on 51% of test runs), so the site replays recorded runs ([details](browser_sim/README.md)) |
 | `PROGRESS.md` | The full lab notebook: every step, decision and number |

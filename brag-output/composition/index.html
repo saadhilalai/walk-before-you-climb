@@ -15,7 +15,7 @@
         --ink: #f3f2ee;     /* primary text */
         --ink-2: #9b9a95;   /* secondary text */
         --ink-3: #7f7e7a;   /* footnotes */
-        --accent: #c6c0ff;  /* the one accent: "learned to walk first" (the footage's sky, softened) */
+        --accent: #c6c0ff;  /* the one accent: "learned to walk first" (the robot's visor light) */
       }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
@@ -34,7 +34,7 @@
 
       /* The product window: one frame that carries collapse -> wobble -> walk, then grows to full screen */
       #frame { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden;
-        transform-origin: 50% 50%; opacity: 0; border-radius: 36.7px; background: #d7d6fe; }
+        transform-origin: 50% 50%; opacity: 0; border-radius: 36.7px; background: #efeee9; }
       .layer { position: absolute; inset: 0; }
       #L2, #L3 { opacity: 0; }
       .media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -48,7 +48,7 @@
 
       /* A vs B: two crops of the same 4K test-run clip, side by side */
       #pair { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 50% 50%; opacity: 0; }
-      .pane { position: absolute; top: 208px; width: 936px; height: 624px; overflow: hidden; border-radius: 18px; background: #d7d6fe; }
+      .pane { position: absolute; top: 208px; width: 936px; height: 624px; overflow: hidden; border-radius: 18px; background: #efeee9; }
       #pA { left: 16px; }
       #pB { left: 968px; }
       /* panel crop: source px (34..1901 / 1938..3805, 422..1667) scaled by k = 936/1868 */
@@ -87,7 +87,7 @@
         <div data-hf-id="hf-m6y2" class="display"><span data-hf-id="hf-ehbp" class="w">It</span> <span data-hf-id="hf-oies" class="w">couldn’t</span> <span data-hf-id="hf-3xhu" class="w">stand.</span></div>
       </div>
 
-      <!-- 2-4. The product window. Real footage only: clean 4K replays of recorded runs (videos/final). -->
+      <!-- 2-4. The product window. Real footage only: clean 4K replays of recorded runs, drawn with the website's look. -->
       <div data-hf-id="hf-xfzw" id="frame">
         <div data-hf-id="hf-frng" id="L1" class="layer">
           <video data-hf-id="hf-b4ux" id="v1" class="clip media" src="assets/video/untrained_normal_clean.mp4" data-start="3" data-duration="3.28" data-media-start="0" data-track-index="2" muted playsinline></video>

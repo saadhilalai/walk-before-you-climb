@@ -57,3 +57,13 @@ The director rejected v1: it looked generic and AI-made, and it reused the rocke
 - **Not chosen:**
   - "Breathe" by Shane Ivers (CC BY 4.0) is loud from the first second.
   - "She Moved Mountains" by Scott Buckley is very sparse and dark.
+
+## Remake with the humanoid look (2026-10-20)
+- **Only the robot visuals changed.** Same storyboard, timing, words, numbers, music excerpt and render settings (4K, delivery quality, 30 fps).
+- **Footage:** the four clips and two holds were redrawn with the website's look (`web/js/look.js`) by `film_clips/`.
+  - They use the same recorded poses (`web/data`, checked against `runs/final/episodes.csv`) and the original clips' camera.
+  - Every clip has exactly the original's frame count, length and resolution.
+- **The humanoid:** its upper body is drawn around the real simulated body, and in every frame used here the humanoid is shown.
+- **Small changes:** the window and pane backing changed from the old sky colour to the new light surface. The soft glow behind the robot was left out of the film, because radial glows band under H.264.
+- **Poster:** the same A-vs-B hold (27.5 s), baked in as frame 0.
+

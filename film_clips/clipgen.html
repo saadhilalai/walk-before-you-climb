@@ -1,0 +1,53 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>clipgen</title>
+<style>html,body{margin:0;background:#fcfcfb;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c" width="3840" height="2160"></canvas>
+<script type="module">
+/* Draws the film's clips frame by frame with the site's own drawing code (look.js), from the recorded
+   poses, with the original clips' camera: the game's own (162 px per unit at 4K, body 4 units from the
+   left), and for the A-vs-B pair two 1872 x 1248 panels at (32, 420) and (1936, 420) on a light surface. */
+import { loadRuns, poseAt } from "../web/js/replay.js";
+import { THEMES, makeView, drawScene, shellVisibility } from "../web/js/look.js";
+
+const W = 3840, H = 2160, T = { ...THEMES.light, glowA: 0 }, SURFACE = "rgb(252,252,251)";   // no glow: soft radial gradients band under H.264
+const ctx = document.getElementById("c").getContext("2d");
+const panels = [0, 1].map(() => { const c = document.createElement("canvas"); c.width = 1872; c.height = 1248; return c; });
+const D = "../web/data";
+const CLIPS = {
+  untrained: { file: "stories/falls.bin", model: "untrained", hold: 50 },
+  sac229: { file: "stories/wobbles.bin", model: "sac_229k", hold: 50 },
+  sac524: { file: "stories/walks.bin", model: "sac_524k", hold: 50 },
+  pair: { file: "courses/10016.bin", models: ["a_100m", "b_100m"], frames: 651 },
+};
+const state = {};
+
+function single(c, f, g = ctx, w = W, h = H, s = 30 * 5.4, run = c.run) {
+  const fr = Math.min(f, run.count - 1);                     // the clip ends with a 1 s hold on the last frame
+  const pose = poseAt(run, fr / 50, c.course.xy_scale, c.course.angle_scale);
+  const sx = Math.max(0, pose[0] - 4);                       // the game's camera: scroll = x - VIEWPORT_W / SCALE / 5
+  drawScene(g, makeView(w, h, s, sx, 0), c.course, pose, T, { shell: shellVisibility(c.course, run)[fr] });
+}
+
+window.setup = async name => {
+  const c = CLIPS[name];
+  c.course = await loadRuns(`${D}/${c.file}`);
+  if (c.models) c.runs = c.models.map(m => c.course.runs.find(r => r.model === m && r.seed === 42));
+  else c.run = c.course.runs.find(r => r.model === c.model && r.seed === 42);
+  state.c = c;
+  return c.models ? c.frames : c.run.count + c.hold;
+};
+
+window.draw = f => {
+  const c = state.c;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  if (!c.models) { single(c, f); return; }
+  ctx.fillStyle = SURFACE; ctx.fillRect(0, 0, W, H);
+  c.runs.forEach((run, i) => {
+    const g = panels[i].getContext("2d");
+    single(c, f, g, 1872, 1248, 30 * 3.12, run);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.drawImage(panels[i], 32 + i * (1872 + 32), 420);
+  });
+};
+document.title = "ready";
+</script></body></html>
