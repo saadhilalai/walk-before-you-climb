@@ -19,5 +19,9 @@ web/data/courses/
 web/data/stories/
 build/
 
+# AI-tool notes and settings: never committed, at any depth (letter classes match any case)
+[Cc][Ll][Aa][Uu][Dd][Ee].md
+[Aa][Gg][Ee][Nn][Tt][Ss].md
+.[Cc][Ll][Aa][Uu][Dd][Ee]/
 # Video tool setup notes (generated, not needed to render)
 brag-output/composition/*.md
